@@ -23,7 +23,7 @@ public class LecturerDetail {
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user")
+    @JoinColumn (name = "user_id")
     private User user;
 
     public LecturerDetail() {

@@ -1,11 +1,14 @@
 package al.edu.fti.entity;
 
+import al.edu.fti.enums.StatusEnum;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
 
     @Id
@@ -28,24 +31,29 @@ public class User {
     private String password;
 
     @Column(name = "last_login_date")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastLoginDate;
 
     @Column(name = "gender")
     private String gender;
 
     @Column(name = "date_deletion")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateDeletion;
 
     @Column(name = "date_update")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateUpdate;
 
     @Column(name = "date_creation")
     private Date dateCreation;
 
     @Column(name = "status")
-    private Boolean status;
+    @Enumerated(EnumType.STRING)
+    private StatusEnum status;
 
     @Column(name = "date_birthday")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateBirthday;
 
     @Column(name = "phone_number")
@@ -55,16 +63,22 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToMany(mappedBy="users")
+    @OneToMany(mappedBy="user")
     private Set<StudentDetail> studentDetails;
 
-    @OneToMany(mappedBy="users")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<LecturerDetail> lecturerDetails;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Course> courses;
+
+    @ManyToMany(mappedBy = "users")
+    private Set<Course> employees = new HashSet<Course>();
 
     public User() {
     }
 
-    public User(String username, String firstName, String lastName, String email, String password, Date lastLoginDate, String gender, Date dateDeletion, Date dateUpdate, Date dateCreation, Boolean status, Date dateBirthday, String phoneNumber) {
+    public User(String username, String firstName, String lastName, String email, String password, Date lastLoginDate, String gender, Date dateDeletion, Date dateUpdate, Date dateCreation, StatusEnum status, Date dateBirthday, String phoneNumber, Role role) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -78,6 +92,7 @@ public class User {
         this.status = status;
         this.dateBirthday = dateBirthday;
         this.phoneNumber = phoneNumber;
+        this.role = role;
     }
 
     public Long getIdUser() {
@@ -168,11 +183,11 @@ public class User {
         this.dateCreation = dateCreation;
     }
 
-    public Boolean getStatus() {
+    public StatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(StatusEnum status) {
         this.status = status;
     }
 
@@ -216,6 +231,22 @@ public class User {
         this.lecturerDetails = lecturerDetails;
     }
 
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
+    }
+
+    public Set<Course> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Set<Course> employees) {
+        this.employees = employees;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -241,7 +272,10 @@ public class User {
         if (role != null ? !role.equals(user.role) : user.role != null) return false;
         if (studentDetails != null ? !studentDetails.equals(user.studentDetails) : user.studentDetails != null)
             return false;
-        return lecturerDetails != null ? lecturerDetails.equals(user.lecturerDetails) : user.lecturerDetails == null;
+        if (lecturerDetails != null ? !lecturerDetails.equals(user.lecturerDetails) : user.lecturerDetails != null)
+            return false;
+        if (courses != null ? !courses.equals(user.courses) : user.courses != null) return false;
+        return employees != null ? employees.equals(user.employees) : user.employees == null;
     }
 
     @Override
@@ -263,6 +297,8 @@ public class User {
         result = 31 * result + (role != null ? role.hashCode() : 0);
         result = 31 * result + (studentDetails != null ? studentDetails.hashCode() : 0);
         result = 31 * result + (lecturerDetails != null ? lecturerDetails.hashCode() : 0);
+        result = 31 * result + (courses != null ? courses.hashCode() : 0);
+        result = 31 * result + (employees != null ? employees.hashCode() : 0);
         return result;
     }
 
@@ -286,6 +322,8 @@ public class User {
                 ", role=" + role +
                 ", studentDetails=" + studentDetails +
                 ", lecturerDetails=" + lecturerDetails +
+                ", courses=" + courses +
+                ", employees=" + employees +
                 '}';
     }
 }

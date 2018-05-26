@@ -10,31 +10,31 @@ public class StudentDetail {
     @GeneratedValue
     private Long idStudentDetail;
 
-    @Column(name = "")
+    @Column(name = "student_code")
     private String studentCode;
 
-    @Column(name = "")
+    @Column(name = "amza_number")
     private String amzaNumber;
 
-    @Column(name = "")
+    @Column(name = "address")
     private String address;
 
-    @Column(name = "")
+    @Column(name = "place_birthday")
     private String placeBirthday;
 
-    @Column(name = "")
+    @Column(name = "religion")
     private String religion;
 
-    @Column(name = "")
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "")
+    @Column(name = "father_name")
     private String fatherName;
 
-    @Column(name = "")
+    @Column(name = "mother_name")
     private String motherName;
 
-    @Column(name = "")
+    @Column(name = "scholarship")
     private String scholarship;
 
     @ManyToOne(fetch = FetchType.LAZY)

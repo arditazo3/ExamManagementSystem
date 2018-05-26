@@ -1,0 +1,82 @@
+JFDML JFormDesigner: "6.0.3.0.150" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+				name: "dialogPane"
+				"border": new javax.swing.border.EmptyBorder( 12, 12, 12, 12 )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+					"$columnSpecs": "right:87, 213:1.0"
+					"$rowSpecs": "104, 24, 24, 0, top:0:1.0"
+					"$hGap": 5
+					"$vGap": 5
+					"$alignTop": true
+					"$alignLeft": true
+				} ) {
+					name: "contentPanel"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "mainLbl"
+						"text": "Exam Management System"
+						"horizontalTextPosition": 0
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"hAlign": 0
+						"gridwidth": 2
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "usernameLbl"
+						"text": "Username"
+						"horizontalTextPosition": 4
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridy": 1
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "usernameTF"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridx": 1
+						"gridy": 1
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "passwordLbl"
+						"text": "Password"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridy": 2
+					} )
+					add( new FormComponent( "javax.swing.JPasswordField" ) {
+						name: "passwordPF"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridx": 1
+						"gridy": 2
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "errorLbl"
+						"text": "text"
+						"visible": false
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridx": 1
+						"gridy": 3
+						"hAlign": 5
+					} )
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "button1"
+						"text": "Log In"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "onLogInHandler", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridx": 1
+						"gridy": 4
+						"hAlign": 2
+					} )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "Center"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "Center"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 380, 300 )
+		} )
+	}
+}
