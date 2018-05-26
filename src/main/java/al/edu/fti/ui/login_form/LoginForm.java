@@ -5,13 +5,16 @@
 package al.edu.fti.ui.login_form;
 
 import al.edu.fti.FtiApplication;
+import al.edu.fti.entity.User;
 import al.edu.fti.service.IUserService;
+import al.edu.fti.ui.dashboard.DashboardFrame;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Date;
 
 /**
  * @author Ardit Azo
@@ -26,9 +29,28 @@ public class LoginForm extends JFrame {
     }
 
     private void onLogInHandler(ActionEvent e) {
-        // TODO add your code here
+
+        // initial state
+        errorLbl.setVisible(true);
+
+        //
         if(userService.getUser(usernameTF.getText(), String.valueOf(passwordPF.getPassword())) != null) {
-            System.out.print("Logged in!");
+
+            User userLogIn = userService.getUser(usernameTF.getText(), String.valueOf(passwordPF.getPassword()));
+
+            // update the date of log in
+            userLogIn.setLastLoginDate(new Date());
+            userService.update(userLogIn);
+
+            this.setVisible(false);
+
+            DashboardFrame dashboardFrame = new DashboardFrame(userLogIn);
+            dashboardFrame.setTitle("Exam Management System");
+            dashboardFrame.setVisible(true);
+            dashboardFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        } else {
+            errorLbl.setVisible(true);
         }
     }
 
@@ -43,7 +65,7 @@ public class LoginForm extends JFrame {
         passwordLbl = new JLabel();
         passwordPF = new JPasswordField();
         errorLbl = new JLabel();
-        button1 = new JButton();
+        logInBtn = new JButton();
 
         //======== this ========
         Container contentPane = getContentPane();
@@ -66,13 +88,14 @@ public class LoginForm extends JFrame {
             {
                 contentPanel.setLayout(new GridBagLayout());
                 ((GridBagLayout)contentPanel.getLayout()).columnWidths = new int[] {92, 213, 0};
-                ((GridBagLayout)contentPanel.getLayout()).rowHeights = new int[] {109, 29, 29, 0, 0, 0};
+                ((GridBagLayout)contentPanel.getLayout()).rowHeights = new int[] {66, 29, 29, 35, 0, 0};
                 ((GridBagLayout)contentPanel.getLayout()).columnWeights = new double[] {0.0, 1.0, 1.0E-4};
                 ((GridBagLayout)contentPanel.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 1.0, 1.0E-4};
 
                 //---- mainLbl ----
                 mainLbl.setText("Exam Management System");
                 mainLbl.setHorizontalTextPosition(SwingConstants.CENTER);
+                mainLbl.setFont(new Font("Tahoma", Font.PLAIN, 16));
                 contentPanel.add(mainLbl, new GridBagConstraints(0, 0, 2, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.VERTICAL,
                     new Insets(0, 0, 5, 0), 0, 0));
@@ -97,16 +120,19 @@ public class LoginForm extends JFrame {
                     new Insets(0, 0, 5, 0), 0, 0));
 
                 //---- errorLbl ----
-                errorLbl.setText("text");
+                errorLbl.setText("Wrong username or password! Please try again.");
                 errorLbl.setVisible(false);
-                contentPanel.add(errorLbl, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0,
+                errorLbl.setForeground(Color.red);
+                errorLbl.setHorizontalTextPosition(SwingConstants.CENTER);
+                contentPanel.add(errorLbl, new GridBagConstraints(0, 3, 2, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 0), 0, 0));
 
-                //---- button1 ----
-                button1.setText("Log In");
-                button1.addActionListener(e -> onLogInHandler(e));
-                contentPanel.add(button1, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0,
+                //---- logInBtn ----
+                logInBtn.setText("Log In");
+                logInBtn.setFont(new Font("Tahoma", Font.BOLD, 11));
+                logInBtn.addActionListener(e -> onLogInHandler(e));
+                contentPanel.add(logInBtn, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0,
                     GridBagConstraints.NORTHWEST, GridBagConstraints.NONE,
                     new Insets(0, 0, 0, 0), 0, 0));
             }
@@ -128,6 +154,6 @@ public class LoginForm extends JFrame {
     private JLabel passwordLbl;
     private JPasswordField passwordPF;
     private JLabel errorLbl;
-    private JButton button1;
+    private JButton logInBtn;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

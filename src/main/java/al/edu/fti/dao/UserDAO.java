@@ -1,5 +1,6 @@
 package al.edu.fti.dao;
 
+import al.edu.fti.entity.Exam;
 import al.edu.fti.entity.User;
 import al.edu.fti.enums.StatusEnum;
 import org.springframework.stereotype.Repository;
@@ -25,10 +26,26 @@ public class UserDAO implements IUserDAO {
                               "       u.password = :password and " +
                               "       u.status = :status ";
 
-        return (User) entityManager.createQuery(queryGetUser)
-                            .setParameter("username", username)
-                            .setParameter("password", password)
-                            .setParameter("status", StatusEnum.ACTIVE)
-                            .getSingleResult();
+        try {
+            return (User) entityManager.createQuery(queryGetUser)
+                    .setParameter("username", username)
+                    .setParameter("password", password)
+                    .setParameter("status", StatusEnum.ACTIVE)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public User createLecturer(User userLecturer) {
+
+        return entityManager.merge(userLecturer);
+    }
+
+    @Override
+    public void update(User user) {
+
+        entityManager.merge(user);
     }
 }

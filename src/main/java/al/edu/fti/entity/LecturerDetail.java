@@ -22,8 +22,8 @@ public class LecturerDetail {
     @Column(name = "email")
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn (name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     public LecturerDetail() {

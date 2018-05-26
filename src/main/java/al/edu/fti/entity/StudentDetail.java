@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class StudentDetail {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idStudentDetail;
 
     @Column(name = "student_code")
@@ -38,7 +38,7 @@ public class StudentDetail {
     private String scholarship;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "user_id")
     private User user;
 
     public StudentDetail() {

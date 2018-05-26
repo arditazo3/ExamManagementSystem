@@ -338,3 +338,7 @@ ALTER TABLE `student_detail`
 ALTER TABLE `user`
     ADD CONSTRAINT `user_role_id_role_fk` FOREIGN KEY (`role_id`) REFERENCES `role` (`id_role`);
 COMMIT;
+
+insert into role(role_description) VALUES ('Administrator');
+insert into role(role_description) VALUES ('Lecturer');
+insert into role(role_description) VALUES ('Student');

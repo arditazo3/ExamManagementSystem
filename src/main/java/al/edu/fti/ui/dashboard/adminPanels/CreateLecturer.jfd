@@ -1,0 +1,243 @@
+JFDML JFormDesigner: "6.0.3.0.150" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+			"$columnSpecs": "116, 288"
+			"$rowSpecs": "30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30, 30"
+			"$hGap": 5
+			"$vGap": 5
+			"$alignLeft": true
+			"$alignTop": true
+		} ) {
+			name: "this"
+			"preferredSize": new java.awt.Dimension( 480, 450 )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "Create New Lecturer"
+				"font": new java.awt.Font( "Tahoma", 0, 14 )
+				"horizontalTextPosition": 0
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridwidth": 2
+				"hAlign": 0
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "firstNameLbl"
+				"text": "* First name"
+				"horizontalTextPosition": 4
+				"horizontalAlignment": 4
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 1
+				"hAlign": 5
+				"vAlign": 5
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "firstNameTF"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 1
+				"gridy": 1
+				"hAlign": 5
+				"vAlign": 5
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "lastNameLbl"
+				"text": "* Last name"
+				"horizontalTextPosition": 4
+				"horizontalAlignment": 4
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 2
+				"hAlign": 5
+				"vAlign": 5
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "lastNameTF"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 1
+				"gridy": 2
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "emailLbl"
+				"text": "* Email"
+				"horizontalTextPosition": 4
+				"horizontalAlignment": 4
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 3
+				"hAlign": 5
+				"vAlign": 5
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "emailTF"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 1
+				"gridy": 3
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "passwordLbl"
+				"text": "* Password"
+				"horizontalTextPosition": 4
+				"horizontalAlignment": 4
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 4
+				"hAlign": 5
+				"vAlign": 5
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "passwordTF"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 1
+				"gridy": 4
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "genderLbl"
+				"text": "Gender"
+				"horizontalTextPosition": 4
+				"horizontalAlignment": 4
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 5
+				"hAlign": 5
+				"vAlign": 5
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) ) {
+				name: "panel1"
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "maleRB"
+					"text": "Male"
+					addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "maleRBItemStateChanged", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JRadioButton" ) {
+					name: "femaleRB"
+					"text": "Female"
+					addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "femaleRBItemStateChanged", true ) )
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 1
+				"gridy": 5
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "statusLbl"
+				"text": "* Status"
+				"horizontalTextPosition": 4
+				"horizontalAlignment": 4
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 6
+				"hAlign": 5
+				"vAlign": 5
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "statusCB"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 1
+				"gridy": 6
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "dateBirthLbl"
+				"text": "Date of birth"
+				"horizontalTextPosition": 4
+				"horizontalAlignment": 4
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 7
+				"hAlign": 5
+				"vAlign": 5
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "dateBirthTF"
+				"toolTipText": "format: dd/mm/yyyy"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 1
+				"gridy": 7
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "phoneNuberLbl"
+				"text": "Phone number"
+				"horizontalTextPosition": 4
+				"horizontalAlignment": 4
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 8
+				"hAlign": 5
+				"vAlign": 5
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "phoneNumberTF"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 1
+				"gridy": 8
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "addressLbl"
+				"text": "Address"
+				"horizontalTextPosition": 4
+				"horizontalAlignment": 4
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 9
+				"hAlign": 5
+				"vAlign": 5
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "addressTF"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 1
+				"gridy": 9
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "placeBirthLbl"
+				"text": "Place of birth"
+				"horizontalTextPosition": 4
+				"horizontalAlignment": 4
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 10
+				"hAlign": 5
+				"vAlign": 5
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "placeBirthTF"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 1
+				"gridy": 10
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "errorMsgLbl"
+				"foreground": sfield java.awt.Color red
+				"horizontalTextPosition": 0
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 11
+				"gridwidth": 2
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+				"$columnSpecs": "0, 103, 63"
+				"$rowSpecs": "center:0:1.0"
+				"$alignTop": true
+				"$alignLeft": true
+			} ) {
+				name: "panel2"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "cancelBtn"
+					"text": "Cancel"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 2
+					"hAlign": 4
+					"vAlign": 5
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridy": 12
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "saveBtn"
+				"text": "Save"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "createNewLecturerBtnActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 1
+				"gridy": 12
+				"hAlign": 2
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 500, 460 )
+		} )
+		add( new FormNonVisual( "javax.swing.ButtonGroup" ) {
+			name: "genderButtonGroup"
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 476 )
+		} )
+	}
+}

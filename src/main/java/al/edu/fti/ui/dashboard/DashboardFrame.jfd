@@ -1,0 +1,77 @@
+JFDML JFormDesigner: "6.0.3.0.150" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.GridBagLayout ) {
+			"$columnSpecs": "117, 622"
+			"$rowSpecs": "28, center:0:1.0, 0"
+			"$alignTop": true
+			"$alignLeft": true
+			"$hGap": 5
+		} ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.HorizontalLayout ) {
+				"gap": 5
+			} ) {
+				name: "userInfoPnl"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "userInfoLbl"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "logOutBtn"
+					"text": "Log Out"
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 1
+				"hAlign": 4
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) {
+				"gap": 5
+			} ) {
+				name: "sideMenuPnl"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button1"
+					"text": "text"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "createLecturerBtn"
+					"text": "Create Lecturer"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "createLecturerBtnActionPerformed", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "createLecturerBtnActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button3"
+					"text": "text"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button4"
+					"text": "text"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button5"
+					"text": "text"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button6"
+					"text": "text"
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"vAlign": 5
+				"gridy": 1
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.CardLayout ) ) {
+				name: "contentCPnl"
+				"preferredSize": new java.awt.Dimension( 480, 450 )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 1
+				"gridy": 1
+				"hAlign": 5
+				"vAlign": 5
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"size": new java.awt.Dimension( 750, 555 )
+			"location": new java.awt.Point( 0, 0 )
+		} )
+	}
+}

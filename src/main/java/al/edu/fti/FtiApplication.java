@@ -1,5 +1,6 @@
 package al.edu.fti;
 
+import al.edu.fti.service.IRoleService;
 import al.edu.fti.service.IUserService;
 import al.edu.fti.ui.login_form.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,24 +13,24 @@ import javax.swing.*;
 @SpringBootApplication
 public class FtiApplication {
 
+	public static IUserService userService;
+	public static IRoleService roleService;
+
+	@Autowired
+	public void setServices(IUserService userService, IRoleService roleService) {
+		FtiApplication.userService = userService;
+		FtiApplication.roleService = roleService;
+	}
+
 	public static void main(String[] args) {
 
 		ConfigurableApplicationContext context = new SpringApplicationBuilder(FtiApplication.class).headless(false).run(args);
 		LoginForm appFrame = context.getBean(LoginForm.class);
 
-	//	SpringApplication.run(FtiApplication.class, args);
-
 		LoginForm loginForm = new LoginForm();
-		loginForm.setTitle("Login Form");
+		loginForm.setTitle("Exam Management System");
 		loginForm.setVisible(true);
 		loginForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		loginForm.setResizable(false);
-	}
-
-	public static IUserService userService;
-
-	@Autowired
-	public void setUserService(IUserService userService) {
-		this.userService = userService;
 	}
 }

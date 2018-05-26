@@ -20,4 +20,16 @@ public class UserService implements IUserService {
 
         return userDAO.getUser(username, password);
     }
+
+    @Override
+    public User createLecturer(User userLecturer) {
+
+        return userDAO.createLecturer(userLecturer);
+    }
+
+    @Override
+    public void update(User user) {
+
+        userDAO.update(user);
+    }
 }

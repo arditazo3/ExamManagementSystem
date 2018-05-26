@@ -66,8 +66,8 @@ public class User {
     @OneToMany(mappedBy="user")
     private Set<StudentDetail> studentDetails;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<LecturerDetail> lecturerDetails;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<LecturerDetail> lecturerDetails = new HashSet<LecturerDetail>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Course> courses;
@@ -229,6 +229,10 @@ public class User {
 
     public void setLecturerDetails(Set<LecturerDetail> lecturerDetails) {
         this.lecturerDetails = lecturerDetails;
+    }
+
+    public void addLecturerDetail(LecturerDetail lecturerDetail) {
+        lecturerDetails.add(lecturerDetail);
     }
 
     public Set<Course> getCourses() {
