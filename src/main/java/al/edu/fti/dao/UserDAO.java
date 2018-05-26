@@ -44,6 +44,12 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
+    public User createStudent(User userStudent) {
+
+        return entityManager.merge(userStudent);
+    }
+
+    @Override
     public void update(User user) {
 
         entityManager.merge(user);

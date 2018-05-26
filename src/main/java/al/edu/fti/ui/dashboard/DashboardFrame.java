@@ -42,10 +42,10 @@ public class DashboardFrame extends JFrame {
         userInfoLbl = new JLabel();
         logOutBtn = new JButton();
         sideMenuPnl = new JPanel();
-        button1 = new JButton();
+        lecturerListBtn = new JButton();
+        studentListBtn = new JButton();
         createLecturerBtn = new JButton();
-        button3 = new JButton();
-        button4 = new JButton();
+        createStudentBtn = new JButton();
         button5 = new JButton();
         button6 = new JButton();
         contentCPnl = new JPanel();
@@ -53,9 +53,9 @@ public class DashboardFrame extends JFrame {
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(new GridBagLayout());
-        ((GridBagLayout)contentPane.getLayout()).columnWidths = new int[] {122, 622, 0};
-        ((GridBagLayout)contentPane.getLayout()).rowHeights = new int[] {28, 0, 0, 0};
-        ((GridBagLayout)contentPane.getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0E-4};
+        ((GridBagLayout)contentPane.getLayout()).columnWidths = new int[] {12, 122, 620, 0};
+        ((GridBagLayout)contentPane.getLayout()).rowHeights = new int[] {32, 0, 0, 0};
+        ((GridBagLayout)contentPane.getLayout()).columnWeights = new double[] {0.0, 0.0, 0.0, 1.0E-4};
         ((GridBagLayout)contentPane.getLayout()).rowWeights = new double[] {0.0, 1.0, 0.0, 1.0E-4};
 
         //======== userInfoPnl ========
@@ -75,17 +75,21 @@ public class DashboardFrame extends JFrame {
             logOutBtn.setText("Log Out");
             userInfoPnl.add(logOutBtn);
         }
-        contentPane.add(userInfoPnl, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
-            GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
+        contentPane.add(userInfoPnl, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0,
+            GridBagConstraints.SOUTHEAST, GridBagConstraints.NONE,
             new Insets(0, 0, 0, 0), 0, 0));
 
         //======== sideMenuPnl ========
         {
             sideMenuPnl.setLayout(new VerticalLayout(5));
 
-            //---- button1 ----
-            button1.setText("text");
-            sideMenuPnl.add(button1);
+            //---- lecturerListBtn ----
+            lecturerListBtn.setText("View Lecturer List");
+            sideMenuPnl.add(lecturerListBtn);
+
+            //---- studentListBtn ----
+            studentListBtn.setText("View Student List");
+            sideMenuPnl.add(studentListBtn);
 
             //---- createLecturerBtn ----
             createLecturerBtn.setText("Create Lecturer");
@@ -95,13 +99,9 @@ public class DashboardFrame extends JFrame {
 		});
             sideMenuPnl.add(createLecturerBtn);
 
-            //---- button3 ----
-            button3.setText("text");
-            sideMenuPnl.add(button3);
-
-            //---- button4 ----
-            button4.setText("text");
-            sideMenuPnl.add(button4);
+            //---- createStudentBtn ----
+            createStudentBtn.setText("Create Student");
+            sideMenuPnl.add(createStudentBtn);
 
             //---- button5 ----
             button5.setText("text");
@@ -111,7 +111,7 @@ public class DashboardFrame extends JFrame {
             button6.setText("text");
             sideMenuPnl.add(button6);
         }
-        contentPane.add(sideMenuPnl, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
+        contentPane.add(sideMenuPnl, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(0, 0, 0, 5), 0, 0));
 
@@ -120,7 +120,7 @@ public class DashboardFrame extends JFrame {
             contentCPnl.setPreferredSize(new Dimension(480, 450));
             contentCPnl.setLayout(new CardLayout());
         }
-        contentPane.add(contentCPnl, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
+        contentPane.add(contentCPnl, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(0, 0, 0, 0), 0, 0));
         pack();
@@ -154,10 +154,10 @@ public class DashboardFrame extends JFrame {
     private JLabel userInfoLbl;
     private JButton logOutBtn;
     private JPanel sideMenuPnl;
-    private JButton button1;
+    private JButton lecturerListBtn;
+    private JButton studentListBtn;
     private JButton createLecturerBtn;
-    private JButton button3;
-    private JButton button4;
+    private JButton createStudentBtn;
     private JButton button5;
     private JButton button6;
     private JPanel contentCPnl;

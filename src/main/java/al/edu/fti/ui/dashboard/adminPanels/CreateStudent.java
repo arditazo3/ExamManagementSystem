@@ -1,19 +1,17 @@
 /*
- * Created by JFormDesigner on Sat May 26 15:01:55 CEST 2018
+ * Created by JFormDesigner on Sat May 26 23:49:29 CEST 2018
  */
 
 package al.edu.fti.ui.dashboard.adminPanels;
 
 import al.edu.fti.FtiApplication;
-import al.edu.fti.entity.LecturerDetail;
 import al.edu.fti.entity.Role;
+import al.edu.fti.entity.StudentDetail;
 import al.edu.fti.entity.User;
-import al.edu.fti.enums.StatusEnum;
 import al.edu.fti.service.IRoleService;
 import al.edu.fti.service.IUserService;
 import al.edu.fti.utils.StringGeneratorCode;
 import org.jdesktop.swingx.HorizontalLayout;
-import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,17 +24,34 @@ import java.util.Date;
 /**
  * @author Ardit Azo
  */
-@Component
-public class CreateLecturer extends JPanel {
+public class CreateStudent extends JPanel {
 
     private IRoleService roleService = FtiApplication.roleService;
     private IUserService userService = FtiApplication.userService;
 
-    public CreateLecturer() {
+    public CreateStudent() {
         initComponents();
     }
 
-    private void createNewLecturerBtnActionPerformed(ActionEvent e) {
+    private void maleRBItemStateChanged(ItemEvent e) {
+        if(e.getStateChange() == ItemEvent.SELECTED) {
+            maleRBValue = true;
+            femaleRBValue = false;
+
+            femaleRB.setSelected(false);
+        }
+    }
+
+    private void femaleRBItemStateChanged(ItemEvent e) {
+        if(e.getStateChange() == ItemEvent.SELECTED) {
+            femaleRBValue = true;
+            maleRBValue = false;
+
+            maleRB.setSelected(false);
+        }
+    }
+
+    private void createNewStudentBtnActionPerformed(ActionEvent e) {
 
         Boolean createAction = true;
 
@@ -84,57 +99,41 @@ public class CreateLecturer extends JPanel {
 
         if(createAction) {
 
-            LecturerDetail lecturerDetail = new LecturerDetail();
-            lecturerDetail.setLecturerCode(StringGeneratorCode.randomAlphaNumeric(10));
-            lecturerDetail.setAddress(address);
-            lecturerDetail.setPlaceBirthday(placeBirth);
-            lecturerDetail.setEmail(email);
+            StudentDetail studentDetail = new StudentDetail();
+            studentDetail.setAmzaNumber(StringGeneratorCode.randomAlphaNumeric(5));
+            studentDetail.setStudentCode(StringGeneratorCode.randomAlphaNumeric(10));
+            studentDetail.setAddress(address);
+            studentDetail.setPlaceBirthday(placeBirth);
+            studentDetail.setEmail(email);
 
-            User userLecturer = new User();
-            userLecturer.addLecturerDetail(lecturerDetail);
-            userLecturer.setUsername(firstName.toLowerCase() + "." + lastName.toLowerCase());
-            userLecturer.setFirstName(firstName);
-            userLecturer.setLastName(lastName);
-            userLecturer.setEmail(email);
-            userLecturer.setPassword(password);
+            User userStudent = new User();
+            userStudent.addStudentDetail(studentDetail);
+            userStudent.setUsername(firstName.toLowerCase() + "." + lastName.toLowerCase());
+            userStudent.setFirstName(firstName);
+            userStudent.setLastName(lastName);
+            userStudent.setEmail(email);
+            userStudent.setPassword(password);
             String gender = maleRBValue ? "Male" : (femaleRBValue ? "Female" : "");
-            userLecturer.setGender(gender);
-            userLecturer.setDateUpdate(new Date());
-            userLecturer.setDateCreation(new Date());
-            Role lecturerRole = roleService.getRoleById(2L);
-            userLecturer.setRole(lecturerRole);
+            userStudent.setGender(gender);
+            userStudent.setDateUpdate(new Date());
+            userStudent.setDateCreation(new Date());
+            Role lecturerRole = roleService.getRoleById(3L);
+            userStudent.setRole(lecturerRole);
 
-            lecturerDetail.setUser(userLecturer);
+            studentDetail.setUser(userStudent);
 
-            userService.createLecturer(userLecturer);
+            userService.createStudent(userStudent);
 
         } else {
             errorMsgLbl.setText(errorMessage);
         }
-    }
 
-    private void maleRBItemStateChanged(ItemEvent e) {
-        if(e.getStateChange() == ItemEvent.SELECTED) {
-            maleRBValue = true;
-            femaleRBValue = false;
-
-            femaleRB.setSelected(false);
-        }
-    }
-
-    private void femaleRBItemStateChanged(ItemEvent e) {
-        if(e.getStateChange() == ItemEvent.SELECTED) {
-            femaleRBValue = true;
-            maleRBValue = false;
-
-            maleRB.setSelected(false);
-        }
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Ardit Azo
-        label1 = new JLabel();
+        headerLbl = new JLabel();
         firstNameLbl = new JLabel();
         firstNameTF = new JTextField();
         lastNameLbl = new JLabel();
@@ -157,6 +156,10 @@ public class CreateLecturer extends JPanel {
         addressTF = new JTextField();
         placeBirthLbl = new JLabel();
         placeBirthTF = new JTextField();
+        fatherNameLbl = new JLabel();
+        fatherNameTF = new JTextField();
+        motherNameLbl = new JLabel();
+        motherNameTF = new JTextField();
         errorMsgLbl = new JLabel();
         panel2 = new JPanel();
         cancelBtn = new JButton();
@@ -174,15 +177,15 @@ public class CreateLecturer extends JPanel {
 
         setLayout(new GridBagLayout());
         ((GridBagLayout)getLayout()).columnWidths = new int[] {121, 288, 0};
-        ((GridBagLayout)getLayout()).rowHeights = new int[] {35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 30, 0};
+        ((GridBagLayout)getLayout()).rowHeights = new int[] {35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 30, 0};
         ((GridBagLayout)getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0E-4};
-        ((GridBagLayout)getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
+        ((GridBagLayout)getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
 
-        //---- label1 ----
-        label1.setText("Create New Lecturer");
-        label1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-        label1.setHorizontalTextPosition(SwingConstants.CENTER);
-        add(label1, new GridBagConstraints(0, 0, 2, 1, 0.0, 0.0,
+        //---- headerLbl ----
+        headerLbl.setText("Create New Student");
+        headerLbl.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        headerLbl.setHorizontalTextPosition(SwingConstants.CENTER);
+        add(headerLbl, new GridBagConstraints(0, 0, 2, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.VERTICAL,
             new Insets(0, 0, 5, 0), 0, 0));
 
@@ -314,10 +317,28 @@ public class CreateLecturer extends JPanel {
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(0, 0, 5, 0), 0, 0));
 
+        //---- fatherNameLbl ----
+        fatherNameLbl.setText("Father name");
+        add(fatherNameLbl, new GridBagConstraints(0, 11, 1, 1, 0.0, 0.0,
+            GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
+            new Insets(0, 0, 5, 5), 0, 0));
+        add(fatherNameTF, new GridBagConstraints(1, 11, 1, 1, 0.0, 0.0,
+            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+            new Insets(0, 0, 5, 0), 0, 0));
+
+        //---- motherNameLbl ----
+        motherNameLbl.setText("Mother name");
+        add(motherNameLbl, new GridBagConstraints(0, 12, 1, 1, 0.0, 0.0,
+            GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
+            new Insets(0, 0, 5, 5), 0, 0));
+        add(motherNameTF, new GridBagConstraints(1, 12, 1, 1, 0.0, 0.0,
+            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+            new Insets(0, 0, 5, 0), 0, 0));
+
         //---- errorMsgLbl ----
         errorMsgLbl.setForeground(Color.red);
         errorMsgLbl.setHorizontalTextPosition(SwingConstants.CENTER);
-        add(errorMsgLbl, new GridBagConstraints(0, 11, 2, 1, 0.0, 0.0,
+        add(errorMsgLbl, new GridBagConstraints(0, 13, 2, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(0, 0, 5, 0), 0, 0));
 
@@ -335,26 +356,22 @@ public class CreateLecturer extends JPanel {
                 GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
                 new Insets(0, 0, 0, 0), 0, 0));
         }
-        add(panel2, new GridBagConstraints(0, 12, 1, 1, 0.0, 0.0,
+        add(panel2, new GridBagConstraints(0, 14, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
             new Insets(0, 0, 0, 5), 0, 0));
 
         //---- saveBtn ----
         saveBtn.setText("Save");
-        saveBtn.addActionListener(e -> createNewLecturerBtnActionPerformed(e));
-        add(saveBtn, new GridBagConstraints(1, 12, 1, 1, 0.0, 0.0,
+        saveBtn.addActionListener(e -> createNewStudentBtnActionPerformed(e));
+        add(saveBtn, new GridBagConstraints(1, 14, 1, 1, 0.0, 0.0,
             GridBagConstraints.WEST, GridBagConstraints.VERTICAL,
             new Insets(0, 0, 0, 0), 0, 0));
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
-
-        // My components
-        statusCB.addItem(StatusEnum.ACTIVE.toString());
-        statusCB.addItem(StatusEnum.DISABLED.toString());
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Ardit Azo
-    private JLabel label1;
+    private JLabel headerLbl;
     private JLabel firstNameLbl;
     private JTextField firstNameTF;
     private JLabel lastNameLbl;
@@ -377,6 +394,10 @@ public class CreateLecturer extends JPanel {
     private JTextField addressTF;
     private JLabel placeBirthLbl;
     private JTextField placeBirthTF;
+    private JLabel fatherNameLbl;
+    private JTextField fatherNameTF;
+    private JLabel motherNameLbl;
+    private JTextField motherNameTF;
     private JLabel errorMsgLbl;
     private JPanel panel2;
     private JButton cancelBtn;

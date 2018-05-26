@@ -223,6 +223,10 @@ public class User {
         this.studentDetails = studentDetails;
     }
 
+    public void addStudentDetail(StudentDetail studentDetail) {
+        studentDetails.add(studentDetail);
+    }
+
     public Set<LecturerDetail> getLecturerDetails() {
         return lecturerDetails;
     }
@@ -280,30 +284,6 @@ public class User {
             return false;
         if (courses != null ? !courses.equals(user.courses) : user.courses != null) return false;
         return employees != null ? employees.equals(user.employees) : user.employees == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idUser != null ? idUser.hashCode() : 0;
-        result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (lastLoginDate != null ? lastLoginDate.hashCode() : 0);
-        result = 31 * result + (gender != null ? gender.hashCode() : 0);
-        result = 31 * result + (dateDeletion != null ? dateDeletion.hashCode() : 0);
-        result = 31 * result + (dateUpdate != null ? dateUpdate.hashCode() : 0);
-        result = 31 * result + (dateCreation != null ? dateCreation.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (dateBirthday != null ? dateBirthday.hashCode() : 0);
-        result = 31 * result + (phoneNumber != null ? phoneNumber.hashCode() : 0);
-        result = 31 * result + (role != null ? role.hashCode() : 0);
-        result = 31 * result + (studentDetails != null ? studentDetails.hashCode() : 0);
-        result = 31 * result + (lecturerDetails != null ? lecturerDetails.hashCode() : 0);
-        result = 31 * result + (courses != null ? courses.hashCode() : 0);
-        result = 31 * result + (employees != null ? employees.hashCode() : 0);
-        return result;
     }
 
     @Override

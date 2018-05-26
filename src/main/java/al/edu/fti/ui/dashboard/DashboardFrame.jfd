@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.GridBagLayout ) {
-			"$columnSpecs": "117, 622"
-			"$rowSpecs": "28, center:0:1.0, 0"
+			"$columnSpecs": "7, 117, 620"
+			"$rowSpecs": "32, center:0:1.0, 0"
 			"$alignTop": true
 			"$alignLeft": true
 			"$hGap": 5
@@ -23,16 +23,21 @@ new FormModel {
 					"text": "Log Out"
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
-				"gridx": 1
+				"gridx": 2
 				"hAlign": 4
+				"vAlign": 3
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) {
 				"gap": 5
 			} ) {
 				name: "sideMenuPnl"
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "button1"
-					"text": "text"
+					name: "lecturerListBtn"
+					"text": "View Lecturer List"
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "studentListBtn"
+					"text": "View Student List"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "createLecturerBtn"
@@ -41,12 +46,8 @@ new FormModel {
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "createLecturerBtnActionPerformed", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "button3"
-					"text": "text"
-				} )
-				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "button4"
-					"text": "text"
+					name: "createStudentBtn"
+					"text": "Create Student"
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "button5"
@@ -59,18 +60,19 @@ new FormModel {
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 				"vAlign": 5
 				"gridy": 1
+				"gridx": 1
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.CardLayout ) ) {
 				name: "contentCPnl"
 				"preferredSize": new java.awt.Dimension( 480, 450 )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
-				"gridx": 1
+				"gridx": 2
 				"gridy": 1
 				"hAlign": 5
 				"vAlign": 5
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"size": new java.awt.Dimension( 750, 555 )
+			"size": new java.awt.Dimension( 760, 600 )
 			"location": new java.awt.Point( 0, 0 )
 		} )
 	}

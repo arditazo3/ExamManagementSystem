@@ -62,14 +62,6 @@ public class Role {
     }
 
     @Override
-    public int hashCode() {
-        int result = idRole != null ? idRole.hashCode() : 0;
-        result = 31 * result + (roleDescription != null ? roleDescription.hashCode() : 0);
-        result = 31 * result + (users != null ? users.hashCode() : 0);
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "Role{" +
                 "idRole=" + idRole +

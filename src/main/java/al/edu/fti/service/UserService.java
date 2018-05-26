@@ -28,6 +28,12 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public User createStudent(User userStudent) {
+
+        return userDAO.createStudent(userStudent);
+    }
+
+    @Override
     public void update(User user) {
 
         userDAO.update(user);
