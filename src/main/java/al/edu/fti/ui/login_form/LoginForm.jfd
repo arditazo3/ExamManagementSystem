@@ -35,7 +35,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JTextField" ) {
 						name: "usernameTF"
-						"text": "ardit"
+						"text": "aa.aa"
 					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 						"gridx": 1
 						"gridy": 1
@@ -48,7 +48,7 @@ new FormModel {
 					} )
 					add( new FormComponent( "javax.swing.JPasswordField" ) {
 						name: "passwordPF"
-						"text": "ardit"
+						"text": "aa"
 					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 						"gridx": 1
 						"gridy": 2

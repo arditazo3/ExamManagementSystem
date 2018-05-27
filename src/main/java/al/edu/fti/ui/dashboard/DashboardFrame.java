@@ -4,29 +4,37 @@
 
 package al.edu.fti.ui.dashboard;
 
+import al.edu.fti.FtiApplication;
+import al.edu.fti.entity.Course;
 import al.edu.fti.entity.User;
+import al.edu.fti.service.ICourseService;
 import al.edu.fti.ui.dashboard.adminPanels.CreateLecturer;
 import al.edu.fti.ui.dashboard.adminPanels.CreateStudent;
 import al.edu.fti.ui.dashboard.adminPanels.ViewLecturerList;
 import al.edu.fti.ui.dashboard.adminPanels.ViewStudentList;
 import al.edu.fti.ui.dashboard.lecturerPanels.CreateCourse;
+import al.edu.fti.ui.dashboard.lecturerPanels.CreateExamQuestions;
 import org.jdesktop.swingx.HorizontalLayout;
 import org.jdesktop.swingx.VerticalLayout;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 /**
  * @author Ardit Azo
  */
 public class DashboardFrame extends JFrame {
 
+    private ICourseService courseService = FtiApplication.courseService;
     public User userLogIn;
+    public JFrame jFrameAfterCreation;
 
     public DashboardFrame(User userLogIn) {
         this.userLogIn = userLogIn;
         initComponents();
+        this.jFrameAfterCreation = this;
     }
 
     private void createLecturerBtnActionPerformed(ActionEvent e) {
@@ -71,6 +79,17 @@ public class DashboardFrame extends JFrame {
         cardLayout.show(contentCPnl, "createCourse");
     }
 
+    private void createExamBtnActionPerformed(ActionEvent e) {
+
+        List<Course> listCourse = courseService.getCourseByIdLecturer(userLogIn.getIdUser());
+        if(listCourse != null && listCourse.size() > 0) {
+            contentCPnl.add(new CreateExamQuestions(contentCPnl, jFrameAfterCreation), "createExamQuestions");
+            cardLayout.show(contentCPnl, "createExamQuestions");
+        } else {
+
+        }
+    }
+
     private void initComponents() {
 
         cardLayout = new CardLayout();
@@ -87,6 +106,7 @@ public class DashboardFrame extends JFrame {
         createStudentBtn = new JButton();
         myProfileBtn = new JButton();
         createCourseBtn = new JButton();
+        createExamBtn = new JButton();
         contentCPnl = new JPanel();
 
         //======== this ========
@@ -154,6 +174,11 @@ public class DashboardFrame extends JFrame {
             createCourseBtn.setText("Create Course");
             createCourseBtn.addActionListener(e -> createCourseBtnActionPerformed(e));
             sideMenuPnl.add(createCourseBtn);
+
+            //---- createExamBtn ----
+            createExamBtn.setText("Create Exam");
+            createExamBtn.addActionListener(e -> createExamBtnActionPerformed(e));
+            sideMenuPnl.add(createExamBtn);
         }
         contentPane.add(sideMenuPnl, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -211,6 +236,7 @@ public class DashboardFrame extends JFrame {
     private JButton createStudentBtn;
     private JButton myProfileBtn;
     private JButton createCourseBtn;
+    private JButton createExamBtn;
     private JPanel contentCPnl;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 

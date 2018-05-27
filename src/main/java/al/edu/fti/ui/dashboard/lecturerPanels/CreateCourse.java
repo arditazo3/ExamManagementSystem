@@ -252,4 +252,5 @@ public class CreateCourse extends JPanel {
     Long idCourse = null;
     Course courseInitial = null;
     User user = null;
+
 }
