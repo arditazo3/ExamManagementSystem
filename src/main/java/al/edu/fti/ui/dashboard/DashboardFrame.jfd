@@ -40,6 +40,7 @@ new FormModel {
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "studentListBtn"
 					"text": "View Student List"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "studentListBtnActionPerformed", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "createLecturerBtn"
@@ -52,12 +53,15 @@ new FormModel {
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "createStudentBtnActionPerformed", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "button5"
-					"text": "text"
+					name: "myProfileBtn"
+					"text": "My Profile"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "myProfileBtnActionPerformed", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "myProfileBtnActionPerformed", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "button6"
-					"text": "text"
+					name: "createCourseBtn"
+					"text": "Create Course"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "createCourseBtnActionPerformed", true ) )
 				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 				"vAlign": 5

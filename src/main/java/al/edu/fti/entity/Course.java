@@ -1,5 +1,7 @@
 package al.edu.fti.entity;
 
+import al.edu.fti.enums.StatusEnum;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +21,8 @@ public class Course {
     private String code;
 
     @Column(name = "status")
-    private Boolean status;
+    @Enumerated(EnumType.STRING)
+    private StatusEnum status;
 
     @Column(name = "year")
     private String year;
@@ -48,7 +51,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(String description, String code, Boolean status, String year, String remarks, String grade) {
+    public Course(String description, String code, StatusEnum status, String year, String remarks, String grade) {
         this.description = description;
         this.code = code;
         this.status = status;
@@ -81,11 +84,11 @@ public class Course {
         this.code = code;
     }
 
-    public Boolean getStatus() {
+    public StatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(StatusEnum status) {
         this.status = status;
     }
 

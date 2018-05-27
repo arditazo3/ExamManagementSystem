@@ -29,15 +29,15 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User createLecturer(User userLecturer) {
+    public User createUpdateLecturer(User userLecturer) {
 
-        return userDAO.createLecturer(userLecturer);
+        return userDAO.createUpdateLecturer(userLecturer);
     }
 
     @Override
-    public User createStudent(User userStudent) {
+    public User createUpdateStudent(User userStudent) {
 
-        return userDAO.createStudent(userStudent);
+        return userDAO.createUpdateStudent(userStudent);
     }
 
     @Override
@@ -55,4 +55,6 @@ public class UserService implements IUserService {
 
         userDAO.update(user);
     }
+
+
 }

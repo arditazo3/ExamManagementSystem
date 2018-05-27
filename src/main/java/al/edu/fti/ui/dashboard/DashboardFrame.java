@@ -8,6 +8,8 @@ import al.edu.fti.entity.User;
 import al.edu.fti.ui.dashboard.adminPanels.CreateLecturer;
 import al.edu.fti.ui.dashboard.adminPanels.CreateStudent;
 import al.edu.fti.ui.dashboard.adminPanels.ViewLecturerList;
+import al.edu.fti.ui.dashboard.adminPanels.ViewStudentList;
+import al.edu.fti.ui.dashboard.lecturerPanels.CreateCourse;
 import org.jdesktop.swingx.HorizontalLayout;
 import org.jdesktop.swingx.VerticalLayout;
 
@@ -29,17 +31,44 @@ public class DashboardFrame extends JFrame {
 
     private void createLecturerBtnActionPerformed(ActionEvent e) {
 
+        contentCPnl.add(new CreateLecturer(null), "createLecturer");
         cardLayout.show(contentCPnl, "createLecturer");
     }
 
     private void createStudentBtnActionPerformed(ActionEvent e) {
 
+        contentCPnl.add(new CreateStudent(null), "createStudent");
         cardLayout.show(contentCPnl, "createStudent");
     }
 
     private void lecturerListBtnActionPerformed(ActionEvent e) {
 
+        contentCPnl.add(new ViewLecturerList(contentCPnl), "viewLecturerList");
         cardLayout.show(contentCPnl, "viewLecturerList");
+    }
+
+    private void studentListBtnActionPerformed(ActionEvent e) {
+
+        contentCPnl.add(new ViewStudentList(contentCPnl), "viewStudentList");
+        cardLayout.show(contentCPnl, "viewStudentList");
+    }
+
+    private void myProfileBtnActionPerformed(ActionEvent e) {
+
+        if(userLogIn.getRole().getIdRole().equals(2L)) {
+            contentCPnl.add(new CreateLecturer(userLogIn.getIdUser()), "createLecturer");
+            cardLayout.show(contentCPnl, "createLecturer");
+        } else if(userLogIn.getRole().getIdRole().equals(3L)) {
+            contentCPnl.add(new CreateStudent(userLogIn.getIdUser()), "createStudent");
+            cardLayout.show(contentCPnl, "createStudent");
+        }
+
+    }
+
+    private void createCourseBtnActionPerformed(ActionEvent e) {
+
+        contentCPnl.add(new CreateCourse(contentCPnl), "createCourse");
+        cardLayout.show(contentCPnl, "createCourse");
     }
 
     private void initComponents() {
@@ -56,8 +85,8 @@ public class DashboardFrame extends JFrame {
         studentListBtn = new JButton();
         createLecturerBtn = new JButton();
         createStudentBtn = new JButton();
-        button5 = new JButton();
-        button6 = new JButton();
+        myProfileBtn = new JButton();
+        createCourseBtn = new JButton();
         contentCPnl = new JPanel();
 
         //======== this ========
@@ -100,6 +129,7 @@ public class DashboardFrame extends JFrame {
 
             //---- studentListBtn ----
             studentListBtn.setText("View Student List");
+            studentListBtn.addActionListener(e -> studentListBtnActionPerformed(e));
             sideMenuPnl.add(studentListBtn);
 
             //---- createLecturerBtn ----
@@ -112,13 +142,18 @@ public class DashboardFrame extends JFrame {
             createStudentBtn.addActionListener(e -> createStudentBtnActionPerformed(e));
             sideMenuPnl.add(createStudentBtn);
 
-            //---- button5 ----
-            button5.setText("text");
-            sideMenuPnl.add(button5);
+            //---- myProfileBtn ----
+            myProfileBtn.setText("My Profile");
+            myProfileBtn.addActionListener(e -> {
+			myProfileBtnActionPerformed(e);
+			myProfileBtnActionPerformed(e);
+		});
+            sideMenuPnl.add(myProfileBtn);
 
-            //---- button6 ----
-            button6.setText("text");
-            sideMenuPnl.add(button6);
+            //---- createCourseBtn ----
+            createCourseBtn.setText("Create Course");
+            createCourseBtn.addActionListener(e -> createCourseBtnActionPerformed(e));
+            sideMenuPnl.add(createCourseBtn);
         }
         contentPane.add(sideMenuPnl, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -139,7 +174,7 @@ public class DashboardFrame extends JFrame {
         // My components modify
 
         createLecturer = new CreateLecturer(null);
-        createStudent = new CreateStudent();
+        createStudent = new CreateStudent(null);
         viewLecturerList = new ViewLecturerList(contentCPnl);
 
         userInfoLbl.setText("Welcome, " + userLogIn.getFirstName() + " " + userLogIn.getLastName());
@@ -174,8 +209,8 @@ public class DashboardFrame extends JFrame {
     private JButton studentListBtn;
     private JButton createLecturerBtn;
     private JButton createStudentBtn;
-    private JButton button5;
-    private JButton button6;
+    private JButton myProfileBtn;
+    private JButton createCourseBtn;
     private JPanel contentCPnl;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 

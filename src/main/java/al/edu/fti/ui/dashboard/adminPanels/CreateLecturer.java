@@ -58,7 +58,16 @@ public class CreateLecturer extends JPanel {
             //to convert Date to String, use format method of SimpleDateFormat class.
             String dateBirthString = dateFormat.format(user.getDateBirthday());
             dateBirthTF.setText(dateBirthString);
-            phoneNumberTF.setText(user.getPhoneNumber());
+        }
+
+        phoneNumberTF.setText(user.getPhoneNumber());
+
+        if(user.getGender().equalsIgnoreCase("Male")) {
+            maleRB.setSelected(true);
+            femaleRB.setSelected(false);
+        } else if(user.getGender().equalsIgnoreCase("Female")) {
+            maleRB.setSelected(false);
+            femaleRB.setSelected(true);
         }
 
         LecturerDetail lecturerDetail = null;
@@ -148,6 +157,7 @@ public class CreateLecturer extends JPanel {
             userLecturer.setLastName(lastName);
             userLecturer.setEmail(email);
             userLecturer.setPassword(password);
+            userLecturer.setStatus(StatusEnum.getStatus(status));
             String gender = maleRBValue ? "Male" : (femaleRBValue ? "Female" : "");
             userLecturer.setGender(gender);
             userLecturer.setPhoneNumber(phoneNumber);
@@ -158,7 +168,7 @@ public class CreateLecturer extends JPanel {
 
             lecturerDetail.setUser(userLecturer);
 
-            userService.createLecturer(userLecturer);
+            userService.createUpdateLecturer(userLecturer);
 
         } else {
             errorMsgLbl.setText(errorMessage);
@@ -225,7 +235,7 @@ public class CreateLecturer extends JPanel {
                 java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
         setLayout(new GridBagLayout());
-        ((GridBagLayout)getLayout()).columnWidths = new int[] {121, 288, 0};
+        ((GridBagLayout)getLayout()).columnWidths = new int[] {121, 350, 0};
         ((GridBagLayout)getLayout()).rowHeights = new int[] {35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 30, 0};
         ((GridBagLayout)getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0E-4};
         ((GridBagLayout)getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};

@@ -18,6 +18,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,8 +31,62 @@ public class CreateStudent extends JPanel {
     private IRoleService roleService = FtiApplication.roleService;
     private IUserService userService = FtiApplication.userService;
 
-    public CreateStudent() {
+    public CreateStudent(Long idStudent) {
         initComponents();
+        this.idStudent = idStudent;
+
+        if(idStudent != null) {
+            User user = userService.getUserById(idStudent);
+            if(user != null) {
+                isNewEntry = false;
+                this.userInitial = user;
+                fillAllFields(user);
+            }
+        }
+    }
+
+    private void fillAllFields(User user) {
+
+        firstNameTF.setText(user.getFirstName());
+        lastNameTF.setText(user.getLastName());
+        emailTF.setText(user.getEmail());
+        passwordTF.setText(user.getPassword());
+        statusCB.setSelectedItem(user.getStatus());
+
+        if(user.getDateBirthday() != null) {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            //to convert Date to String, use format method of SimpleDateFormat class.
+            String dateBirthString = dateFormat.format(user.getDateBirthday());
+            dateBirthTF.setText(dateBirthString);
+
+        }
+
+        phoneNumberTF.setText(user.getPhoneNumber());
+        StudentDetail studentDetail = null;
+        if(user.getStudentDetails() != null && user.getStudentDetails().size() >0) {
+            for (StudentDetail studentDetail1Set : user.getStudentDetails()) {
+                studentDetail = studentDetail1Set;
+                this.studentDetailInitial = studentDetail;
+                break;
+            }
+
+            if(studentDetail != null) {
+                addressTF.setText(studentDetail.getAddress());
+                placeBirthTF.setText(studentDetail.getPlaceBirthday());
+                fatherNameTF.setText(studentDetail.getFatherName());
+                motherNameTF.setText(studentDetail.getMotherName());
+                placeBirthTF.setText(studentDetail.getPlaceBirthday());
+                addressTF.setText(studentDetail.getAddress());
+            }
+        }
+
+        if(user.getGender().equalsIgnoreCase("Male")) {
+            maleRB.setSelected(true);
+            femaleRB.setSelected(false);
+        } else if(user.getGender().equalsIgnoreCase("Female")) {
+            maleRB.setSelected(false);
+            femaleRB.setSelected(true);
+        }
     }
 
     private void maleRBItemStateChanged(ItemEvent e) {
@@ -103,8 +158,13 @@ public class CreateStudent extends JPanel {
         if(createAction) {
 
             StudentDetail studentDetail = new StudentDetail();
-            studentDetail.setAmzaNumber(StringGeneratorCode.randomAlphaNumeric(5));
-            studentDetail.setStudentCode(StringGeneratorCode.randomAlphaNumeric(10));
+            if(studentDetailInitial != null) {
+                studentDetail = studentDetailInitial;
+            }
+            if(isNewEntry) {
+                studentDetail.setAmzaNumber(StringGeneratorCode.randomAlphaNumeric(5));
+                studentDetail.setStudentCode(StringGeneratorCode.randomAlphaNumeric(10));
+            }
             studentDetail.setAddress(address);
             studentDetail.setPlaceBirthday(placeBirth);
             studentDetail.setEmail(email);
@@ -112,6 +172,10 @@ public class CreateStudent extends JPanel {
             studentDetail.setMotherName(motherName);
 
             User userStudent = new User();
+            if(userInitial != null) {
+                userStudent = userInitial;
+            }
+
             userStudent.addStudentDetail(studentDetail);
             userStudent.setUsername(firstName.toLowerCase() + "." + lastName.toLowerCase());
             userStudent.setFirstName(firstName);
@@ -124,13 +188,15 @@ public class CreateStudent extends JPanel {
             userStudent.setDateBirthday(dateBirth);
             userStudent.setPhoneNumber(phoneNumber);
             userStudent.setDateUpdate(new Date());
-            userStudent.setDateCreation(new Date());
+            if(isNewEntry) {
+                userStudent.setDateCreation(new Date());
+            }
             Role lecturerRole = roleService.getRoleById(3L);
             userStudent.setRole(lecturerRole);
 
             studentDetail.setUser(userStudent);
 
-            userService.createStudent(userStudent);
+            userService.createUpdateStudent(userStudent);
 
         } else {
             errorMsgLbl.setText(errorMessage);
@@ -184,7 +250,7 @@ public class CreateStudent extends JPanel {
                 java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
         setLayout(new GridBagLayout());
-        ((GridBagLayout)getLayout()).columnWidths = new int[] {121, 288, 0};
+        ((GridBagLayout)getLayout()).columnWidths = new int[] {121, 350, 0};
         ((GridBagLayout)getLayout()).rowHeights = new int[] {35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 30, 0};
         ((GridBagLayout)getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0E-4};
         ((GridBagLayout)getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
@@ -416,6 +482,10 @@ public class CreateStudent extends JPanel {
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     //  My components
+    Long idStudent = null;
+    User userInitial = null;
+    StudentDetail studentDetailInitial = null;
+    Boolean isNewEntry = true;
     Boolean maleRBValue = false;
     Boolean femaleRBValue = false;
 }

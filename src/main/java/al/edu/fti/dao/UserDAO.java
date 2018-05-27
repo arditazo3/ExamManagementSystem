@@ -1,5 +1,6 @@
 package al.edu.fti.dao;
 
+import al.edu.fti.entity.Course;
 import al.edu.fti.entity.Exam;
 import al.edu.fti.entity.User;
 import al.edu.fti.enums.StatusEnum;
@@ -51,13 +52,13 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public User createLecturer(User userLecturer) {
+    public User createUpdateLecturer(User userLecturer) {
 
         return entityManager.merge(userLecturer);
     }
 
     @Override
-    public User createStudent(User userStudent) {
+    public User createUpdateStudent(User userStudent) {
 
         return entityManager.merge(userStudent);
     }
