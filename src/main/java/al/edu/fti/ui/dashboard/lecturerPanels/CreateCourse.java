@@ -6,6 +6,7 @@ package al.edu.fti.ui.dashboard.lecturerPanels;
 
 import al.edu.fti.FtiApplication;
 import al.edu.fti.entity.Course;
+import al.edu.fti.entity.User;
 import al.edu.fti.enums.StatusEnum;
 import al.edu.fti.service.ICourseService;
 
@@ -20,8 +21,9 @@ public class CreateCourse extends JPanel {
 
     private ICourseService courseService = FtiApplication.courseService;
 
-    public CreateCourse(JPanel contentCPnl) {
+    public CreateCourse(JPanel contentCPnl, User user) {
         initComponents();
+        this.user = user;
     }
 
 
@@ -64,6 +66,7 @@ public class CreateCourse extends JPanel {
             course.setYear(year);
             course.setRemarks(remarks);
             course.setGrade(grade);
+            course.setUser(user);
 
             courseService.createUpdateCourse(course);
 
@@ -248,4 +251,5 @@ public class CreateCourse extends JPanel {
     //  My components
     Long idCourse = null;
     Course courseInitial = null;
+    User user = null;
 }

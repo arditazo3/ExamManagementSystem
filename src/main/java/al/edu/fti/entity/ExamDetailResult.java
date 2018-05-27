@@ -15,7 +15,7 @@ public class ExamDetailResult {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "exam_question_id")
-    private Exam exam;
+    private ExamQuestion exam;
 
     public ExamDetailResult() {
     }

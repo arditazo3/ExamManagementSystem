@@ -1,7 +1,5 @@
 package al.edu.fti.dao;
 
-import al.edu.fti.entity.Course;
-import al.edu.fti.entity.Exam;
 import al.edu.fti.entity.User;
 import al.edu.fti.enums.StatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;

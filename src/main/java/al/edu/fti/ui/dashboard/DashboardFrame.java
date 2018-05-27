@@ -67,7 +67,7 @@ public class DashboardFrame extends JFrame {
 
     private void createCourseBtnActionPerformed(ActionEvent e) {
 
-        contentCPnl.add(new CreateCourse(contentCPnl), "createCourse");
+        contentCPnl.add(new CreateCourse(contentCPnl, userLogIn), "createCourse");
         cardLayout.show(contentCPnl, "createCourse");
     }
 

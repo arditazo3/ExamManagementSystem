@@ -8,12 +8,19 @@ CREATE TABLE `course` (
     `id_course` int(11) NOT NULL,
     `description` varchar(250) DEFAULT NULL,
     `code` varchar(50) DEFAULT NULL,
-    `status` tinyint(1) DEFAULT NULL,
+    `status` enum('ACTIVE','DISABLED') DEFAULT NULL,
     `year` varchar(250) DEFAULT NULL,
     `remarks` varchar(250) DEFAULT NULL,
     `lecturer_id` int(11) DEFAULT NULL,
     `grade` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `course`
+--
+
+INSERT INTO `course` (`id_course`, `description`, `code`, `status`, `year`, `remarks`, `lecturer_id`, `grade`) VALUES
+    (5, 'dsa', 'dsaa', 'ACTIVE', 'dsa', '', 1, '');
 
 -- --------------------------------------------------------
 
@@ -30,10 +37,10 @@ CREATE TABLE `course_student` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `exam`
+-- Table structure for table `exam_question`
 --
 
-CREATE TABLE `exam` (
+CREATE TABLE `exam_question` (
     `id_exam` int(11) NOT NULL,
     `question` text,
     `type_question_mandatory` tinyint(1) DEFAULT NULL,
@@ -116,6 +123,15 @@ CREATE TABLE `role` (
     `role_description` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='The table of the role for each user';
 
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`id_role`, `role_description`) VALUES
+    (1, 'Administrator'),
+    (2, 'Lecturer'),
+    (3, 'Student');
+
 -- --------------------------------------------------------
 
 --
@@ -133,8 +149,7 @@ CREATE TABLE `student_detail` (
     `father_name` varchar(250) DEFAULT NULL,
     `mother_name` varchar(250) DEFAULT NULL,
     `scholarship` varchar(250) DEFAULT NULL,
-    `user_id` int(11) DEFAULT NULL,
-    `id_user` bigint(20) DEFAULT NULL
+    `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -156,10 +171,17 @@ CREATE TABLE `user` (
     `date_update` datetime DEFAULT NULL,
     `date_creation` datetime DEFAULT NULL,
     `role_id` int(11) DEFAULT NULL COMMENT 'foreign key of the table role',
-    `status` tinyint(1) DEFAULT NULL,
+    `status` enum('ACTIVE','DISABLED') DEFAULT NULL,
     `date_birthday` datetime DEFAULT NULL,
     `phone_number` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='The user table';
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id_user`, `username`, `first_name`, `last_name`, `email`, `password`, `last_login_date`, `gender`, `date_deletion`, `date_update`, `date_creation`, `role_id`, `status`, `date_birthday`, `phone_number`) VALUES
+    (1, 'ardit', 'ardit', 'ardit', 'ardit', 'ardit', '2018-05-27 12:01:24', 'M', NULL, '2018-05-26 01:29:42', '2018-05-26 01:29:42', 1, 'ACTIVE', '2018-05-26 01:29:42', '123');
 
 --
 -- Indexes for dumped tables
@@ -170,6 +192,7 @@ CREATE TABLE `user` (
 --
 ALTER TABLE `course`
     ADD PRIMARY KEY (`id_course`),
+    ADD UNIQUE KEY `course_code_uindex` (`code`),
     ADD KEY `course_user_id_user_fk` (`lecturer_id`);
 
 --
@@ -181,10 +204,10 @@ ALTER TABLE `course_student`
     ADD KEY `course_student_course_id_course_fk` (`course_id`);
 
 --
--- Indexes for table `exam`
+-- Indexes for table `exam_question`
 --
-ALTER TABLE `exam`
-    ADD PRIMARY KEY (`id_exam`),
+ALTER TABLE `exam_question`
+    ADD PRIMARY KEY (id_exam_question),
     ADD KEY `exam_course_id_course_fk` (`course_id`);
 
 --
@@ -239,7 +262,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-    MODIFY `id_course` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `id_course` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `course_student`
@@ -248,10 +271,10 @@ ALTER TABLE `course_student`
     MODIFY `id_course_student` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `exam`
+-- AUTO_INCREMENT for table `exam_question`
 --
-ALTER TABLE `exam`
-    MODIFY `id_exam` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `exam_question`
+    MODIFY id_exam_question int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `exam_result`
@@ -263,25 +286,25 @@ ALTER TABLE `exam_result`
 -- AUTO_INCREMENT for table `lecturer_detail`
 --
 ALTER TABLE `lecturer_detail`
-    MODIFY `id_lecturer_detail` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `id_lecturer_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-    MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `id_role` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `student_detail`
 --
 ALTER TABLE `student_detail`
-    MODIFY `id_student_detail` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `id_student_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-    MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT COMMENT 'The primary key of the table';
+    MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT COMMENT 'The primary key of the table', AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables
@@ -301,16 +324,16 @@ ALTER TABLE `course_student`
     ADD CONSTRAINT `course_student_user_id_user_fk` FOREIGN KEY (`student_id`) REFERENCES `user` (`id_user`);
 
 --
--- Constraints for table `exam`
+-- Constraints for table `exam_question`
 --
-ALTER TABLE `exam`
+ALTER TABLE `exam_question`
     ADD CONSTRAINT `exam_course_id_course_fk` FOREIGN KEY (`course_id`) REFERENCES `course` (`id_course`);
 
 --
 -- Constraints for table `exam_detail_result`
 --
 ALTER TABLE `exam_detail_result`
-    ADD CONSTRAINT `exam_detail_result_exam_id_exam_fk` FOREIGN KEY (`exam_question_id`) REFERENCES `exam` (`id_exam`),
+    ADD CONSTRAINT `exam_detail_result_exam_id_exam_fk` FOREIGN KEY (`exam_question_id`) REFERENCES `exam_question` (id_exam_question),
     ADD CONSTRAINT `exam_detail_result_user_id_user_fk` FOREIGN KEY (`student_id`) REFERENCES `user` (`id_user`);
 
 --
@@ -338,7 +361,3 @@ ALTER TABLE `student_detail`
 ALTER TABLE `user`
     ADD CONSTRAINT `user_role_id_role_fk` FOREIGN KEY (`role_id`) REFERENCES `role` (`id_role`);
 COMMIT;
-
-insert into role(role_description) VALUES ('Administrator');
-insert into role(role_description) VALUES ('Lecturer');
-insert into role(role_description) VALUES ('Student');
