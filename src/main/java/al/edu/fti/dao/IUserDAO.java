@@ -7,6 +7,7 @@ import java.util.List;
 public interface IUserDAO {
     
     User getUser(String username, String password);
+    User getUserById(Long idUser);
     User createLecturer(User userLecturer);
     User createStudent(User userStudent);
     List<User> getAllLecturer();

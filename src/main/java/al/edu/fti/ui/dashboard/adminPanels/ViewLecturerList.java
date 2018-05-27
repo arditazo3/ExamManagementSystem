@@ -9,9 +9,12 @@ import al.edu.fti.entity.User;
 import al.edu.fti.service.IUserService;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 /**
@@ -21,8 +24,14 @@ public class ViewLecturerList extends JPanel {
 
     private IUserService userService = FtiApplication.userService;
 
-    public ViewLecturerList() {
+    public ViewLecturerList(JPanel contentCPnl) {
         initComponents();
+        this.contentCPnl = contentCPnl;
+        this.cardLayout = cardLayout;
+    }
+
+    private void lecturerTblMouseClicked(MouseEvent e) {
+        // TODO add your code here
     }
 
     private void initComponents() {
@@ -48,7 +57,32 @@ public class ViewLecturerList extends JPanel {
             //---- lecturerTbl ----
             lecturerTbl.setModel(new DefaultTableModel(
                 new Object[][] {
-                    {null, "", null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
+                    {null, null, null, null, null, null, null, null},
                     {null, null, null, null, null, null, null, null},
                     {null, null, null, null, null, null, null, null},
                     {null, null, null, null, null, null, null, null},
@@ -92,6 +126,20 @@ public class ViewLecturerList extends JPanel {
             lecturerTbl.getModel().setValueAt(row.getPhoneNumber(), i, 6);
             lecturerTbl.getModel().setValueAt("GABIM", i, 7);
         }
+
+        lecturerTbl.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+            public void valueChanged(ListSelectionEvent event) {
+                // do some actions here, for example
+                // print first column value from selected row
+                if(!event.getValueIsAdjusting() && lecturerTbl.getSelectedRow() != -1 &&
+                        lecturerTbl.getValueAt(lecturerTbl.getSelectedRow(), 0) != null) {
+
+                    cardLayout = (CardLayout)(contentCPnl.getLayout());
+                    contentCPnl.add(new CreateLecturer(Long.valueOf((Long) lecturerTbl.getValueAt(lecturerTbl.getSelectedRow(), 0))), "createLecturer");
+                    cardLayout.show(contentCPnl, "createLecturer");
+                }
+            }
+        });
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
@@ -99,4 +147,8 @@ public class ViewLecturerList extends JPanel {
     private JScrollPane scrollPane1;
     private JTable lecturerTbl;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
+
+    // My components
+    private CardLayout cardLayout;
+    private JPanel contentCPnl;
 }

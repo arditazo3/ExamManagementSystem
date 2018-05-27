@@ -46,6 +46,11 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
+    public User getUserById(Long idUser) {
+        return entityManager.find(User.class, idUser);
+    }
+
+    @Override
     public User createLecturer(User userLecturer) {
 
         return entityManager.merge(userLecturer);

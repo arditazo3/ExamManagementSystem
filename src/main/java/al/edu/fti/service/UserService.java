@@ -24,6 +24,11 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public User getUserById(Long idUser) {
+        return userDAO.getUserById(idUser);
+    }
+
+    @Override
     public User createLecturer(User userLecturer) {
 
         return userDAO.createLecturer(userLecturer);

@@ -13,12 +13,12 @@ import al.edu.fti.service.IRoleService;
 import al.edu.fti.service.IUserService;
 import al.edu.fti.utils.StringGeneratorCode;
 import org.jdesktop.swingx.HorizontalLayout;
-import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,14 +26,54 @@ import java.util.Date;
 /**
  * @author Ardit Azo
  */
-@Component
 public class CreateLecturer extends JPanel {
 
     private IRoleService roleService = FtiApplication.roleService;
     private IUserService userService = FtiApplication.userService;
 
-    public CreateLecturer() {
+    public CreateLecturer(Long idLecturer) {
         initComponents();
+        this.idLecturer = idLecturer;
+
+        if(idLecturer != null) {
+            User user = userService.getUserById(idLecturer);
+            if(user != null) {
+                isNewEntry = false;
+                this.userInitial = user;
+                fillAllFields(user);
+            }
+        }
+    }
+
+    private void fillAllFields(User user) {
+
+        firstNameTF.setText(user.getFirstName());
+        lastNameTF.setText(user.getLastName());
+        emailTF.setText(user.getEmail());
+        passwordTF.setText(user.getPassword());
+        statusCB.setSelectedItem(user.getStatus());
+
+        if(user.getDateBirthday() != null) {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            //to convert Date to String, use format method of SimpleDateFormat class.
+            String dateBirthString = dateFormat.format(user.getDateBirthday());
+            dateBirthTF.setText(dateBirthString);
+            phoneNumberTF.setText(user.getPhoneNumber());
+        }
+
+        LecturerDetail lecturerDetail = null;
+        if(user.getLecturerDetails() != null && user.getLecturerDetails().size() >0) {
+            for (LecturerDetail lecturerDetail1Set : user.getLecturerDetails()) {
+                lecturerDetail = lecturerDetail1Set;
+                this.lecturerDetailInitial = lecturerDetail;
+                break;
+            }
+
+            if(lecturerDetail != null) {
+                addressTF.setText(lecturerDetail.getAddress());
+                placeBirthTF.setText(lecturerDetail.getPlaceBirthday());
+            }
+        }
     }
 
     private void createNewLecturerBtnActionPerformed(ActionEvent e) {
@@ -85,12 +125,23 @@ public class CreateLecturer extends JPanel {
         if(createAction) {
 
             LecturerDetail lecturerDetail = new LecturerDetail();
-            lecturerDetail.setLecturerCode(StringGeneratorCode.randomAlphaNumeric(10));
+            if(lecturerDetailInitial != null) {
+                lecturerDetail = lecturerDetailInitial;
+            }
+
+            if(isNewEntry) {
+                lecturerDetail.setLecturerCode(StringGeneratorCode.randomAlphaNumeric(10));
+            }
+
             lecturerDetail.setAddress(address);
             lecturerDetail.setPlaceBirthday(placeBirth);
             lecturerDetail.setEmail(email);
 
             User userLecturer = new User();
+            if(userInitial != null) {
+                userLecturer = userInitial;
+            }
+
             userLecturer.addLecturerDetail(lecturerDetail);
             userLecturer.setUsername(firstName.toLowerCase() + "." + lastName.toLowerCase());
             userLecturer.setFirstName(firstName);
@@ -99,6 +150,7 @@ public class CreateLecturer extends JPanel {
             userLecturer.setPassword(password);
             String gender = maleRBValue ? "Male" : (femaleRBValue ? "Female" : "");
             userLecturer.setGender(gender);
+            userLecturer.setPhoneNumber(phoneNumber);
             userLecturer.setDateUpdate(new Date());
             userLecturer.setDateCreation(new Date());
             Role lecturerRole = roleService.getRoleById(2L);
@@ -384,6 +436,10 @@ public class CreateLecturer extends JPanel {
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     //  My components
+    Long idLecturer = null;
+    User userInitial = null;
+    LecturerDetail lecturerDetailInitial = null;
+    Boolean isNewEntry = true;
     Boolean maleRBValue = false;
     Boolean femaleRBValue = false;
 }

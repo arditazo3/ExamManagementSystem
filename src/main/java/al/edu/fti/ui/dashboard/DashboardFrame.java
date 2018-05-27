@@ -44,10 +44,6 @@ public class DashboardFrame extends JFrame {
 
     private void initComponents() {
 
-        createLecturer = new CreateLecturer();
-        createStudent = new CreateStudent();
-        viewLecturerList = new ViewLecturerList();
-
         cardLayout = new CardLayout();
 
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
@@ -141,6 +137,11 @@ public class DashboardFrame extends JFrame {
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
 
         // My components modify
+
+        createLecturer = new CreateLecturer(null);
+        createStudent = new CreateStudent();
+        viewLecturerList = new ViewLecturerList(contentCPnl);
+
         userInfoLbl.setText("Welcome, " + userLogIn.getFirstName() + " " + userLogIn.getLastName());
 
         cardLayout = (CardLayout)(contentCPnl.getLayout());

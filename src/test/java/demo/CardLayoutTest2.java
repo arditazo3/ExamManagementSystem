@@ -24,7 +24,7 @@ public class CardLayoutTest2 extends JFrame {
 
     private void initComponents() {
 
-        createLecturer = new CreateLecturer();
+        createLecturer = new CreateLecturer(null);
 
         cardLayout = new CardLayout();
 
