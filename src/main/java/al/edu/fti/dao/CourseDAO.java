@@ -4,6 +4,7 @@ import al.edu.fti.entity.Course;
 import al.edu.fti.entity.Exam;
 import al.edu.fti.enums.StatusEnum;
 import al.edu.fti.service.IUserService;
+import al.edu.fti.utils.CourseStudent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 
 @Transactional
 @Repository
@@ -51,5 +53,44 @@ public class CourseDAO implements ICourseDAO {
     @Override
     public Exam createUpdateExam(Exam exam) {
         return entityManager.merge(exam);
+    }
+
+    @Override
+    public void createAssociationCourseStudent(Map<String, List<String>> listAssociatedCourseStudent) {
+
+        for (String idCourse : listAssociatedCourseStudent.keySet()) {
+
+            deleteEntriesByIdCourse(Long.valueOf(idCourse));
+
+            for (String idStudent : listAssociatedCourseStudent.get(idCourse)) {
+                String queryInsertEntry = " insert into course_student(course_id, student_id) values (:course_id, :student_id) ";
+                entityManager.createNativeQuery(queryInsertEntry)
+                        .setParameter("course_id", Long.valueOf(idCourse))
+                        .setParameter("student_id", Long.valueOf(idStudent))
+                        .executeUpdate();
+            }
+        }
+
+    }
+
+    @Override
+    public void deleteEntriesByIdCourse(Long idCourse) {
+
+        String queryDeleteEntriesByIdCourse = " delete from course_student where course_id = :course_id ";
+
+        entityManager.createNativeQuery(queryDeleteEntriesByIdCourse)
+                .setParameter("course_id", idCourse)
+                .executeUpdate();
+
+    }
+
+    @Override
+    public List<Integer> getListIdStudentByIdCourse(Long idCourse) {
+
+        String queryGetIdStudentByIdCourse = " select student_id from course_student where course_id = :course_id ";
+
+        return entityManager.createNativeQuery(queryGetIdStudentByIdCourse)
+                .setParameter("course_id", idCourse)
+                .getResultList();
     }
 }

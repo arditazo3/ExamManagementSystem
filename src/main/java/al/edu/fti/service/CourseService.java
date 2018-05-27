@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CourseService implements ICourseService {
@@ -40,5 +41,15 @@ public class CourseService implements ICourseService {
     public Exam createUpdateExam(Exam exam) {
 
         return courseDAO.createUpdateExam(exam);
+    }
+
+    @Override
+    public void createAssociationCourseStudent(Map<String, List<String>> listAssociatedCourseStudent) {
+        courseDAO.createAssociationCourseStudent(listAssociatedCourseStudent);
+    }
+
+    @Override
+    public List<Integer> getListIdStudentByIdCourse(Long idCourse) {
+        return courseDAO.getListIdStudentByIdCourse(idCourse);
     }
 }
