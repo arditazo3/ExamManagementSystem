@@ -15,13 +15,30 @@ public class ExamDetailResult {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "exam_question_id")
-    private ExamQuestion exam;
+    private ExamQuestion examQuestion;
 
-    public ExamDetailResult() {
+    public Long getIdExamDetailResult() {
+        return idExamDetailResult;
     }
 
-    public ExamDetailResult(Boolean answer) {
+    public void setIdExamDetailResult(Long idExamDetailResult) {
+        this.idExamDetailResult = idExamDetailResult;
+    }
+
+    public Boolean getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Boolean answer) {
         this.answer = answer;
+    }
+
+    public ExamQuestion getExamQuestion() {
+        return examQuestion;
+    }
+
+    public void setExamQuestion(ExamQuestion examQuestion) {
+        this.examQuestion = examQuestion;
     }
 
     @Override
@@ -34,15 +51,7 @@ public class ExamDetailResult {
         if (idExamDetailResult != null ? !idExamDetailResult.equals(that.idExamDetailResult) : that.idExamDetailResult != null)
             return false;
         if (answer != null ? !answer.equals(that.answer) : that.answer != null) return false;
-        return exam != null ? exam.equals(that.exam) : that.exam == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idExamDetailResult != null ? idExamDetailResult.hashCode() : 0;
-        result = 31 * result + (answer != null ? answer.hashCode() : 0);
-        result = 31 * result + (exam != null ? exam.hashCode() : 0);
-        return result;
+        return examQuestion != null ? examQuestion.equals(that.examQuestion) : that.examQuestion == null;
     }
 
     @Override
@@ -50,7 +59,7 @@ public class ExamDetailResult {
         return "ExamDetailResult{" +
                 "idExamDetailResult=" + idExamDetailResult +
                 ", answer=" + answer +
-                ", exam=" + exam +
+                ", examQuestion=" + examQuestion +
                 '}';
     }
 }

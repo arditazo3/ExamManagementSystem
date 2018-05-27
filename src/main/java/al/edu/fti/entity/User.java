@@ -286,28 +286,4 @@ public class User {
         return employees != null ? employees.equals(user.employees) : user.employees == null;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "idUser=" + idUser +
-                ", username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", lastLoginDate=" + lastLoginDate +
-                ", gender='" + gender + '\'' +
-                ", dateDeletion=" + dateDeletion +
-                ", dateUpdate=" + dateUpdate +
-                ", dateCreation=" + dateCreation +
-                ", status=" + status +
-                ", dateBirthday=" + dateBirthday +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", role=" + role +
-                ", studentDetails=" + studentDetails +
-                ", lecturerDetails=" + lecturerDetails +
-                ", courses=" + courses +
-                ", employees=" + employees +
-                '}';
-    }
 }

@@ -68,6 +68,12 @@ new FormModel {
 					"text": "Create Exam"
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "createExamBtnActionPerformed", true ) )
 				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "associateStudentCourseBtn"
+					"text": "<html><center>Associate Student<br>To the Course</center></html>"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "createExamBtnActionPerformed", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "associateStudentCourseBtnActionPerformed", true ) )
+				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 				"vAlign": 5
 				"gridy": 1

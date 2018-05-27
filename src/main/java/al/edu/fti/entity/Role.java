@@ -61,12 +61,4 @@ public class Role {
         return users != null ? users.equals(role.users) : role.users == null;
     }
 
-    @Override
-    public String toString() {
-        return "Role{" +
-                "idRole=" + idRole +
-                ", roleDescription='" + roleDescription + '\'' +
-                ", users=" + users +
-                '}';
-    }
 }

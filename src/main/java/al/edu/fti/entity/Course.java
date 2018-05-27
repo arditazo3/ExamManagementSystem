@@ -37,7 +37,7 @@ public class Course {
     @JoinColumn(name = "lecturer_id")
     private User user;
 
-    @OneToMany(mappedBy="exam")
+    @OneToMany(mappedBy="course")
     private Set<Exam> exams;
 
     @ManyToMany(cascade = { CascadeType.ALL })
@@ -159,34 +159,4 @@ public class Course {
         return users != null ? users.equals(course.users) : course.users == null;
     }
 
-    @Override
-    public int hashCode() {
-        int result = idCourse != null ? idCourse.hashCode() : 0;
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (code != null ? code.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (year != null ? year.hashCode() : 0);
-        result = 31 * result + (remarks != null ? remarks.hashCode() : 0);
-        result = 31 * result + (grade != null ? grade.hashCode() : 0);
-        result = 31 * result + (user != null ? user.hashCode() : 0);
-        result = 31 * result + (exams != null ? exams.hashCode() : 0);
-        result = 31 * result + (users != null ? users.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Course{" +
-                "idCourse=" + idCourse +
-                ", description='" + description + '\'' +
-                ", code='" + code + '\'' +
-                ", status=" + status +
-                ", year='" + year + '\'' +
-                ", remarks='" + remarks + '\'' +
-                ", grade='" + grade + '\'' +
-                ", user=" + user +
-                ", exams=" + exams +
-                ", users=" + users +
-                '}';
-    }
 }

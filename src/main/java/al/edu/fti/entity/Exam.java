@@ -1,6 +1,7 @@
 package al.edu.fti.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -14,12 +15,12 @@ public class Exam {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "course_id")
-    private Exam exam;
+    private Course course;
 
-    @OneToMany(mappedBy="exam")
-    private Set<ExamQuestion> examQuestions;
+    @OneToMany(mappedBy="exam", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<ExamQuestion> examQuestions = new HashSet<ExamQuestion>();
 
     public Long getIdExam() {
         return idExam;
@@ -37,12 +38,20 @@ public class Exam {
         this.description = description;
     }
 
-    public Exam getExam() {
-        return exam;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setExam(Exam exam) {
-        this.exam = exam;
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public Set<ExamQuestion> getExamQuestions() {
+        return examQuestions;
+    }
+
+    public void setExamQuestions(Set<ExamQuestion> examQuestions) {
+        this.examQuestions = examQuestions;
     }
 
     @Override
@@ -50,11 +59,12 @@ public class Exam {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Exam exam1 = (Exam) o;
+        Exam exam = (Exam) o;
 
-        if (idExam != null ? !idExam.equals(exam1.idExam) : exam1.idExam != null) return false;
-        if (description != null ? !description.equals(exam1.description) : exam1.description != null) return false;
-        return exam != null ? exam.equals(exam1.exam) : exam1.exam == null;
+        if (idExam != null ? !idExam.equals(exam.idExam) : exam.idExam != null) return false;
+        if (description != null ? !description.equals(exam.description) : exam.description != null) return false;
+        if (course != null ? !course.equals(exam.course) : exam.course != null) return false;
+        return examQuestions != null ? examQuestions.equals(exam.examQuestions) : exam.examQuestions == null;
     }
 
     @Override
@@ -62,7 +72,8 @@ public class Exam {
         return "Exam{" +
                 "idExam=" + idExam +
                 ", description='" + description + '\'' +
-                ", exam=" + exam +
+                ", course=" + course +
+                ", examQuestions=" + examQuestions +
                 '}';
     }
 }

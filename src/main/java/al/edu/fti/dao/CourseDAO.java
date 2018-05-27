@@ -1,6 +1,7 @@
 package al.edu.fti.dao;
 
 import al.edu.fti.entity.Course;
+import al.edu.fti.entity.Exam;
 import al.edu.fti.enums.StatusEnum;
 import al.edu.fti.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,15 @@ public class CourseDAO implements ICourseDAO {
                             .setParameter("user", userService.getUserById(idLecturer))
                             .setParameter("status", StatusEnum.ACTIVE)
                             .getResultList();
+    }
+
+    @Override
+    public Course getCourseById(Long idCourse) {
+        return entityManager.find(Course.class, idCourse);
+    }
+
+    @Override
+    public Exam createUpdateExam(Exam exam) {
+        return entityManager.merge(exam);
     }
 }

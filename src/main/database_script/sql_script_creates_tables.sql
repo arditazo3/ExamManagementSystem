@@ -20,7 +20,7 @@ CREATE TABLE `course` (
 --
 
 INSERT INTO `course` (`id_course`, `description`, `code`, `status`, `year`, `remarks`, `lecturer_id`, `grade`) VALUES
-    (5, 'dsa', 'dsaa', 'ACTIVE', 'dsa', '', 1, '');
+    (6, 'test', 'test', 'ACTIVE', '2018', 'test', 22, 'Spring');
 
 -- --------------------------------------------------------
 
@@ -37,18 +37,25 @@ CREATE TABLE `course_student` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `exam_question`
+-- Table structure for table `exam`
 --
 
-CREATE TABLE `exam_question` (
+CREATE TABLE `exam` (
     `id_exam` int(11) NOT NULL,
-    `question` text,
-    `type_question_mandatory` tinyint(1) DEFAULT NULL,
-    `answer` tinyint(1) DEFAULT NULL,
-    `order` int(11) DEFAULT NULL,
-    `visibility` tinyint(1) DEFAULT NULL,
+    `description` varchar(250) DEFAULT NULL,
     `course_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `exam`
+--
+
+INSERT INTO `exam` (`id_exam`, `description`, `course_id`) VALUES
+    (1, 'Ardit', 6),
+    (2, '55', 6),
+    (3, '55', 6),
+    (4, 'te', 6),
+    (5, 'a', 6);
 
 -- --------------------------------------------------------
 
@@ -61,6 +68,22 @@ CREATE TABLE `exam_detail_result` (
     `answer` tinyint(1) DEFAULT NULL,
     `exam_question_id` int(11) DEFAULT NULL,
     `student_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exam_question`
+--
+
+CREATE TABLE `exam_question` (
+    `id_exam_question` int(11) NOT NULL,
+    `question` text,
+    `type_question_mandatory` tinyint(1) DEFAULT NULL,
+    `answer` tinyint(1) DEFAULT NULL,
+    `order_item` int(11) DEFAULT NULL,
+    `visibility` tinyint(1) DEFAULT NULL,
+    `exam_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -111,6 +134,13 @@ CREATE TABLE `lecturer_detail` (
     `email` varchar(250) DEFAULT NULL,
     `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `lecturer_detail`
+--
+
+INSERT INTO `lecturer_detail` (`id_lecturer_detail`, `lecturer_code`, `address`, `place_birthday`, `email`, `user_id`) VALUES
+    (15, 'ABY7CEGZ48', 'a', 'a', 'aa', 22);
 
 -- --------------------------------------------------------
 
@@ -181,7 +211,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `username`, `first_name`, `last_name`, `email`, `password`, `last_login_date`, `gender`, `date_deletion`, `date_update`, `date_creation`, `role_id`, `status`, `date_birthday`, `phone_number`) VALUES
-    (1, 'ardit', 'ardit', 'ardit', 'ardit', 'ardit', '2018-05-27 12:01:24', 'M', NULL, '2018-05-26 01:29:42', '2018-05-26 01:29:42', 1, 'ACTIVE', '2018-05-26 01:29:42', '123');
+    (1, 'ardit', 'ardit', 'ardit', 'ardit', 'ardit', '2018-05-27 12:49:33', 'M', NULL, '2018-05-26 01:29:42', '2018-05-26 01:29:42', 1, 'ACTIVE', '2018-05-26 01:29:42', '123'),
+    (22, 'aa.aa', 'aa', 'aa', 'aa', 'aa', '2018-05-27 18:48:44', 'Male', NULL, '2018-05-27 12:50:08', '2018-05-27 12:50:08', 2, 'ACTIVE', NULL, '123456');
 
 --
 -- Indexes for dumped tables
@@ -204,11 +235,11 @@ ALTER TABLE `course_student`
     ADD KEY `course_student_course_id_course_fk` (`course_id`);
 
 --
--- Indexes for table `exam_question`
+-- Indexes for table `exam`
 --
-ALTER TABLE `exam_question`
-    ADD PRIMARY KEY (id_exam_question),
-    ADD KEY `exam_course_id_course_fk` (`course_id`);
+ALTER TABLE `exam`
+    ADD PRIMARY KEY (`id_exam`),
+    ADD KEY `exam_course_course_id_course_fk` (`course_id`);
 
 --
 -- Indexes for table `exam_detail_result`
@@ -216,6 +247,13 @@ ALTER TABLE `exam_question`
 ALTER TABLE `exam_detail_result`
     ADD KEY `exam_detail_result_user_id_user_fk` (`student_id`),
     ADD KEY `exam_detail_result_exam_id_exam_fk` (`exam_question_id`);
+
+--
+-- Indexes for table `exam_question`
+--
+ALTER TABLE `exam_question`
+    ADD PRIMARY KEY (`id_exam_question`),
+    ADD KEY `exam_question_exam_id_exam_fk` (`exam_id`);
 
 --
 -- Indexes for table `exam_result`
@@ -262,7 +300,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-    MODIFY `id_course` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+    MODIFY `id_course` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `course_student`
@@ -271,10 +309,16 @@ ALTER TABLE `course_student`
     MODIFY `id_course_student` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `exam`
+--
+ALTER TABLE `exam`
+    MODIFY `id_exam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `exam_question`
 --
 ALTER TABLE `exam_question`
-    MODIFY id_exam_question int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `id_exam_question` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `exam_result`
@@ -286,7 +330,7 @@ ALTER TABLE `exam_result`
 -- AUTO_INCREMENT for table `lecturer_detail`
 --
 ALTER TABLE `lecturer_detail`
-    MODIFY `id_lecturer_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+    MODIFY `id_lecturer_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `role`
@@ -298,13 +342,13 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `student_detail`
 --
 ALTER TABLE `student_detail`
-    MODIFY `id_student_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+    MODIFY `id_student_detail` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-    MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT COMMENT 'The primary key of the table', AUTO_INCREMENT=22;
+    MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT COMMENT 'The primary key of the table', AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables
@@ -324,17 +368,23 @@ ALTER TABLE `course_student`
     ADD CONSTRAINT `course_student_user_id_user_fk` FOREIGN KEY (`student_id`) REFERENCES `user` (`id_user`);
 
 --
--- Constraints for table `exam_question`
+-- Constraints for table `exam`
 --
-ALTER TABLE `exam_question`
-    ADD CONSTRAINT `exam_course_id_course_fk` FOREIGN KEY (`course_id`) REFERENCES `course` (`id_course`);
+ALTER TABLE `exam`
+    ADD CONSTRAINT `exam_course_course_id_course_fk` FOREIGN KEY (`course_id`) REFERENCES `course` (`id_course`);
 
 --
 -- Constraints for table `exam_detail_result`
 --
 ALTER TABLE `exam_detail_result`
-    ADD CONSTRAINT `exam_detail_result_exam_id_exam_fk` FOREIGN KEY (`exam_question_id`) REFERENCES `exam_question` (id_exam_question),
+    ADD CONSTRAINT `exam_detail_result_exam_id_exam_fk` FOREIGN KEY (`exam_question_id`) REFERENCES `exam_question` (`id_exam_question`),
     ADD CONSTRAINT `exam_detail_result_user_id_user_fk` FOREIGN KEY (`student_id`) REFERENCES `user` (`id_user`);
+
+--
+-- Constraints for table `exam_question`
+--
+ALTER TABLE `exam_question`
+    ADD CONSTRAINT `exam_question_exam_id_exam_fk` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`id_exam`);
 
 --
 -- Constraints for table `exam_result`

@@ -11,7 +11,7 @@ new FormModel {
 				"autoscrolls": true
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
 					"$columnSpecs": "192, 361"
-					"$rowSpecs": "55, 33, 0"
+					"$rowSpecs": "55, 25, 25"
 					"$hGap": 5
 					"$vGap": 5
 					"$alignLeft": true
@@ -39,6 +39,19 @@ new FormModel {
 					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 						"gridx": 1
 						"gridy": 1
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "examTitleLbl"
+						"text": "* Exam title"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridy": 2
+						"hAlign": 4
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "examTitleTF"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridx": 1
+						"gridy": 2
 					} )
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
@@ -112,8 +125,9 @@ new FormModel {
 						"gridy": 1
 					} )
 					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "button2"
+						name: "saveExamBtn"
 						"text": "Save Exam"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "saveExamBtnActionPerformed", true ) )
 					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 						"gridx": 1
 						"gridy": 1
