@@ -8,6 +8,7 @@ import al.edu.fti.FtiApplication;
 import al.edu.fti.entity.Role;
 import al.edu.fti.entity.StudentDetail;
 import al.edu.fti.entity.User;
+import al.edu.fti.enums.StatusEnum;
 import al.edu.fti.service.IRoleService;
 import al.edu.fti.service.IUserService;
 import al.edu.fti.utils.StringGeneratorCode;
@@ -73,6 +74,8 @@ public class CreateStudent extends JPanel {
         String phoneNumber = phoneNumberTF.getText().trim();
         String address = addressTF.getText().trim();
         String placeBirth = placeBirthTF.getText().trim();
+        String fatherName = fatherNameTF.getText().trim();
+        String motherName = motherNameTF.getText().trim();
 
         String errorMessage = "Plese fill up the fields: ";
 
@@ -105,6 +108,8 @@ public class CreateStudent extends JPanel {
             studentDetail.setAddress(address);
             studentDetail.setPlaceBirthday(placeBirth);
             studentDetail.setEmail(email);
+            studentDetail.setFatherName(fatherName);
+            studentDetail.setMotherName(motherName);
 
             User userStudent = new User();
             userStudent.addStudentDetail(studentDetail);
@@ -115,6 +120,9 @@ public class CreateStudent extends JPanel {
             userStudent.setPassword(password);
             String gender = maleRBValue ? "Male" : (femaleRBValue ? "Female" : "");
             userStudent.setGender(gender);
+            userStudent.setStatus(StatusEnum.getStatus(status));
+            userStudent.setDateBirthday(dateBirth);
+            userStudent.setPhoneNumber(phoneNumber);
             userStudent.setDateUpdate(new Date());
             userStudent.setDateCreation(new Date());
             Role lecturerRole = roleService.getRoleById(3L);
@@ -367,8 +375,11 @@ public class CreateStudent extends JPanel {
             GridBagConstraints.WEST, GridBagConstraints.VERTICAL,
             new Insets(0, 0, 0, 0), 0, 0));
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
-    }
 
+        // My components
+        statusCB.addItem(StatusEnum.ACTIVE.toString());
+        statusCB.addItem(StatusEnum.DISABLED.toString());
+    }
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Ardit Azo
     private JLabel headerLbl;

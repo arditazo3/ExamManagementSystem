@@ -37,7 +37,7 @@ public class StudentDetail {
     @Column(name = "scholarship")
     private String scholarship;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 

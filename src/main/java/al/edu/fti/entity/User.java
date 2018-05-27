@@ -63,14 +63,14 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @OneToMany(mappedBy="user")
-    private Set<StudentDetail> studentDetails;
+    @OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<StudentDetail> studentDetails = new HashSet<StudentDetail>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<LecturerDetail> lecturerDetails = new HashSet<LecturerDetail>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Course> courses;
+    private Set<Course> courses = new HashSet<Course>();
 
     @ManyToMany(mappedBy = "users")
     private Set<Course> employees = new HashSet<Course>();

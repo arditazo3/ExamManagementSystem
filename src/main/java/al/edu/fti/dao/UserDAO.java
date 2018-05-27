@@ -3,6 +3,7 @@ package al.edu.fti.dao;
 import al.edu.fti.entity.Exam;
 import al.edu.fti.entity.User;
 import al.edu.fti.enums.StatusEnum;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -16,6 +17,13 @@ public class UserDAO implements IUserDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    private IRoleDAO roleDAO;
+
+    @Autowired
+    public void setRoleDAO(IRoleDAO roleDAO) {
+        this.roleDAO = roleDAO;
+    }
 
     @Override
     public User getUser(String username, String password) {
@@ -47,6 +55,35 @@ public class UserDAO implements IUserDAO {
     public User createStudent(User userStudent) {
 
         return entityManager.merge(userStudent);
+    }
+
+    @Override
+    public List<User> getAllLecturer() {
+
+        String queryAllLecturer = " select u " +
+                                  " from User u " +
+                                  " where u.role = :role and " +
+                                  " u.status = :status ";
+
+        return (List<User>) entityManager.createQuery(queryAllLecturer)
+                                        .setParameter("role", roleDAO.getRoleById(2L))
+                                        .setParameter("status", StatusEnum.ACTIVE)
+                                        .getResultList();
+
+    }
+
+    @Override
+    public List<User> getAllStudent() {
+
+        String queryAllLecturer = " select u " +
+                                  " from User u " +
+                                  " where u.role = :role and " +
+                                  " u.status = :status ";
+
+        return (List<User>) entityManager.createQuery(queryAllLecturer)
+                                        .setParameter("role", roleDAO.getRoleById(3L))
+                                        .setParameter("status", StatusEnum.ACTIVE)
+                                        .getResultList();
     }
 
     @Override

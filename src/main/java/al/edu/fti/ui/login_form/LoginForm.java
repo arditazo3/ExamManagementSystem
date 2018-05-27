@@ -106,6 +106,9 @@ public class LoginForm extends JFrame {
                 contentPanel.add(usernameLbl, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
                     GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
                     new Insets(0, 0, 5, 5), 0, 0));
+
+                //---- usernameTF ----
+                usernameTF.setText("ardit");
                 contentPanel.add(usernameTF, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 0), 0, 0));
@@ -115,6 +118,9 @@ public class LoginForm extends JFrame {
                 contentPanel.add(passwordLbl, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
                     GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
                     new Insets(0, 0, 5, 5), 0, 0));
+
+                //---- passwordPF ----
+                passwordPF.setText("ardit");
                 contentPanel.add(passwordPF, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 0), 0, 0));

@@ -6,6 +6,8 @@ package al.edu.fti.ui.dashboard;
 
 import al.edu.fti.entity.User;
 import al.edu.fti.ui.dashboard.adminPanels.CreateLecturer;
+import al.edu.fti.ui.dashboard.adminPanels.CreateStudent;
+import al.edu.fti.ui.dashboard.adminPanels.ViewLecturerList;
 import org.jdesktop.swingx.HorizontalLayout;
 import org.jdesktop.swingx.VerticalLayout;
 
@@ -27,12 +29,24 @@ public class DashboardFrame extends JFrame {
 
     private void createLecturerBtnActionPerformed(ActionEvent e) {
 
-        cardLayout.show(contentCPnl, "2");
+        cardLayout.show(contentCPnl, "createLecturer");
+    }
+
+    private void createStudentBtnActionPerformed(ActionEvent e) {
+
+        cardLayout.show(contentCPnl, "createStudent");
+    }
+
+    private void lecturerListBtnActionPerformed(ActionEvent e) {
+
+        cardLayout.show(contentCPnl, "viewLecturerList");
     }
 
     private void initComponents() {
 
         createLecturer = new CreateLecturer();
+        createStudent = new CreateStudent();
+        viewLecturerList = new ViewLecturerList();
 
         cardLayout = new CardLayout();
 
@@ -53,9 +67,9 @@ public class DashboardFrame extends JFrame {
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(new GridBagLayout());
-        ((GridBagLayout)contentPane.getLayout()).columnWidths = new int[] {12, 122, 620, 0};
-        ((GridBagLayout)contentPane.getLayout()).rowHeights = new int[] {32, 0, 0, 0};
-        ((GridBagLayout)contentPane.getLayout()).columnWeights = new double[] {0.0, 0.0, 0.0, 1.0E-4};
+        ((GridBagLayout)contentPane.getLayout()).columnWidths = new int[] {122, 700, 0};
+        ((GridBagLayout)contentPane.getLayout()).rowHeights = new int[] {37, 0, 0, 0};
+        ((GridBagLayout)contentPane.getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0E-4};
         ((GridBagLayout)contentPane.getLayout()).rowWeights = new double[] {0.0, 1.0, 0.0, 1.0E-4};
 
         //======== userInfoPnl ========
@@ -75,9 +89,9 @@ public class DashboardFrame extends JFrame {
             logOutBtn.setText("Log Out");
             userInfoPnl.add(logOutBtn);
         }
-        contentPane.add(userInfoPnl, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0,
+        contentPane.add(userInfoPnl, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
             GridBagConstraints.SOUTHEAST, GridBagConstraints.NONE,
-            new Insets(0, 0, 0, 0), 0, 0));
+            new Insets(0, 0, 5, 0), 0, 0));
 
         //======== sideMenuPnl ========
         {
@@ -85,6 +99,7 @@ public class DashboardFrame extends JFrame {
 
             //---- lecturerListBtn ----
             lecturerListBtn.setText("View Lecturer List");
+            lecturerListBtn.addActionListener(e -> lecturerListBtnActionPerformed(e));
             sideMenuPnl.add(lecturerListBtn);
 
             //---- studentListBtn ----
@@ -93,14 +108,12 @@ public class DashboardFrame extends JFrame {
 
             //---- createLecturerBtn ----
             createLecturerBtn.setText("Create Lecturer");
-            createLecturerBtn.addActionListener(e -> {
-			createLecturerBtnActionPerformed(e);
-			createLecturerBtnActionPerformed(e);
-		});
+            createLecturerBtn.addActionListener(e -> createLecturerBtnActionPerformed(e));
             sideMenuPnl.add(createLecturerBtn);
 
             //---- createStudentBtn ----
             createStudentBtn.setText("Create Student");
+            createStudentBtn.addActionListener(e -> createStudentBtnActionPerformed(e));
             sideMenuPnl.add(createStudentBtn);
 
             //---- button5 ----
@@ -111,18 +124,18 @@ public class DashboardFrame extends JFrame {
             button6.setText("text");
             sideMenuPnl.add(button6);
         }
-        contentPane.add(sideMenuPnl, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
+        contentPane.add(sideMenuPnl, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 0, 5), 0, 0));
+            new Insets(0, 0, 5, 5), 0, 0));
 
         //======== contentCPnl ========
         {
             contentCPnl.setPreferredSize(new Dimension(480, 450));
             contentCPnl.setLayout(new CardLayout());
         }
-        contentPane.add(contentCPnl, new GridBagConstraints(2, 1, 1, 1, 0.0, 0.0,
+        contentPane.add(contentCPnl, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 0, 0), 0, 0));
+            new Insets(0, 0, 5, 0), 0, 0));
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -136,8 +149,10 @@ public class DashboardFrame extends JFrame {
         JLabel labelTest = new JLabel("Test");
         panelTest.add(labelTest);
 
-        contentCPnl.add(createLecturer, "1");
-        contentCPnl.add(panelTest, "2");
+        contentCPnl.add(panelTest, "1");
+        contentCPnl.add(createLecturer, "createLecturer");
+        contentCPnl.add(createStudent, "createStudent");
+        contentCPnl.add(viewLecturerList, "viewLecturerList");
 
         cardLayout = (CardLayout)(contentCPnl.getLayout());
 
@@ -167,5 +182,7 @@ public class DashboardFrame extends JFrame {
     private CardLayout cardLayout;
 
     private CreateLecturer createLecturer;
+    private CreateStudent createStudent;
+    private ViewLecturerList viewLecturerList;
 
 }
