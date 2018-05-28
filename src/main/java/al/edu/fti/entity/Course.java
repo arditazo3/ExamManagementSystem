@@ -37,16 +37,16 @@ public class Course {
     @JoinColumn(name = "lecturer_id")
     private User user;
 
-    @OneToMany(mappedBy="course")
+    @OneToMany(mappedBy="course", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Exam> exams;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "course_student",
             joinColumns = { @JoinColumn(name = "course_id") },
             inverseJoinColumns = { @JoinColumn(name = "student_id") }
     )
-    Set<User> users = new HashSet<User>();
+    Set<User> usersRelatedToCourse = new HashSet<User>();
 
     public Course() {
     }
@@ -132,12 +132,12 @@ public class Course {
         this.exams = exams;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<User> getUsersRelatedToCourse() {
+        return usersRelatedToCourse;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setUsersRelatedToCourse(Set<User> usersRelatedToCourse) {
+        this.usersRelatedToCourse = usersRelatedToCourse;
     }
 
     @Override
@@ -156,7 +156,7 @@ public class Course {
         if (grade != null ? !grade.equals(course.grade) : course.grade != null) return false;
         if (user != null ? !user.equals(course.user) : course.user != null) return false;
         if (exams != null ? !exams.equals(course.exams) : course.exams != null) return false;
-        return users != null ? users.equals(course.users) : course.users == null;
+        return usersRelatedToCourse != null ? usersRelatedToCourse.equals(course.usersRelatedToCourse) : course.usersRelatedToCourse == null;
     }
 
 }

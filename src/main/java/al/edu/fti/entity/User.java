@@ -69,11 +69,16 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<LecturerDetail> lecturerDetails = new HashSet<LecturerDetail>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Course> courses = new HashSet<Course>();
 
-    @ManyToMany(mappedBy = "users")
-    private Set<Course> employees = new HashSet<Course>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "course_student",
+            inverseJoinColumns = { @JoinColumn(name = "course_id") },
+            joinColumns = { @JoinColumn(name = "student_id") }
+    )
+    private Set<Course> coursesRelatedToStudent = new HashSet<Course>();
 
     public User() {
     }
@@ -247,12 +252,12 @@ public class User {
         this.courses = courses;
     }
 
-    public Set<Course> getEmployees() {
-        return employees;
+    public Set<Course> getCoursesRelatedToStudent() {
+        return coursesRelatedToStudent;
     }
 
-    public void setEmployees(Set<Course> employees) {
-        this.employees = employees;
+    public void setCoursesRelatedToStudent(Set<Course> coursesRelatedToStudent) {
+        this.coursesRelatedToStudent = coursesRelatedToStudent;
     }
 
     @Override
@@ -283,7 +288,7 @@ public class User {
         if (lecturerDetails != null ? !lecturerDetails.equals(user.lecturerDetails) : user.lecturerDetails != null)
             return false;
         if (courses != null ? !courses.equals(user.courses) : user.courses != null) return false;
-        return employees != null ? employees.equals(user.employees) : user.employees == null;
+        return coursesRelatedToStudent != null ? coursesRelatedToStudent.equals(user.coursesRelatedToStudent) : user.coursesRelatedToStudent == null;
     }
 
 }

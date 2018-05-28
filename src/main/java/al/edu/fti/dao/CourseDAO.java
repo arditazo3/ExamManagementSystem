@@ -35,12 +35,14 @@ public class CourseDAO implements ICourseDAO {
     }
 
     @Override
-    public List<Course> getCourseByIdLecturer(Long idLecturer) {
+    public List<Course> getCourseByIdUser(Long idUser) {
 
-        String queryCourseByIdLecturer = " select c from Course c where c.user = :user and c.status = :status ";
+        String queryCourseByIdLecturer = " select c from Course c " +
+                " where c.user = :user and " +
+                " c.status = :status ";
 
         return entityManager.createQuery(queryCourseByIdLecturer)
-                            .setParameter("user", userService.getUserById(idLecturer))
+                            .setParameter("user", userService.getUserById(idUser))
                             .setParameter("status", StatusEnum.ACTIVE)
                             .getResultList();
     }
@@ -92,5 +94,10 @@ public class CourseDAO implements ICourseDAO {
         return entityManager.createNativeQuery(queryGetIdStudentByIdCourse)
                 .setParameter("course_id", idCourse)
                 .getResultList();
+    }
+
+    @Override
+    public Exam getExamById(Long idExam) {
+        return entityManager.find(Exam.class, idExam);
     }
 }

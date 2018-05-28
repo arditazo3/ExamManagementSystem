@@ -1,0 +1,120 @@
+JFDML JFormDesigner: "6.0.3.0.150" Java: "1.8.0_152-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+			name: "this"
+			"autoscrolls": true
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+				"$columnSpecs": "192, 361"
+				"$rowSpecs": "55, 25"
+				"$hGap": 5
+				"$vGap": 5
+				"$alignLeft": true
+				"$alignTop": true
+			} ) {
+				name: "panel2"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "courseLb"
+					"text": "Course: "
+					"font": new java.awt.Font( "Tahoma", 0, 14 )
+					"horizontalTextPosition": 0
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridwidth": 2
+					"hAlign": 0
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "examTitleLbl"
+					"text": "Exam title"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 1
+					"hAlign": 4
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "examTitleTF"
+					"enabled": false
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 1
+					"gridy": 1
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
+				name: "containerQuestionsPnl"
+				"autoscrolls": true
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+					"$columnSpecs": "285, 397"
+					"$rowSpecs": "0, 28, 33"
+					"$hGap": 3
+					"$vGap": 3
+					"$alignLeft": true
+					"$alignTop": true
+				} ) {
+					name: "gridQuestionPnl"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "questionNoLbl"
+						"text": "The Question"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridwidth": 2
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "questionNoTF"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridwidth": 2
+						"gridy": 1
+					} )
+					add( new FormComponent( "javax.swing.JRadioButton" ) {
+						name: "trueRB"
+						"text": "True"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridy": 2
+						"hAlign": 4
+					} )
+					add( new FormComponent( "javax.swing.JRadioButton" ) {
+						name: "falseRB"
+						"text": "False"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridx": 1
+						"gridy": 2
+					} )
+				} )
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+				"$columnSpecs": "687"
+				"$hGap": 5
+				"$vGap": 5
+				"$alignLeft": true
+				"$alignTop": true
+			} ) {
+				name: "addQuestionPnl"
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+				"$columnSpecs": "335, 342"
+				"$rowSpecs": "5, 0"
+				"$hGap": 10
+				"$vGap": 10
+				"$alignLeft": true
+				"$alignTop": true
+			} ) {
+				name: "panel3"
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "button3"
+					"text": "Cancel"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 1
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "finishExamBtn"
+					"text": "Finish the Exam"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "finishExamBtnActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 1
+					"gridy": 1
+				} )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 700, 257 )
+		} )
+	}
+}

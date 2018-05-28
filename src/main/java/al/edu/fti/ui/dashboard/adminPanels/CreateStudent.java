@@ -63,7 +63,7 @@ public class CreateStudent extends JPanel {
 
         phoneNumberTF.setText(user.getPhoneNumber());
         StudentDetail studentDetail = null;
-        if(user.getStudentDetails() != null && user.getStudentDetails().size() >0) {
+        if(user.getStudentDetails() != null && user.getStudentDetails().size() > 0) {
             for (StudentDetail studentDetail1Set : user.getStudentDetails()) {
                 studentDetail = studentDetail1Set;
                 this.studentDetailInitial = studentDetail;

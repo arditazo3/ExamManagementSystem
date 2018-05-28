@@ -108,7 +108,7 @@ public class LoginForm extends JFrame {
                     new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- usernameTF ----
-                usernameTF.setText("aa.aa");
+                usernameTF.setText("bb.bb");
                 contentPanel.add(usernameTF, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 0), 0, 0));
@@ -120,7 +120,7 @@ public class LoginForm extends JFrame {
                     new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- passwordPF ----
-                passwordPF.setText("aa");
+                passwordPF.setText("bb");
                 contentPanel.add(passwordPF, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 0), 0, 0));

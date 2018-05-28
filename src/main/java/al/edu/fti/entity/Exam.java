@@ -20,6 +20,7 @@ public class Exam {
     private Course course;
 
     @OneToMany(mappedBy="exam", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OrderColumn(name = "order_item")
     private Set<ExamQuestion> examQuestions = new HashSet<ExamQuestion>();
 
     public Long getIdExam() {

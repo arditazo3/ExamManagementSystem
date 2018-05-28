@@ -26,9 +26,9 @@ public class CourseService implements ICourseService {
     }
 
     @Override
-    public List<Course> getCourseByIdLecturer(Long idLecturer) {
+    public List<Course> getCourseByIdUser(Long idUser) {
 
-        return courseDAO.getCourseByIdLecturer(idLecturer);
+        return courseDAO.getCourseByIdUser(idUser);
     }
 
     @Override
@@ -45,11 +45,19 @@ public class CourseService implements ICourseService {
 
     @Override
     public void createAssociationCourseStudent(Map<String, List<String>> listAssociatedCourseStudent) {
+
         courseDAO.createAssociationCourseStudent(listAssociatedCourseStudent);
     }
 
     @Override
     public List<Integer> getListIdStudentByIdCourse(Long idCourse) {
+
         return courseDAO.getListIdStudentByIdCourse(idCourse);
+    }
+
+    @Override
+    public Exam getExamById(Long idExam) {
+
+        return courseDAO.getExamById(idExam);
     }
 }

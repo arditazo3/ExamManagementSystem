@@ -25,9 +25,10 @@ public class ViewLecturerList extends JPanel {
     private IUserService userService = FtiApplication.userService;
 
     public ViewLecturerList(JPanel contentCPnl) {
-        initComponents();
+
         this.contentCPnl = contentCPnl;
         this.cardLayout = cardLayout;
+        initComponents();
     }
 
     private void lecturerTblMouseClicked(MouseEvent e) {
@@ -93,7 +94,7 @@ public class ViewLecturerList extends JPanel {
                 }
             ) {
                 boolean[] columnEditable = new boolean[] {
-                    true, false, true, true, true, true, true, true
+                    false, false, true, true, true, true, true, true
                 };
                 @Override
                 public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -109,7 +110,7 @@ public class ViewLecturerList extends JPanel {
         add(scrollPane1, "card1");
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
 
-
+        // My component
         List<User> listArrayLecturer = userService.getAllLecturer();
 
         Object[][] tableData = new Object[listArrayLecturer.size()][7];

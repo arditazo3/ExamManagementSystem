@@ -88,7 +88,7 @@ public class ViewStudentList extends JPanel {
                 }
             ) {
                 boolean[] columnEditable = new boolean[] {
-                    true, false, true, true, true, true, true, true
+                    false, false, true, true, true, true, true, true
                 };
                 @Override
                 public boolean isCellEditable(int rowIndex, int columnIndex) {

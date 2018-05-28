@@ -73,10 +73,7 @@ public class CreateExamQuestions extends JPanel {
 
 
         this.containerQuestionsPnl.add(newGridQuestionPnl);
-      //  this.containerQuestionsPnl.add(new Button("test"));
         this.containerQuestionsPnl.revalidate();
-  //      jFrameAfterCreation.validate();
-
     }
 
     private void saveExamBtnActionPerformed(ActionEvent e) {
