@@ -8,7 +8,7 @@ new FormModel {
 			"autoscrolls": true
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
 				"$columnSpecs": "192, 361"
-				"$rowSpecs": "55, 25"
+				"$rowSpecs": "55, 25, 8"
 				"$hGap": 5
 				"$vGap": 5
 				"$alignLeft": true
@@ -62,8 +62,9 @@ new FormModel {
 			} ) {
 				name: "panel3"
 				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "button3"
+					name: "cancelExamBtn"
 					"text": "Cancel"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "cancelExamBtnActionPerformed", true ) )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 					"gridy": 1
 				} )

@@ -29,9 +29,10 @@ public class ViewMyExams extends JPanel {
 
     private ICourseService courseService = FtiApplication.courseService;
 
-    public ViewMyExams(JPanel contentCPnl, User userLogIn) {
+    public ViewMyExams(JPanel contentCPnl, CardLayout cardLayout, User userLogIn) {
 
         this.contentCPnl = contentCPnl;
+        this.cardLayout = cardLayout;
         this.userInitial = userLogIn;
         initComponents();
     }
@@ -174,7 +175,7 @@ public class ViewMyExams extends JPanel {
                     }
 
                     if(!finishedExam) {
-                        contentCPnl.add(new StartExam(contentCPnl, courseToStart, examToStart, userInitial), "startExam");
+                        contentCPnl.add(new StartExam(contentCPnl, courseToStart, examToStart, userInitial, cardLayout), "startExam");
                         cardLayout.show(contentCPnl, "startExam");
                     }
                 }

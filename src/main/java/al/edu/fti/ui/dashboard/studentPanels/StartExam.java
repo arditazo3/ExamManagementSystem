@@ -24,9 +24,10 @@ public class StartExam extends JPanel {
 
     private ICourseService courseService = FtiApplication.courseService;
 
-    public StartExam(JPanel contentCPnl, Course courseToStart, Exam examToStart, User user) {
+    public StartExam(JPanel contentCPnl, Course courseToStart, Exam examToStart, User user,  CardLayout cardLayout) {
         this.userInitial = user;
         this.contentCPnl = contentCPnl;
+        this.cardLayout = cardLayout;
         this.courseInitial = courseToStart;
         this.examInitial = examToStart;
         initComponents();
@@ -99,8 +100,28 @@ public class StartExam extends JPanel {
 
         } else {
 
+            Object[] options = {"OK"};
+            int input = JOptionPane.showOptionDialog(null,
+                    "Please, fill in all questions","",
+                    JOptionPane.PLAIN_MESSAGE,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[0]);
+
+            if(input == JOptionPane.OK_OPTION)
+            {
+                // do something
+            }
+
         }
 
+    }
+
+    private void cancelExamBtnActionPerformed(ActionEvent e) {
+
+        contentCPnl.add(new ViewMyExams(contentCPnl, cardLayout, userInitial), "viewMyExams");
+        cardLayout.show(contentCPnl, "viewMyExams");
     }
 
     private void initComponents() {
@@ -113,7 +134,7 @@ public class StartExam extends JPanel {
         containerQuestionsPnl = new JPanel();
         addQuestionPnl = new JPanel();
         panel3 = new JPanel();
-        button3 = new JButton();
+        cancelExamBtn = new JButton();
         finishExamBtn = new JButton();
 
         //======== this ========
@@ -132,9 +153,9 @@ public class StartExam extends JPanel {
         {
             panel2.setLayout(new GridBagLayout());
             ((GridBagLayout)panel2.getLayout()).columnWidths = new int[] {197, 361, 0};
-            ((GridBagLayout)panel2.getLayout()).rowHeights = new int[] {60, 25, 0};
+            ((GridBagLayout)panel2.getLayout()).rowHeights = new int[] {60, 30, 8, 0};
             ((GridBagLayout)panel2.getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0E-4};
-            ((GridBagLayout)panel2.getLayout()).rowWeights = new double[] {0.0, 0.0, 1.0E-4};
+            ((GridBagLayout)panel2.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 1.0E-4};
 
             //---- courseLb ----
             courseLb.setText("Course: ");
@@ -148,13 +169,13 @@ public class StartExam extends JPanel {
             examTitleLbl.setText("Exam title");
             panel2.add(examTitleLbl, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
-                new Insets(0, 0, 0, 5), 0, 0));
+                new Insets(0, 0, 5, 5), 0, 0));
 
             //---- examTitleTF ----
             examTitleTF.setEditable(false);
             panel2.add(examTitleTF, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                new Insets(0, 0, 0, 0), 0, 0));
+                new Insets(0, 0, 5, 0), 0, 0));
         }
         add(panel2);
 
@@ -183,9 +204,10 @@ public class StartExam extends JPanel {
             ((GridBagLayout)panel3.getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0E-4};
             ((GridBagLayout)panel3.getLayout()).rowWeights = new double[] {0.0, 0.0, 1.0E-4};
 
-            //---- button3 ----
-            button3.setText("Cancel");
-            panel3.add(button3, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
+            //---- cancelExamBtn ----
+            cancelExamBtn.setText("Cancel");
+            cancelExamBtn.addActionListener(e -> cancelExamBtnActionPerformed(e));
+            panel3.add(cancelExamBtn, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(0, 0, 0, 10), 0, 0));
 
@@ -208,6 +230,8 @@ public class StartExam extends JPanel {
         add(containerQuestionsPnlScrollPnl);
 
         add(panel3);
+
+        courseLb.setText(courseLb.getText() + " " + courseInitial.getDescription());
 
         javax.swing.border.CompoundBorder compoundBorder = (CompoundBorder) getBorder();
         javax.swing.border.TitledBorder titledBorder = (TitledBorder) compoundBorder.getOutsideBorder();
@@ -278,12 +302,13 @@ public class StartExam extends JPanel {
     private JPanel containerQuestionsPnl;
     private JPanel addQuestionPnl;
     private JPanel panel3;
-    private JButton button3;
+    private JButton cancelExamBtn;
     private JButton finishExamBtn;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     // My component
     private JPanel contentCPnl;
+    private CardLayout cardLayout;
     Course courseInitial;
     Exam examInitial;
     User userInitial;

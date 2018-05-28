@@ -108,7 +108,7 @@ public class DashboardFrame extends JFrame {
 
     private void myExamsBtnActionPerformed(ActionEvent e) {
 
-        contentCPnl.add(new ViewMyExams(contentCPnl, userLogIn), "viewMyExams");
+        contentCPnl.add(new ViewMyExams(contentCPnl, cardLayout, userLogIn), "viewMyExams");
         cardLayout.show(contentCPnl, "viewMyExams");
     }
 
@@ -303,7 +303,7 @@ public class DashboardFrame extends JFrame {
             myProfileBtn.setVisible(true);
             myExamsBtn.setVisible(true);
 
-            contentCPnl.add(new ViewMyExams(contentCPnl, userLogIn), "viewMyExams");
+            contentCPnl.add(new ViewMyExams(contentCPnl, cardLayout, userLogIn), "viewMyExams");
             cardLayout.show(contentCPnl, "viewMyExams");
 
         }
