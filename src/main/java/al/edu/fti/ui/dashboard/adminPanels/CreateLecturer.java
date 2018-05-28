@@ -15,6 +15,8 @@ import al.edu.fti.utils.StringGeneratorCode;
 import org.jdesktop.swingx.HorizontalLayout;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
@@ -410,6 +412,11 @@ public class CreateLecturer extends JPanel {
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
 
         // My components
+
+        javax.swing.border.CompoundBorder compoundBorder = (CompoundBorder) getBorder();
+        javax.swing.border.TitledBorder titledBorder = (TitledBorder) compoundBorder.getOutsideBorder();
+        titledBorder.setTitle("");
+
         statusCB.addItem(StatusEnum.ACTIVE.toString());
         statusCB.addItem(StatusEnum.DISABLED.toString());
     }

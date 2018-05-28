@@ -11,7 +11,10 @@ import al.edu.fti.ui.dashboard.DashboardFrame;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Date;
@@ -56,7 +59,7 @@ public class LoginForm extends JFrame {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Ardit Azo
+        // Generated using JFormDesigner Evaluation license - Lorem
         dialogPane = new JPanel();
         contentPanel = new JPanel();
         mainLbl = new JLabel();
@@ -148,10 +151,15 @@ public class LoginForm extends JFrame {
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
+
+        javax.swing.border.CompoundBorder compoundBorder = (CompoundBorder) dialogPane.getBorder();
+        javax.swing.border.TitledBorder titledBorder = (TitledBorder) compoundBorder.getOutsideBorder();
+        titledBorder.setTitle("");
+
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Ardit Azo
+    // Generated using JFormDesigner Evaluation license - Lorem
     private JPanel dialogPane;
     private JPanel contentPanel;
     private JLabel mainLbl;

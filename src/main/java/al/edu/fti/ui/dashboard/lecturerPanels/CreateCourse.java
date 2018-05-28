@@ -11,6 +11,8 @@ import al.edu.fti.enums.StatusEnum;
 import al.edu.fti.service.ICourseService;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -223,6 +225,11 @@ public class CreateCourse extends JPanel {
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
 
         // My components
+
+        javax.swing.border.CompoundBorder compoundBorder = (CompoundBorder) getBorder();
+        javax.swing.border.TitledBorder titledBorder = (TitledBorder) compoundBorder.getOutsideBorder();
+        titledBorder.setTitle("");
+
         statusCB.addItem(StatusEnum.ACTIVE.toString());
         statusCB.addItem(StatusEnum.DISABLED.toString());
     }

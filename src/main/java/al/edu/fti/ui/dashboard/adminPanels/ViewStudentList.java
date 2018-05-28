@@ -9,6 +9,8 @@ import al.edu.fti.entity.User;
 import al.edu.fti.service.IUserService;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -103,6 +105,13 @@ public class ViewStudentList extends JPanel {
         }
         add(scrollPane1, "card1");
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
+
+        // My component
+
+        javax.swing.border.CompoundBorder compoundBorder = (CompoundBorder) getBorder();
+        javax.swing.border.TitledBorder titledBorder = (TitledBorder) compoundBorder.getOutsideBorder();
+        titledBorder.setTitle("");
+
 
         List<User> listArrayLecturer = userService.getAllStudent();
 

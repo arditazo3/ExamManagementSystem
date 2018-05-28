@@ -12,6 +12,8 @@ import al.edu.fti.entity.User;
 import al.edu.fti.service.ICourseService;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -111,6 +113,11 @@ public class ViewMyExams extends JPanel {
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
 
         // My component
+
+        javax.swing.border.CompoundBorder compoundBorder = (CompoundBorder) getBorder();
+        javax.swing.border.TitledBorder titledBorder = (TitledBorder) compoundBorder.getOutsideBorder();
+        titledBorder.setTitle("");
+
         List<Course> listMyCourse = new ArrayList<Course>(userInitial.getCoursesRelatedToStudent());
 
         if (listMyCourse == null) {

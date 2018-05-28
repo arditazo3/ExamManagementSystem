@@ -14,6 +14,8 @@ import al.edu.fti.utils.RenderComboBox;
 import org.jdesktop.swingx.VerticalLayout;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
@@ -302,6 +304,11 @@ public class CreateExamQuestions extends JPanel {
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
 
         // My components
+
+        javax.swing.border.CompoundBorder compoundBorder = (CompoundBorder) getBorder();
+        javax.swing.border.TitledBorder titledBorder = (TitledBorder) compoundBorder.getOutsideBorder();
+        titledBorder.setTitle("");
+
         List<Concept> listConcepts = new ArrayList<Concept>();
         for (Course course : listCourse) {
             listConcepts.add(new Concept(course.getDescription(), String.valueOf(course.getIdCourse())));

@@ -17,10 +17,13 @@ import al.edu.fti.ui.dashboard.lecturerPanels.AssociateCourseToStudent;
 import al.edu.fti.ui.dashboard.lecturerPanels.CreateCourse;
 import al.edu.fti.ui.dashboard.lecturerPanels.CreateExamQuestions;
 import al.edu.fti.ui.dashboard.studentPanels.ViewMyExams;
+import al.edu.fti.ui.login_form.LoginForm;
 import org.jdesktop.swingx.HorizontalLayout;
 import org.jdesktop.swingx.VerticalLayout;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
@@ -109,12 +112,24 @@ public class DashboardFrame extends JFrame {
         cardLayout.show(contentCPnl, "viewMyExams");
     }
 
+    private void logOutBtnActionPerformed(ActionEvent e) {
+
+
+        this.dispose();
+
+        LoginForm loginForm = new LoginForm();
+        loginForm.setTitle("Exam Management System");
+        loginForm.setVisible(true);
+        loginForm.setResizable(false);
+        loginForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
     private void initComponents() {
 
         cardLayout = new CardLayout();
 
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Ardit Azo
+        // Generated using JFormDesigner Evaluation license - Lorem
         userInfoPnl = new JPanel();
         userInfoLbl = new JLabel();
         logOutBtn = new JButton();
@@ -153,6 +168,7 @@ public class DashboardFrame extends JFrame {
 
             //---- logOutBtn ----
             logOutBtn.setText("Log Out");
+            logOutBtn.addActionListener(e -> logOutBtnActionPerformed(e));
             userInfoPnl.add(logOutBtn);
         }
         contentPane.add(userInfoPnl, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
@@ -232,6 +248,10 @@ public class DashboardFrame extends JFrame {
 
         // My components modify
 
+        javax.swing.border.CompoundBorder compoundBorder = (CompoundBorder) userInfoPnl.getBorder();
+        javax.swing.border.TitledBorder titledBorder = (TitledBorder) compoundBorder.getOutsideBorder();
+        titledBorder.setTitle("");
+
         createLecturer = new CreateLecturer(null);
         createStudent = new CreateStudent(null);
         viewLecturerList = new ViewLecturerList(contentCPnl);
@@ -259,7 +279,7 @@ public class DashboardFrame extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Ardit Azo
+    // Generated using JFormDesigner Evaluation license - Lorem
     private JPanel userInfoPnl;
     private JLabel userInfoLbl;
     private JButton logOutBtn;

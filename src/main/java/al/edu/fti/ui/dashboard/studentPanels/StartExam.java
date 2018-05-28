@@ -10,6 +10,8 @@ import al.edu.fti.service.ICourseService;
 import org.jdesktop.swingx.VerticalLayout;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.*;
@@ -200,6 +202,11 @@ public class StartExam extends JPanel {
         examTitleTF.setText(examInitial.getDescription());
 
         // My component
+
+        javax.swing.border.CompoundBorder compoundBorder = (CompoundBorder) getBorder();
+        javax.swing.border.TitledBorder titledBorder = (TitledBorder) compoundBorder.getOutsideBorder();
+        titledBorder.setTitle("");
+
         examQuestionList = new ArrayList<ExamQuestion>(examInitial.getExamQuestions());
 
         Collections.sort(examQuestionList, new Comparator<ExamQuestion>() {
