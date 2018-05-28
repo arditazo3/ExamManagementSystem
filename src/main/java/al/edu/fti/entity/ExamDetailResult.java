@@ -13,9 +13,17 @@ public class ExamDetailResult {
     @Column(name = "answer")
     private Boolean answer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "exam_question_id")
     private ExamQuestion examQuestion;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn (name = "student_id")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn (name = "exam_id")
+    private Exam exam;
 
     public Long getIdExamDetailResult() {
         return idExamDetailResult;
@@ -41,6 +49,22 @@ public class ExamDetailResult {
         this.examQuestion = examQuestion;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Exam getExam() {
+        return exam;
+    }
+
+    public void setExam(Exam exam) {
+        this.exam = exam;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,15 +75,8 @@ public class ExamDetailResult {
         if (idExamDetailResult != null ? !idExamDetailResult.equals(that.idExamDetailResult) : that.idExamDetailResult != null)
             return false;
         if (answer != null ? !answer.equals(that.answer) : that.answer != null) return false;
-        return examQuestion != null ? examQuestion.equals(that.examQuestion) : that.examQuestion == null;
+        if (examQuestion != null ? !examQuestion.equals(that.examQuestion) : that.examQuestion != null) return false;
+        return user != null ? user.equals(that.user) : that.user == null;
     }
 
-    @Override
-    public String toString() {
-        return "ExamDetailResult{" +
-                "idExamDetailResult=" + idExamDetailResult +
-                ", answer=" + answer +
-                ", examQuestion=" + examQuestion +
-                '}';
-    }
 }

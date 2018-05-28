@@ -32,10 +32,6 @@ public class CreateExamQuestions extends JPanel {
         initComponents();
     }
 
-    private void createNewCourseBtnActionPerformed(ActionEvent e) {
-        // TODO add your code here
-    }
-
     private void addQuestionBtnActionPerformed(ActionEvent e) {
 
         JPanel newGridQuestionPnl = new JPanel();

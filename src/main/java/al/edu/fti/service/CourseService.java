@@ -3,6 +3,7 @@ package al.edu.fti.service;
 import al.edu.fti.dao.ICourseDAO;
 import al.edu.fti.entity.Course;
 import al.edu.fti.entity.Exam;
+import al.edu.fti.entity.ExamDetailResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,5 +60,10 @@ public class CourseService implements ICourseService {
     public Exam getExamById(Long idExam) {
 
         return courseDAO.getExamById(idExam);
+    }
+
+    @Override
+    public ExamDetailResult createUpdateExamDetailResult(ExamDetailResult examDetailResult) {
+        return courseDAO.createUpdateExamDetailResult(examDetailResult);
     }
 }

@@ -72,6 +72,9 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Course> courses = new HashSet<Course>();
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<ExamDetailResult> examDetailResults = new HashSet<ExamDetailResult>();
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "course_student",
@@ -260,6 +263,14 @@ public class User {
         this.coursesRelatedToStudent = coursesRelatedToStudent;
     }
 
+    public Set<ExamDetailResult> getExamDetailResults() {
+        return examDetailResults;
+    }
+
+    public void setExamDetailResults(Set<ExamDetailResult> examDetailResults) {
+        this.examDetailResults = examDetailResults;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -279,7 +290,7 @@ public class User {
         if (dateDeletion != null ? !dateDeletion.equals(user.dateDeletion) : user.dateDeletion != null) return false;
         if (dateUpdate != null ? !dateUpdate.equals(user.dateUpdate) : user.dateUpdate != null) return false;
         if (dateCreation != null ? !dateCreation.equals(user.dateCreation) : user.dateCreation != null) return false;
-        if (status != null ? !status.equals(user.status) : user.status != null) return false;
+        if (status != user.status) return false;
         if (dateBirthday != null ? !dateBirthday.equals(user.dateBirthday) : user.dateBirthday != null) return false;
         if (phoneNumber != null ? !phoneNumber.equals(user.phoneNumber) : user.phoneNumber != null) return false;
         if (role != null ? !role.equals(user.role) : user.role != null) return false;
@@ -288,7 +299,10 @@ public class User {
         if (lecturerDetails != null ? !lecturerDetails.equals(user.lecturerDetails) : user.lecturerDetails != null)
             return false;
         if (courses != null ? !courses.equals(user.courses) : user.courses != null) return false;
+        if (examDetailResults != null ? !examDetailResults.equals(user.examDetailResults) : user.examDetailResults != null)
+            return false;
         return coursesRelatedToStudent != null ? coursesRelatedToStudent.equals(user.coursesRelatedToStudent) : user.coursesRelatedToStudent == null;
     }
+
 
 }

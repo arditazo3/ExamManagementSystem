@@ -2,6 +2,7 @@ package al.edu.fti.dao;
 
 import al.edu.fti.entity.Course;
 import al.edu.fti.entity.Exam;
+import al.edu.fti.entity.ExamDetailResult;
 import al.edu.fti.enums.StatusEnum;
 import al.edu.fti.service.IUserService;
 import al.edu.fti.utils.CourseStudent;
@@ -99,5 +100,10 @@ public class CourseDAO implements ICourseDAO {
     @Override
     public Exam getExamById(Long idExam) {
         return entityManager.find(Exam.class, idExam);
+    }
+
+    @Override
+    public ExamDetailResult createUpdateExamDetailResult(ExamDetailResult examDetailResult) {
+        return entityManager.merge(examDetailResult);
     }
 }

@@ -2,6 +2,7 @@ package al.edu.fti.service;
 
 import al.edu.fti.entity.Course;
 import al.edu.fti.entity.Exam;
+import al.edu.fti.entity.ExamDetailResult;
 
 import java.util.List;
 import java.util.Map;
@@ -17,4 +18,5 @@ public interface ICourseService {
     List<Integer> getListIdStudentByIdCourse(Long idCourse);
 
     Exam getExamById(Long idExam);
+    ExamDetailResult createUpdateExamDetailResult(ExamDetailResult examDetailResult);
 }

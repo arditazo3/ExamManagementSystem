@@ -68,11 +68,30 @@ INSERT INTO `exam` (`id_exam`, `description`, `course_id`) VALUES
 --
 
 CREATE TABLE `exam_detail_result` (
-    `id_exam_detail_result` int(11) DEFAULT NULL,
+    `id_exam_detail_result` int(11) NOT NULL,
     `answer` tinyint(1) DEFAULT NULL,
     `exam_question_id` int(11) DEFAULT NULL,
-    `student_id` int(11) DEFAULT NULL
+    `student_id` int(11) DEFAULT NULL,
+    `exam_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `exam_detail_result`
+--
+
+INSERT INTO `exam_detail_result` (`id_exam_detail_result`, `answer`, `exam_question_id`, `student_id`, `exam_id`) VALUES
+    (1, 1, 12, 24, NULL),
+    (2, 1, 10, 24, NULL),
+    (3, 1, 9, 24, NULL),
+    (4, 1, 11, 24, NULL),
+    (5, 0, 12, 24, 12),
+    (6, 0, 10, 24, 12),
+    (7, 0, 9, 24, 12),
+    (8, 0, 11, 24, 12),
+    (9, 1, 6, 24, 11),
+    (10, 0, 7, 24, 11),
+    (11, 1, 5, 24, 11),
+    (12, 0, 8, 24, 11);
 
 -- --------------------------------------------------------
 
@@ -238,7 +257,7 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id_user`, `username`, `first_name`, `last_name`, `email`, `password`, `last_login_date`, `gender`, `date_deletion`, `date_update`, `date_creation`, `role_id`, `status`, `date_birthday`, `phone_number`) VALUES
     (1, 'ardit', 'ardit', 'ardit', 'ardit', 'ardit', '2018-05-27 12:49:33', 'M', NULL, '2018-05-26 01:29:42', '2018-05-26 01:29:42', 1, 'ACTIVE', '2018-05-26 01:29:42', '123'),
     (22, 'aa.aa', 'aa', 'aa', 'aa', 'aa', '2018-05-28 00:57:33', 'Male', NULL, '2018-05-27 12:50:08', '2018-05-27 12:50:08', 2, 'ACTIVE', NULL, '123456'),
-    (24, 'bb.bb', 'bb', 'bb', 'bb', 'bb', '2018-05-28 01:50:36', '', NULL, '2018-05-28 00:57:55', '2018-05-28 00:57:55', 3, 'ACTIVE', '1990-11-11 00:00:00', '123');
+    (24, 'bb.bb', 'bb', 'bb', 'bb', 'bb', '2018-05-28 02:58:09', '', NULL, '2018-05-28 00:57:55', '2018-05-28 00:57:55', 3, 'ACTIVE', '1990-11-11 00:00:00', '123');
 
 --
 -- Indexes for dumped tables
@@ -271,8 +290,10 @@ ALTER TABLE `exam`
 -- Indexes for table `exam_detail_result`
 --
 ALTER TABLE `exam_detail_result`
+    ADD PRIMARY KEY (`id_exam_detail_result`),
     ADD KEY `exam_detail_result_user_id_user_fk` (`student_id`),
-    ADD KEY `exam_detail_result_exam_id_exam_fk` (`exam_question_id`);
+    ADD KEY `exam_detail_result_exam_id_exam_fk` (`exam_question_id`),
+    ADD KEY `exam_detail_result_exam_id_exam_exam_fk` (`exam_id`);
 
 --
 -- Indexes for table `exam_question`
@@ -341,6 +362,12 @@ ALTER TABLE `exam`
     MODIFY `id_exam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT for table `exam_detail_result`
+--
+ALTER TABLE `exam_detail_result`
+    MODIFY `id_exam_detail_result` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT for table `exam_question`
 --
 ALTER TABLE `exam_question`
@@ -403,6 +430,7 @@ ALTER TABLE `exam`
 -- Constraints for table `exam_detail_result`
 --
 ALTER TABLE `exam_detail_result`
+    ADD CONSTRAINT `exam_detail_result_exam_id_exam_exam_fk` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`id_exam`),
     ADD CONSTRAINT `exam_detail_result_exam_id_exam_fk` FOREIGN KEY (`exam_question_id`) REFERENCES `exam_question` (`id_exam_question`),
     ADD CONSTRAINT `exam_detail_result_user_id_user_fk` FOREIGN KEY (`student_id`) REFERENCES `user` (`id_user`);
 

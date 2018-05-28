@@ -33,7 +33,7 @@ new FormModel {
 				} )
 				add( new FormComponent( "javax.swing.JTextField" ) {
 					name: "examTitleTF"
-					"editable": false
+					"enabled": false
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 					"gridx": 1
 					"gridy": 1
@@ -42,6 +42,42 @@ new FormModel {
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
 				name: "containerQuestionsPnl"
 				"autoscrolls": true
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+					"$columnSpecs": "285, 397"
+					"$rowSpecs": "0, 28, 33"
+					"$hGap": 3
+					"$vGap": 3
+					"$alignLeft": true
+					"$alignTop": true
+				} ) {
+					name: "gridQuestionPnl"
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "questionNoLbl"
+						"text": "The Question"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridwidth": 2
+					} )
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "questionNoTF"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridwidth": 2
+						"gridy": 1
+					} )
+					add( new FormComponent( "javax.swing.JRadioButton" ) {
+						name: "trueRB"
+						"text": "True"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridy": 2
+						"hAlign": 4
+					} )
+					add( new FormComponent( "javax.swing.JRadioButton" ) {
+						name: "falseRB"
+						"text": "False"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridx": 1
+						"gridy": 2
+					} )
+				} )
 			} )
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
 				"$columnSpecs": "687"

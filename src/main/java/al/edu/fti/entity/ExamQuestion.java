@@ -26,7 +26,7 @@ public class ExamQuestion {
     @Column(name = "visibility")
     private Boolean visibility;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn (name = "exam_id")
     private Exam exam;
 
@@ -100,17 +100,4 @@ public class ExamQuestion {
         this.examDetailResults = examDetailResults;
     }
 
-    @Override
-    public String toString() {
-        return "ExamQuestion{" +
-                "idExamQuestion=" + idExamQuestion +
-                ", question='" + question + '\'' +
-                ", typeQuestionMandatory=" + typeQuestionMandatory +
-                ", answer=" + answer +
-                ", order=" + order +
-                ", visibility=" + visibility +
-                ", exam=" + exam +
-                ", examDetailResults=" + examDetailResults +
-                '}';
-    }
 }

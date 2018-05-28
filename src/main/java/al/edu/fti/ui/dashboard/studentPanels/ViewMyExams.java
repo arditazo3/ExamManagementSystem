@@ -158,7 +158,7 @@ public class ViewMyExams extends JPanel {
                     Long idExamLong = Long.parseLong(idExam);
                     Exam examToStart = courseService.getExamById(idExamLong);
 
-                    contentCPnl.add(new StartExam(contentCPnl, courseToStart, examToStart), "startExam");
+                    contentCPnl.add(new StartExam(contentCPnl, courseToStart, examToStart, userInitial), "startExam");
                     cardLayout.show(contentCPnl, "startExam");
                 }
             }
