@@ -1,14 +1,13 @@
 package al.edu.fti.service;
 
 import al.edu.fti.dao.ICourseDAO;
-import al.edu.fti.entity.Course;
-import al.edu.fti.entity.Exam;
-import al.edu.fti.entity.ExamDetailResult;
+import al.edu.fti.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 public class CourseService implements ICourseService {
@@ -64,6 +63,35 @@ public class CourseService implements ICourseService {
 
     @Override
     public ExamDetailResult createUpdateExamDetailResult(ExamDetailResult examDetailResult) {
+
         return courseDAO.createUpdateExamDetailResult(examDetailResult);
+    }
+
+    @Override
+    public void startEvaluationExam(ExamResult examResult) {
+
+        Set<ExamQuestion> examQuestionList = examResult.getExam().getExamQuestions();
+        Set<ExamDetailResult> examDetailResultList = examResult.getExam().getExamDetailResults();
+
+        int countCorrectAnswer = 0;
+        for (ExamDetailResult examDetailResult : examDetailResultList) {
+            for (ExamQuestion examQuestion : examQuestionList) {
+
+                if(examDetailResult.getExamQuestion().getIdExamQuestion().equals(examQuestion.getIdExamQuestion())) {
+                    if(examDetailResult.getAnswer().equals(examQuestion.getAnswer())) {
+                        countCorrectAnswer++;
+                    }
+                }
+            }
+        }
+
+        examResult.setResult(String.valueOf( (countCorrectAnswer * 100 /examQuestionList.size()) ) + " %");
+
+        courseDAO.saveEvaluationExam(examResult);
+    }
+
+    @Override
+    public ExamResult getExamResultByIdStudentAndIdExam(User student, Exam exam) {
+        return courseDAO.getExamResultByIdStudentAndIdExam(student, exam);
     }
 }

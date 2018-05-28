@@ -81,16 +81,29 @@ public class StartExam extends JPanel {
 
             userInitial.setExamDetailResults(new HashSet<ExamDetailResult>(examDetailResultList));
 
+            Set<ExamDetailResult> examDetailResultSet = new HashSet<ExamDetailResult>();
             for (ExamDetailResult examDetailResultToSave : examDetailResultList) {
-                courseService.createUpdateExamDetailResult(examDetailResultToSave);
+                examDetailResultSet.add(courseService.createUpdateExamDetailResult(examDetailResultToSave));
             }
+
+            // Exam Evaluation
+            ExamResult examResult = new ExamResult();
+            examResult.setUser(userInitial);
+            examInitial.setExamDetailResults(examDetailResultSet);
+            examResult.setExam(examInitial);
+            examResult.setExamEndDate(new Date());
+
+            courseService.startEvaluationExam(examResult);
+
+        } else {
+
         }
 
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Ardit Azo
+        // Generated using JFormDesigner Evaluation license - Lorem
         panel2 = new JPanel();
         courseLb = new JLabel();
         examTitleLbl = new JLabel();
@@ -106,45 +119,40 @@ public class StartExam extends JPanel {
 
         // JFormDesigner evaluation mark
         setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                        "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                        javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                        java.awt.Color.red), getBorder()));
-        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent e) {
-                if ("border".equals(e.getPropertyName())) throw new RuntimeException();
-            }
-        });
+            new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
         setLayout(new VerticalLayout());
 
         //======== panel2 ========
         {
             panel2.setLayout(new GridBagLayout());
-            ((GridBagLayout) panel2.getLayout()).columnWidths = new int[]{197, 361, 0};
-            ((GridBagLayout) panel2.getLayout()).rowHeights = new int[]{60, 25, 0};
-            ((GridBagLayout) panel2.getLayout()).columnWeights = new double[]{0.0, 0.0, 1.0E-4};
-            ((GridBagLayout) panel2.getLayout()).rowWeights = new double[]{0.0, 0.0, 1.0E-4};
+            ((GridBagLayout)panel2.getLayout()).columnWidths = new int[] {197, 361, 0};
+            ((GridBagLayout)panel2.getLayout()).rowHeights = new int[] {60, 25, 0};
+            ((GridBagLayout)panel2.getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0E-4};
+            ((GridBagLayout)panel2.getLayout()).rowWeights = new double[] {0.0, 0.0, 1.0E-4};
 
             //---- courseLb ----
             courseLb.setText("Course: ");
             courseLb.setFont(new Font("Tahoma", Font.PLAIN, 14));
             courseLb.setHorizontalTextPosition(SwingConstants.CENTER);
             panel2.add(courseLb, new GridBagConstraints(0, 0, 2, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.VERTICAL,
-                    new Insets(0, 0, 5, 0), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.VERTICAL,
+                new Insets(0, 0, 5, 0), 0, 0));
 
             //---- examTitleLbl ----
             examTitleLbl.setText("Exam title");
             panel2.add(examTitleLbl, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
-                    new Insets(0, 0, 0, 5), 0, 0));
+                GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
+                new Insets(0, 0, 0, 5), 0, 0));
 
             //---- examTitleTF ----
             examTitleTF.setEditable(false);
             panel2.add(examTitleTF, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 0, 0), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 0, 0), 0, 0));
         }
         add(panel2);
 
@@ -158,33 +166,33 @@ public class StartExam extends JPanel {
         //======== addQuestionPnl ========
         {
             addQuestionPnl.setLayout(new GridBagLayout());
-            ((GridBagLayout) addQuestionPnl.getLayout()).columnWidths = new int[]{687, 0};
-            ((GridBagLayout) addQuestionPnl.getLayout()).rowHeights = new int[]{0};
-            ((GridBagLayout) addQuestionPnl.getLayout()).columnWeights = new double[]{0.0, 1.0E-4};
-            ((GridBagLayout) addQuestionPnl.getLayout()).rowWeights = new double[]{1.0E-4};
+            ((GridBagLayout)addQuestionPnl.getLayout()).columnWidths = new int[] {687, 0};
+            ((GridBagLayout)addQuestionPnl.getLayout()).rowHeights = new int[] {0};
+            ((GridBagLayout)addQuestionPnl.getLayout()).columnWeights = new double[] {0.0, 1.0E-4};
+            ((GridBagLayout)addQuestionPnl.getLayout()).rowWeights = new double[] {1.0E-4};
         }
         add(addQuestionPnl);
 
         //======== panel3 ========
         {
             panel3.setLayout(new GridBagLayout());
-            ((GridBagLayout) panel3.getLayout()).columnWidths = new int[]{345, 342, 0};
-            ((GridBagLayout) panel3.getLayout()).rowHeights = new int[]{15, 0, 0};
-            ((GridBagLayout) panel3.getLayout()).columnWeights = new double[]{0.0, 0.0, 1.0E-4};
-            ((GridBagLayout) panel3.getLayout()).rowWeights = new double[]{0.0, 0.0, 1.0E-4};
+            ((GridBagLayout)panel3.getLayout()).columnWidths = new int[] {345, 342, 0};
+            ((GridBagLayout)panel3.getLayout()).rowHeights = new int[] {15, 0, 0};
+            ((GridBagLayout)panel3.getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0E-4};
+            ((GridBagLayout)panel3.getLayout()).rowWeights = new double[] {0.0, 0.0, 1.0E-4};
 
             //---- button3 ----
             button3.setText("Cancel");
             panel3.add(button3, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 0, 10), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 0, 10), 0, 0));
 
             //---- finishExamBtn ----
             finishExamBtn.setText("Finish the Exam");
             finishExamBtn.addActionListener(e -> finishExamBtnActionPerformed(e));
             panel3.add(finishExamBtn, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 0, 0), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 0, 0), 0, 0));
         }
         add(panel3);
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -249,7 +257,7 @@ public class StartExam extends JPanel {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Ardit Azo
+    // Generated using JFormDesigner Evaluation license - Lorem
     private JPanel panel2;
     private JLabel courseLb;
     private JLabel examTitleLbl;

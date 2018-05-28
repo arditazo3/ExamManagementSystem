@@ -7,6 +7,7 @@ package al.edu.fti.ui.dashboard.studentPanels;
 import al.edu.fti.FtiApplication;
 import al.edu.fti.entity.Course;
 import al.edu.fti.entity.Exam;
+import al.edu.fti.entity.ExamResult;
 import al.edu.fti.entity.User;
 import al.edu.fti.service.ICourseService;
 
@@ -35,7 +36,7 @@ public class ViewMyExams extends JPanel {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Ardit Azo
+        // Generated using JFormDesigner Evaluation license - Lorem
         scrollPane1 = new JScrollPane();
         myExamsTbl = new JTable();
 
@@ -43,15 +44,10 @@ public class ViewMyExams extends JPanel {
 
         // JFormDesigner evaluation mark
         setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                        "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                        javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                        java.awt.Color.red), getBorder()));
-        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent e) {
-                if ("border".equals(e.getPropertyName())) throw new RuntimeException();
-            }
-        });
+            new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
         setLayout(new CardLayout());
 
@@ -60,45 +56,44 @@ public class ViewMyExams extends JPanel {
 
             //---- myExamsTbl ----
             myExamsTbl.setModel(new DefaultTableModel(
-                    new Object[][]{
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                            {null, null, null, null, null},
-                    },
-                    new String[]{
-                            "Id Course", "Id Exam", "Course Description", "Exam Description", "Result"
-                    }
+                new Object[][] {
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                    {null, null, null, null, null},
+                },
+                new String[] {
+                    "Id Course", "Id Exam", "Course Description", "Exam Description", "Result"
+                }
             ) {
-                boolean[] columnEditable = new boolean[]{
-                        true, true, true, true, false
+                boolean[] columnEditable = new boolean[] {
+                    false, true, true, true, false
                 };
-
                 @Override
                 public boolean isCellEditable(int rowIndex, int columnIndex) {
                     return columnEditable[columnIndex];
@@ -132,12 +127,19 @@ public class ViewMyExams extends JPanel {
             for (int j = 0; j < listMyExam.size(); j++) {
 
                 Exam exam = listMyExam.get(j);
+                ExamResult examResult = courseService.getExamResultByIdStudentAndIdExam(userInitial, exam);
 
                 myExamsTbl.getModel().setValueAt(course.getIdCourse(), i + j, 0);
                 myExamsTbl.getModel().setValueAt(exam.getIdExam(), i + j, 1);
                 myExamsTbl.getModel().setValueAt(course.getDescription(), i + j, 2);
                 myExamsTbl.getModel().setValueAt(exam.getDescription(), i + j, 3);
-                myExamsTbl.getModel().setValueAt("GABIM", i + j, 4);
+
+                if(examResult != null) {
+                    myExamsTbl.getModel().setValueAt(examResult.getResult(), i + j, 4);
+                } else {
+                    myExamsTbl.getModel().setValueAt("", i + j, 4);
+                }
+
             }
         }
 
@@ -158,15 +160,23 @@ public class ViewMyExams extends JPanel {
                     Long idExamLong = Long.parseLong(idExam);
                     Exam examToStart = courseService.getExamById(idExamLong);
 
-                    contentCPnl.add(new StartExam(contentCPnl, courseToStart, examToStart, userInitial), "startExam");
-                    cardLayout.show(contentCPnl, "startExam");
+                    Boolean finishedExam = false;
+                    String checkFinishedExam = String.valueOf(myExamsTbl.getValueAt(myExamsTbl.getSelectedRow(), 4));
+                    if(!checkFinishedExam.equalsIgnoreCase("")) {
+                        finishedExam = true;
+                    }
+
+                    if(!finishedExam) {
+                        contentCPnl.add(new StartExam(contentCPnl, courseToStart, examToStart, userInitial), "startExam");
+                        cardLayout.show(contentCPnl, "startExam");
+                    }
                 }
             }
         });
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Ardit Azo
+    // Generated using JFormDesigner Evaluation license - Lorem
     private JScrollPane scrollPane1;
     private JTable myExamsTbl;
     // JFormDesigner - End of variables declaration  //GEN-END:variables

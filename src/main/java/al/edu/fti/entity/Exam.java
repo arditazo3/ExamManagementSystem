@@ -23,8 +23,11 @@ public class Exam {
     @OrderColumn(name = "order_item")
     private Set<ExamQuestion> examQuestions = new HashSet<ExamQuestion>();
 
-    @OneToMany(mappedBy="exam", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="exam", fetch = FetchType.EAGER)
     private Set<ExamDetailResult> examDetailResults = new HashSet<ExamDetailResult>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<ExamResult> examResults = new HashSet<ExamResult>();
 
     public Long getIdExam() {
         return idExam;
@@ -64,6 +67,14 @@ public class Exam {
 
     public void setExamDetailResults(Set<ExamDetailResult> examDetailResults) {
         this.examDetailResults = examDetailResults;
+    }
+
+    public Set<ExamResult> getExamResults() {
+        return examResults;
+    }
+
+    public void setExamResults(Set<ExamResult> examResults) {
+        this.examResults = examResults;
     }
 
     @Override

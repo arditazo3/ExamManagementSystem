@@ -1,11 +1,8 @@
 package al.edu.fti.dao;
 
-import al.edu.fti.entity.Course;
-import al.edu.fti.entity.Exam;
-import al.edu.fti.entity.ExamDetailResult;
+import al.edu.fti.entity.*;
 import al.edu.fti.enums.StatusEnum;
 import al.edu.fti.service.IUserService;
-import al.edu.fti.utils.CourseStudent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -104,6 +101,35 @@ public class CourseDAO implements ICourseDAO {
 
     @Override
     public ExamDetailResult createUpdateExamDetailResult(ExamDetailResult examDetailResult) {
+
         return entityManager.merge(examDetailResult);
+    }
+
+    @Override
+    public void saveEvaluationExam(ExamResult examResult) {
+
+        entityManager.merge(examResult);
+    }
+
+    public ExamResult getExamResultByIdStudentAndIdExam(User student, Exam exam) {
+
+        String queryExamResultByStudentAndExam = " select er " +
+                " from ExamResult er " +
+                " where er.user = :user and " +
+                " er.exam = :exam ";
+
+        ExamResult examResult = null;
+
+        try {
+            examResult = (ExamResult) entityManager.createQuery(queryExamResultByStudentAndExam)
+                                                    .setParameter("user", student)
+                                                    .setParameter("exam", exam)
+                                                    .getSingleResult();
+        } catch (Exception e) {
+
+        }
+
+
+        return examResult;
     }
 }

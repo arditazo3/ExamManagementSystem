@@ -1,8 +1,6 @@
 package al.edu.fti.service;
 
-import al.edu.fti.entity.Course;
-import al.edu.fti.entity.Exam;
-import al.edu.fti.entity.ExamDetailResult;
+import al.edu.fti.entity.*;
 
 import java.util.List;
 import java.util.Map;
@@ -19,4 +17,7 @@ public interface ICourseService {
 
     Exam getExamById(Long idExam);
     ExamDetailResult createUpdateExamDetailResult(ExamDetailResult examDetailResult);
+
+    void startEvaluationExam(ExamResult examResult);
+    public ExamResult getExamResultByIdStudentAndIdExam(User student, Exam exam);
 }

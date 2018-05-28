@@ -226,7 +226,7 @@ new FormModel {
 						add( null )
 						add( null )
 					}, new java.util.Vector {
-						add( null )
+						add( false )
 						add( null )
 						add( null )
 						add( null )

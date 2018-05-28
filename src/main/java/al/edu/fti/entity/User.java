@@ -75,6 +75,9 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<ExamDetailResult> examDetailResults = new HashSet<ExamDetailResult>();
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<ExamResult> examResults = new HashSet<ExamResult>();
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "course_student",
@@ -269,6 +272,14 @@ public class User {
 
     public void setExamDetailResults(Set<ExamDetailResult> examDetailResults) {
         this.examDetailResults = examDetailResults;
+    }
+
+    public Set<ExamResult> getExamResults() {
+        return examResults;
+    }
+
+    public void setExamResults(Set<ExamResult> examResults) {
+        this.examResults = examResults;
     }
 
     @Override

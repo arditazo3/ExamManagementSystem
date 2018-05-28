@@ -18,6 +18,14 @@ public class ExamResult {
     @Temporal(TemporalType.TIMESTAMP)
     private Date examEndDate;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn (name = "student_id")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn (name = "exam_id")
+    private Exam exam;
+
     public ExamResult() {
     }
 
@@ -48,6 +56,22 @@ public class ExamResult {
 
     public void setExamEndDate(Date examEndDate) {
         this.examEndDate = examEndDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Exam getExam() {
+        return exam;
+    }
+
+    public void setExam(Exam exam) {
+        this.exam = exam;
     }
 
     @Override

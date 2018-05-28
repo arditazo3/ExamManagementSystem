@@ -1,8 +1,6 @@
 package al.edu.fti.dao;
 
-import al.edu.fti.entity.Course;
-import al.edu.fti.entity.Exam;
-import al.edu.fti.entity.ExamDetailResult;
+import al.edu.fti.entity.*;
 
 import java.util.List;
 import java.util.Map;
@@ -20,4 +18,7 @@ public interface ICourseDAO {
 
     Exam getExamById(Long idExam);
     ExamDetailResult createUpdateExamDetailResult(ExamDetailResult examDetailResult);
+
+    void saveEvaluationExam(ExamResult examResult);
+    public ExamResult getExamResultByIdStudentAndIdExam(User student, Exam exam);
 }
