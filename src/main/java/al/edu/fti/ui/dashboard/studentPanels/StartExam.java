@@ -105,7 +105,7 @@ public class StartExam extends JPanel {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Lorem
+        // Generated using JFormDesigner Evaluation license - Ardit Azo
         panel2 = new JPanel();
         courseLb = new JLabel();
         examTitleLbl = new JLabel();
@@ -203,6 +203,12 @@ public class StartExam extends JPanel {
 
         // My component
 
+        JScrollPane containerQuestionsPnlScrollPnl = new JScrollPane(containerQuestionsPnl);
+        containerQuestionsPnlScrollPnl.setPreferredSize(new Dimension(730, 450));
+        add(containerQuestionsPnlScrollPnl);
+
+        add(panel3);
+
         javax.swing.border.CompoundBorder compoundBorder = (CompoundBorder) getBorder();
         javax.swing.border.TitledBorder titledBorder = (TitledBorder) compoundBorder.getOutsideBorder();
         titledBorder.setTitle("");
@@ -264,7 +270,7 @@ public class StartExam extends JPanel {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Lorem
+    // Generated using JFormDesigner Evaluation license - Ardit Azo
     private JPanel panel2;
     private JLabel courseLb;
     private JLabel examTitleLbl;

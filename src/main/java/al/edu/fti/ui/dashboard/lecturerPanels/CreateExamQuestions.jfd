@@ -54,6 +54,23 @@ new FormModel {
 						"gridy": 2
 					} )
 				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+					"$columnSpecs": "687"
+					"$rowSpecs": "13, 0, 12"
+					"$hGap": 5
+					"$vGap": 5
+					"$alignLeft": true
+					"$alignTop": true
+				} ) {
+					name: "addQuestionPnl"
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "addQuestionBtn"
+						"text": "Add Question"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "addQuestionBtnActionPerformed", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridy": 1
+					} )
+				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.swingx.VerticalLayout ) ) {
 					name: "containerQuestionsPnl"
 					"autoscrolls": true
@@ -93,21 +110,6 @@ new FormModel {
 							"gridy": 2
 						} )
 					} )
-				} )
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
-					"$columnSpecs": "687"
-					"$rowSpecs": "0"
-					"$hGap": 5
-					"$vGap": 5
-					"$alignLeft": true
-					"$alignTop": true
-				} ) {
-					name: "addQuestionPnl"
-					add( new FormComponent( "javax.swing.JButton" ) {
-						name: "addQuestionBtn"
-						"text": "Add Question"
-						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "addQuestionBtnActionPerformed", true ) )
-					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) )
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
 					"$columnSpecs": "335, 342"

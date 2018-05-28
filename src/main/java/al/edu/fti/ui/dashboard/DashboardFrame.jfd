@@ -5,7 +5,7 @@ new FormModel {
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.GridBagLayout ) {
 			"$columnSpecs": "117, 700"
-			"$rowSpecs": "32, center:0:1.0, 0"
+			"$rowSpecs": "32, center:727:1.0, 0"
 			"$alignTop": true
 			"$alignLeft": true
 			"$hGap": 5
@@ -54,6 +54,17 @@ new FormModel {
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "createStudentBtnActionPerformed", true ) )
 				} )
 				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "myExamsBtn"
+					"text": "My Exams"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "myExamsBtnActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "associateStudentCourseBtn"
+					"text": "<html><center>Associate Student<br>To the Course</center></html>"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "createExamBtnActionPerformed", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "associateStudentCourseBtnActionPerformed", true ) )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
 					name: "myProfileBtn"
 					"text": "My Profile"
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "myProfileBtnActionPerformed", true ) )
@@ -69,17 +80,6 @@ new FormModel {
 					"text": "Create Exam"
 					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "createExamBtnActionPerformed", true ) )
 				} )
-				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "associateStudentCourseBtn"
-					"text": "<html><center>Associate Student<br>To the Course</center></html>"
-					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "createExamBtnActionPerformed", true ) )
-					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "associateStudentCourseBtnActionPerformed", true ) )
-				} )
-				add( new FormComponent( "javax.swing.JButton" ) {
-					name: "myExamsBtn"
-					"text": "My Exams"
-					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "myExamsBtnActionPerformed", true ) )
-				} )
 			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 				"vAlign": 5
 				"gridy": 1
@@ -94,7 +94,7 @@ new FormModel {
 				"vAlign": 5
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"size": new java.awt.Dimension( 830, 710 )
+			"size": new java.awt.Dimension( 830, 850 )
 			"location": new java.awt.Point( 0, 0 )
 		} )
 	}

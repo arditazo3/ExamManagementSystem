@@ -157,14 +157,14 @@ public class CreateExamQuestions extends JPanel {
         courseCB = new JComboBox();
         examTitleLbl = new JLabel();
         examTitleTF = new JTextField();
+        addQuestionPnl = new JPanel();
+        addQuestionBtn = new JButton();
         containerQuestionsPnl = new JPanel();
         gridQuestionPnl = new JPanel();
         questionNoLbl = new JLabel();
         questionNoTF = new JTextField();
         trueRB = new JRadioButton();
         falseRB = new JRadioButton();
-        addQuestionPnl = new JPanel();
-        addQuestionBtn = new JButton();
         panel3 = new JPanel();
         button3 = new JButton();
         saveExamBtn = new JButton();
@@ -222,6 +222,23 @@ public class CreateExamQuestions extends JPanel {
             }
             examQuestionPnl.add(panel2);
 
+            //======== addQuestionPnl ========
+            {
+                addQuestionPnl.setLayout(new GridBagLayout());
+                ((GridBagLayout)addQuestionPnl.getLayout()).columnWidths = new int[] {687, 0};
+                ((GridBagLayout)addQuestionPnl.getLayout()).rowHeights = new int[] {18, 0, 12, 0};
+                ((GridBagLayout)addQuestionPnl.getLayout()).columnWeights = new double[] {0.0, 1.0E-4};
+                ((GridBagLayout)addQuestionPnl.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 1.0E-4};
+
+                //---- addQuestionBtn ----
+                addQuestionBtn.setText("Add Question");
+                addQuestionBtn.addActionListener(e -> addQuestionBtnActionPerformed(e));
+                addQuestionPnl.add(addQuestionBtn, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
+                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                    new Insets(0, 0, 5, 0), 0, 0));
+            }
+            examQuestionPnl.add(addQuestionPnl);
+
             //======== containerQuestionsPnl ========
             {
                 containerQuestionsPnl.setAutoscrolls(true);
@@ -260,23 +277,6 @@ public class CreateExamQuestions extends JPanel {
             }
             examQuestionPnl.add(containerQuestionsPnl);
 
-            //======== addQuestionPnl ========
-            {
-                addQuestionPnl.setLayout(new GridBagLayout());
-                ((GridBagLayout)addQuestionPnl.getLayout()).columnWidths = new int[] {687, 0};
-                ((GridBagLayout)addQuestionPnl.getLayout()).rowHeights = new int[] {0, 0};
-                ((GridBagLayout)addQuestionPnl.getLayout()).columnWeights = new double[] {0.0, 1.0E-4};
-                ((GridBagLayout)addQuestionPnl.getLayout()).rowWeights = new double[] {0.0, 1.0E-4};
-
-                //---- addQuestionBtn ----
-                addQuestionBtn.setText("Add Question");
-                addQuestionBtn.addActionListener(e -> addQuestionBtnActionPerformed(e));
-                addQuestionPnl.add(addQuestionBtn, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
-                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                    new Insets(0, 0, 0, 0), 0, 0));
-            }
-            examQuestionPnl.add(addQuestionPnl);
-
             //======== panel3 ========
             {
                 panel3.setLayout(new GridBagLayout());
@@ -309,6 +309,14 @@ public class CreateExamQuestions extends JPanel {
         javax.swing.border.TitledBorder titledBorder = (TitledBorder) compoundBorder.getOutsideBorder();
         titledBorder.setTitle("");
 
+        JScrollPane containerQuestionsPnlScrollPnl = new JScrollPane(containerQuestionsPnl);
+        containerQuestionsPnlScrollPnl.setPreferredSize(new Dimension(700, 450));
+        examQuestionPnl.add(containerQuestionsPnlScrollPnl);
+
+        examQuestionPnl.add(panel3);
+
+        add(examQuestionPnl);
+
         List<Concept> listConcepts = new ArrayList<Concept>();
         for (Course course : listCourse) {
             listConcepts.add(new Concept(course.getDescription(), String.valueOf(course.getIdCourse())));
@@ -327,14 +335,14 @@ public class CreateExamQuestions extends JPanel {
     private JComboBox courseCB;
     private JLabel examTitleLbl;
     private JTextField examTitleTF;
+    private JPanel addQuestionPnl;
+    private JButton addQuestionBtn;
     private JPanel containerQuestionsPnl;
     private JPanel gridQuestionPnl;
     private JLabel questionNoLbl;
     private JTextField questionNoTF;
     private JRadioButton trueRB;
     private JRadioButton falseRB;
-    private JPanel addQuestionPnl;
-    private JButton addQuestionBtn;
     private JPanel panel3;
     private JButton button3;
     private JButton saveExamBtn;

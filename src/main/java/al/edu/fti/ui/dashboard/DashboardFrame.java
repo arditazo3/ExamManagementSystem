@@ -70,10 +70,10 @@ public class DashboardFrame extends JFrame {
 
     private void myProfileBtnActionPerformed(ActionEvent e) {
 
-        if(userLogIn.getRole().getIdRole().equals(2L)) {
+        if (userLogIn.getRole().getIdRole().equals(2L)) {
             contentCPnl.add(new CreateLecturer(userLogIn.getIdUser()), "createLecturer");
             cardLayout.show(contentCPnl, "createLecturer");
-        } else if(userLogIn.getRole().getIdRole().equals(3L)) {
+        } else if (userLogIn.getRole().getIdRole().equals(3L)) {
             contentCPnl.add(new CreateStudent(userLogIn.getIdUser()), "createStudent");
             cardLayout.show(contentCPnl, "createStudent");
         }
@@ -89,7 +89,7 @@ public class DashboardFrame extends JFrame {
     private void createExamBtnActionPerformed(ActionEvent e) {
 
         List<Course> listCourse = courseService.getCourseByIdUser(userLogIn.getIdUser());
-        if(listCourse != null && listCourse.size() > 0) {
+        if (listCourse != null && listCourse.size() > 0) {
             contentCPnl.add(new CreateExamQuestions(contentCPnl, listCourse), "createExamQuestions");
             cardLayout.show(contentCPnl, "createExamQuestions");
         } else {
@@ -129,7 +129,7 @@ public class DashboardFrame extends JFrame {
         cardLayout = new CardLayout();
 
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Lorem
+        // Generated using JFormDesigner Evaluation license - Ardit Azo
         userInfoPnl = new JPanel();
         userInfoLbl = new JLabel();
         logOutBtn = new JButton();
@@ -138,18 +138,18 @@ public class DashboardFrame extends JFrame {
         studentListBtn = new JButton();
         createLecturerBtn = new JButton();
         createStudentBtn = new JButton();
+        myExamsBtn = new JButton();
+        associateStudentCourseBtn = new JButton();
         myProfileBtn = new JButton();
         createCourseBtn = new JButton();
         createExamBtn = new JButton();
-        associateStudentCourseBtn = new JButton();
-        myExamsBtn = new JButton();
         contentCPnl = new JPanel();
 
         //======== this ========
         Container contentPane = getContentPane();
         contentPane.setLayout(new GridBagLayout());
         ((GridBagLayout)contentPane.getLayout()).columnWidths = new int[] {122, 700, 0};
-        ((GridBagLayout)contentPane.getLayout()).rowHeights = new int[] {37, 0, 0, 0};
+        ((GridBagLayout)contentPane.getLayout()).rowHeights = new int[] {37, 732, 0, 0};
         ((GridBagLayout)contentPane.getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0E-4};
         ((GridBagLayout)contentPane.getLayout()).rowWeights = new double[] {0.0, 1.0, 0.0, 1.0E-4};
 
@@ -199,6 +199,19 @@ public class DashboardFrame extends JFrame {
             createStudentBtn.addActionListener(e -> createStudentBtnActionPerformed(e));
             sideMenuPnl.add(createStudentBtn);
 
+            //---- myExamsBtn ----
+            myExamsBtn.setText("My Exams");
+            myExamsBtn.addActionListener(e -> myExamsBtnActionPerformed(e));
+            sideMenuPnl.add(myExamsBtn);
+
+            //---- associateStudentCourseBtn ----
+            associateStudentCourseBtn.setText("<html><center>Associate Student<br>To the Course</center></html>");
+            associateStudentCourseBtn.addActionListener(e -> {
+			createExamBtnActionPerformed(e);
+			associateStudentCourseBtnActionPerformed(e);
+		});
+            sideMenuPnl.add(associateStudentCourseBtn);
+
             //---- myProfileBtn ----
             myProfileBtn.setText("My Profile");
             myProfileBtn.addActionListener(e -> {
@@ -216,19 +229,6 @@ public class DashboardFrame extends JFrame {
             createExamBtn.setText("Create Exam");
             createExamBtn.addActionListener(e -> createExamBtnActionPerformed(e));
             sideMenuPnl.add(createExamBtn);
-
-            //---- associateStudentCourseBtn ----
-            associateStudentCourseBtn.setText("<html><center>Associate Student<br>To the Course</center></html>");
-            associateStudentCourseBtn.addActionListener(e -> {
-			createExamBtnActionPerformed(e);
-			associateStudentCourseBtnActionPerformed(e);
-		});
-            sideMenuPnl.add(associateStudentCourseBtn);
-
-            //---- myExamsBtn ----
-            myExamsBtn.setText("My Exams");
-            myExamsBtn.addActionListener(e -> myExamsBtnActionPerformed(e));
-            sideMenuPnl.add(myExamsBtn);
         }
         contentPane.add(sideMenuPnl, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
             GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -252,34 +252,65 @@ public class DashboardFrame extends JFrame {
         javax.swing.border.TitledBorder titledBorder = (TitledBorder) compoundBorder.getOutsideBorder();
         titledBorder.setTitle("");
 
-        createLecturer = new CreateLecturer(null);
-        createStudent = new CreateStudent(null);
-        viewLecturerList = new ViewLecturerList(contentCPnl);
-
         userInfoLbl.setText("Welcome, " + userLogIn.getFirstName() + " " + userLogIn.getLastName());
+        cardLayout = (CardLayout) (contentCPnl.getLayout());
 
-        cardLayout = (CardLayout)(contentCPnl.getLayout());
+        // Authorization Roles on menu buttons
+        if (userLogIn.getRole().getIdRole().equals(1L)) {
 
-        JPanel panelTest = new JPanel();
-        JLabel labelTest = new JLabel("Test");
-        panelTest.add(labelTest);
+            createLecturerBtn.setVisible(true);
+            createStudentBtn.setVisible(true);
+            lecturerListBtn.setVisible(true);
+            studentListBtn.setVisible(true);
 
-        contentCPnl.add(panelTest, "1");
-        contentCPnl.add(createLecturer, "createLecturer");
-        contentCPnl.add(createStudent, "createStudent");
-        contentCPnl.add(viewLecturerList, "viewLecturerList");
+            myProfileBtn.setVisible(false);
+            createExamBtn.setVisible(false);
+            createCourseBtn.setVisible(false);
+            associateStudentCourseBtn.setVisible(false);
 
-        cardLayout = (CardLayout)(contentCPnl.getLayout());
+            myExamsBtn.setVisible(false);
 
-        cardLayout.show(contentCPnl, "1");
+            contentCPnl.add(new ViewLecturerList(contentCPnl), "viewLecturerList");
+            cardLayout.show(contentCPnl, "viewLecturerList");
 
-        add(contentCPnl, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
-                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                new Insets(0, 0, 0, 0), 0, 0));
+        } else if (userLogIn.getRole().getIdRole().equals(2L)) {
+
+            createLecturerBtn.setVisible(false);
+            createStudentBtn.setVisible(false);
+            lecturerListBtn.setVisible(false);
+            studentListBtn.setVisible(false);
+
+            myExamsBtn.setVisible(false);
+
+            myProfileBtn.setVisible(true);
+            createExamBtn.setVisible(true);
+            createCourseBtn.setVisible(true);
+            associateStudentCourseBtn.setVisible(true);
+
+            associateStudentCourseBtnActionPerformed(null);
+
+        } else if (userLogIn.getRole().getIdRole().equals(3L)) {
+
+            createExamBtn.setVisible(false);
+            createCourseBtn.setVisible(false);
+            associateStudentCourseBtn.setVisible(false);
+
+            createLecturerBtn.setVisible(false);
+            createStudentBtn.setVisible(false);
+            lecturerListBtn.setVisible(false);
+            studentListBtn.setVisible(false);
+
+            myProfileBtn.setVisible(true);
+            myExamsBtn.setVisible(true);
+
+            contentCPnl.add(new ViewMyExams(contentCPnl, userLogIn), "viewMyExams");
+            cardLayout.show(contentCPnl, "viewMyExams");
+
+        }
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Lorem
+    // Generated using JFormDesigner Evaluation license - Ardit Azo
     private JPanel userInfoPnl;
     private JLabel userInfoLbl;
     private JButton logOutBtn;
@@ -288,11 +319,11 @@ public class DashboardFrame extends JFrame {
     private JButton studentListBtn;
     private JButton createLecturerBtn;
     private JButton createStudentBtn;
+    private JButton myExamsBtn;
+    private JButton associateStudentCourseBtn;
     private JButton myProfileBtn;
     private JButton createCourseBtn;
     private JButton createExamBtn;
-    private JButton associateStudentCourseBtn;
-    private JButton myExamsBtn;
     private JPanel contentCPnl;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 

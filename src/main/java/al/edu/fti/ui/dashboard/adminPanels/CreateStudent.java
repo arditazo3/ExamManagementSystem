@@ -34,8 +34,9 @@ public class CreateStudent extends JPanel {
     private IUserService userService = FtiApplication.userService;
 
     public CreateStudent(Long idStudent) {
-        initComponents();
         this.idStudent = idStudent;
+
+        initComponents();
 
         if(idStudent != null) {
             User user = userService.getUserById(idStudent);
@@ -449,6 +450,10 @@ public class CreateStudent extends JPanel {
         javax.swing.border.CompoundBorder compoundBorder = (CompoundBorder) getBorder();
         javax.swing.border.TitledBorder titledBorder = (TitledBorder) compoundBorder.getOutsideBorder();
         titledBorder.setTitle("");
+
+        if(idStudent != null) {
+            headerLbl.setText("Edit Student");
+        }
 
         statusCB.addItem(StatusEnum.ACTIVE.toString());
         statusCB.addItem(StatusEnum.DISABLED.toString());

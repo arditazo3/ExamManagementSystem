@@ -34,9 +34,10 @@ public class CreateLecturer extends JPanel {
     private IUserService userService = FtiApplication.userService;
 
     public CreateLecturer(Long idLecturer) {
-        initComponents();
+
         this.idLecturer = idLecturer;
 
+        initComponents();
         if(idLecturer != null) {
             User user = userService.getUserById(idLecturer);
             if(user != null) {
@@ -416,6 +417,10 @@ public class CreateLecturer extends JPanel {
         javax.swing.border.CompoundBorder compoundBorder = (CompoundBorder) getBorder();
         javax.swing.border.TitledBorder titledBorder = (TitledBorder) compoundBorder.getOutsideBorder();
         titledBorder.setTitle("");
+
+        if(idLecturer != null) {
+            label1.setText("Edit Lecturer");
+        }
 
         statusCB.addItem(StatusEnum.ACTIVE.toString());
         statusCB.addItem(StatusEnum.DISABLED.toString());

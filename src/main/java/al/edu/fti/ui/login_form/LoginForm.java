@@ -11,7 +11,6 @@ import al.edu.fti.ui.dashboard.DashboardFrame;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -50,6 +49,7 @@ public class LoginForm extends JFrame {
             DashboardFrame dashboardFrame = new DashboardFrame(userLogIn);
             dashboardFrame.setTitle("Exam Management System");
             dashboardFrame.setVisible(true);
+            dashboardFrame.getContentPane().setSize(840,850);
             dashboardFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         } else {
