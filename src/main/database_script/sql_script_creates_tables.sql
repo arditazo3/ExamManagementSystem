@@ -20,7 +20,7 @@ CREATE TABLE `course` (
 --
 
 INSERT INTO `course` (`id_course`, `description`, `code`, `status`, `year`, `remarks`, `lecturer_id`, `grade`) VALUES
-    (6, 'test', 'test', 'ACTIVE', '2018', 'test', 22, 'Spring');
+    (8, 'Java', 'java', 'ACTIVE', '1990', 'test', 22, '');
 
 -- --------------------------------------------------------
 
@@ -33,6 +33,13 @@ CREATE TABLE `course_student` (
     `course_id` int(11) DEFAULT NULL,
     `student_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `course_student`
+--
+
+INSERT INTO `course_student` (`id_course_student`, `course_id`, `student_id`) VALUES
+    (9, 8, 24);
 
 -- --------------------------------------------------------
 
@@ -51,11 +58,8 @@ CREATE TABLE `exam` (
 --
 
 INSERT INTO `exam` (`id_exam`, `description`, `course_id`) VALUES
-    (1, 'Ardit', 6),
-    (2, '55', 6),
-    (3, '55', 6),
-    (4, 'te', 6),
-    (5, 'a', 6);
+    (11, 'Java - Basic', 8),
+    (12, 'Java - Advanced', 8);
 
 -- --------------------------------------------------------
 
@@ -85,6 +89,20 @@ CREATE TABLE `exam_question` (
     `visibility` tinyint(1) DEFAULT NULL,
     `exam_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `exam_question`
+--
+
+INSERT INTO `exam_question` (`id_exam_question`, `question`, `type_question_mandatory`, `answer`, `order_item`, `visibility`, `exam_id`) VALUES
+    (5, 'C', NULL, 1, 2, NULL, 11),
+    (6, 'A', NULL, 1, 0, NULL, 11),
+    (7, 'B', NULL, 0, 1, NULL, 11),
+    (8, 'D', NULL, 1, 3, NULL, 11),
+    (9, '3', NULL, 1, 2, NULL, 12),
+    (10, '2', NULL, 0, 1, NULL, 12),
+    (11, '4', NULL, 1, 3, NULL, 12),
+    (12, '1', NULL, 1, 0, NULL, 12);
 
 -- --------------------------------------------------------
 
@@ -182,6 +200,13 @@ CREATE TABLE `student_detail` (
     `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `student_detail`
+--
+
+INSERT INTO `student_detail` (`id_student_detail`, `student_code`, `amza_number`, `address`, `place_birthday`, `religion`, `email`, `father_name`, `mother_name`, `scholarship`, `user_id`) VALUES
+    (2, '144WMJXB2O', 'NC6OZ', '123', '123', NULL, 'bb', '123', '123', NULL, 24);
+
 -- --------------------------------------------------------
 
 --
@@ -212,7 +237,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_user`, `username`, `first_name`, `last_name`, `email`, `password`, `last_login_date`, `gender`, `date_deletion`, `date_update`, `date_creation`, `role_id`, `status`, `date_birthday`, `phone_number`) VALUES
     (1, 'ardit', 'ardit', 'ardit', 'ardit', 'ardit', '2018-05-27 12:49:33', 'M', NULL, '2018-05-26 01:29:42', '2018-05-26 01:29:42', 1, 'ACTIVE', '2018-05-26 01:29:42', '123'),
-    (22, 'aa.aa', 'aa', 'aa', 'aa', 'aa', '2018-05-27 18:48:44', 'Male', NULL, '2018-05-27 12:50:08', '2018-05-27 12:50:08', 2, 'ACTIVE', NULL, '123456');
+    (22, 'aa.aa', 'aa', 'aa', 'aa', 'aa', '2018-05-28 00:57:33', 'Male', NULL, '2018-05-27 12:50:08', '2018-05-27 12:50:08', 2, 'ACTIVE', NULL, '123456'),
+    (24, 'bb.bb', 'bb', 'bb', 'bb', 'bb', '2018-05-28 01:50:36', '', NULL, '2018-05-28 00:57:55', '2018-05-28 00:57:55', 3, 'ACTIVE', '1990-11-11 00:00:00', '123');
 
 --
 -- Indexes for dumped tables
@@ -300,25 +326,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-    MODIFY `id_course` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+    MODIFY `id_course` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `course_student`
 --
 ALTER TABLE `course_student`
-    MODIFY `id_course_student` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `id_course_student` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `exam`
 --
 ALTER TABLE `exam`
-    MODIFY `id_exam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+    MODIFY `id_exam` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `exam_question`
 --
 ALTER TABLE `exam_question`
-    MODIFY `id_exam_question` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `id_exam_question` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `exam_result`
@@ -342,13 +368,13 @@ ALTER TABLE `role`
 -- AUTO_INCREMENT for table `student_detail`
 --
 ALTER TABLE `student_detail`
-    MODIFY `id_student_detail` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `id_student_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-    MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT COMMENT 'The primary key of the table', AUTO_INCREMENT=23;
+    MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT COMMENT 'The primary key of the table', AUTO_INCREMENT=25;
 
 --
 -- Constraints for dumped tables
