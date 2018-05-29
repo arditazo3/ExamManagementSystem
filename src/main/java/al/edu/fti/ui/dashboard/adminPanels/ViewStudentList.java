@@ -25,9 +25,10 @@ public class ViewStudentList extends JPanel {
 
     private IUserService userService = FtiApplication.userService;
 
-    public ViewStudentList(JPanel contentCPnl) {
+    public ViewStudentList(JPanel contentCPnl, User userLogIn) {
         initComponents();
         this.contentCPnl = contentCPnl;
+        this.userLogIn = userLogIn;
         this.cardLayout = cardLayout;
     }
 
@@ -142,7 +143,7 @@ public class ViewStudentList extends JPanel {
                     String idUserString = String.valueOf(studentTbl.getValueAt(studentTbl.getSelectedRow(), 0));
                     Long idUser = Long.parseLong(idUserString);
 
-                    contentCPnl.add(new CreateStudent(idUser), "createStudent");
+                    contentCPnl.add(new CreateStudent(idUser, userLogIn, contentCPnl, cardLayout), "createStudent");
                     cardLayout.show(contentCPnl, "createStudent");
                 }
             }
@@ -158,4 +159,5 @@ public class ViewStudentList extends JPanel {
     // My components
     private CardLayout cardLayout;
     private JPanel contentCPnl;
+    private User userLogIn;
 }

@@ -5,12 +5,15 @@
 package al.edu.fti.ui.dashboard.adminPanels;
 
 import al.edu.fti.FtiApplication;
+import al.edu.fti.entity.Course;
 import al.edu.fti.entity.LecturerDetail;
 import al.edu.fti.entity.Role;
 import al.edu.fti.entity.User;
 import al.edu.fti.enums.StatusEnum;
+import al.edu.fti.service.ICourseService;
 import al.edu.fti.service.IRoleService;
 import al.edu.fti.service.IUserService;
+import al.edu.fti.ui.dashboard.lecturerPanels.AssociateCourseToStudent;
 import al.edu.fti.utils.StringGeneratorCode;
 import org.jdesktop.swingx.HorizontalLayout;
 
@@ -24,6 +27,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Ardit Azo
@@ -32,19 +36,26 @@ public class CreateLecturer extends JPanel {
 
     private IRoleService roleService = FtiApplication.roleService;
     private IUserService userService = FtiApplication.userService;
+    private ICourseService courseService = FtiApplication.courseService;
 
-    public CreateLecturer(Long idLecturer) {
+    public CreateLecturer(Long idLecturer, User userLogIn, JPanel contentCPnl, CardLayout cardLayout) {
 
         this.idLecturer = idLecturer;
+        this.userLogIn = userLogIn;
+        this.contentCPnl = contentCPnl;
+        this.cardLayout = cardLayout;
+        if (idLecturer != null) {
+            User user = userService.getUserById(idLecturer);
+            if (user != null) {
+                isNewEntry = false;
+                this.userSelected = user;
+            }
+        }
 
         initComponents();
-        if(idLecturer != null) {
-            User user = userService.getUserById(idLecturer);
-            if(user != null) {
-                isNewEntry = false;
-                this.userInitial = user;
-                fillAllFields(user);
-            }
+
+        if(userSelected != null) {
+            fillAllFields(userSelected);
         }
     }
 
@@ -56,7 +67,7 @@ public class CreateLecturer extends JPanel {
         passwordTF.setText(user.getPassword());
         statusCB.setSelectedItem(user.getStatus());
 
-        if(user.getDateBirthday() != null) {
+        if (user.getDateBirthday() != null) {
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             //to convert Date to String, use format method of SimpleDateFormat class.
             String dateBirthString = dateFormat.format(user.getDateBirthday());
@@ -65,23 +76,23 @@ public class CreateLecturer extends JPanel {
 
         phoneNumberTF.setText(user.getPhoneNumber());
 
-        if(user.getGender().equalsIgnoreCase("Male")) {
+        if (user.getGender().equalsIgnoreCase("Male")) {
             maleRB.setSelected(true);
             femaleRB.setSelected(false);
-        } else if(user.getGender().equalsIgnoreCase("Female")) {
+        } else if (user.getGender().equalsIgnoreCase("Female")) {
             maleRB.setSelected(false);
             femaleRB.setSelected(true);
         }
 
         LecturerDetail lecturerDetail = null;
-        if(user.getLecturerDetails() != null && user.getLecturerDetails().size() >0) {
+        if (user.getLecturerDetails() != null && user.getLecturerDetails().size() > 0) {
             for (LecturerDetail lecturerDetail1Set : user.getLecturerDetails()) {
                 lecturerDetail = lecturerDetail1Set;
                 this.lecturerDetailInitial = lecturerDetail;
                 break;
             }
 
-            if(lecturerDetail != null) {
+            if (lecturerDetail != null) {
                 addressTF.setText(lecturerDetail.getAddress());
                 placeBirthTF.setText(lecturerDetail.getPlaceBirthday());
             }
@@ -99,7 +110,7 @@ public class CreateLecturer extends JPanel {
         String status = statusCB.getSelectedItem().toString();
 
         Date dateBirth = null;
-        if(!dateBirthTF.getText().trim().equals("")) {
+        if (!dateBirthTF.getText().trim().equals("")) {
             try {
                 dateBirth = new SimpleDateFormat("dd/MM/yyyy").parse(dateBirthTF.getText().trim());
             } catch (ParseException e1) {
@@ -113,35 +124,35 @@ public class CreateLecturer extends JPanel {
 
         String errorMessage = "Plese fill up the fields: ";
 
-        if(firstName.equals("")) {
+        if (firstName.equals("")) {
             createAction = false;
             errorMessage += "First name ";
         }
-        if(lastName.equals("")) {
+        if (lastName.equals("")) {
             createAction = false;
             errorMessage += "Last name ";
         }
-        if(email.equals("")) {
+        if (email.equals("")) {
             createAction = false;
             errorMessage += "Email ";
         }
-        if(password.equals("")) {
+        if (password.equals("")) {
             createAction = false;
             errorMessage += "Password ";
         }
-        if(status.equals("")) {
+        if (status.equals("")) {
             createAction = false;
             errorMessage += "Status ";
         }
 
-        if(createAction) {
+        if (createAction) {
 
             LecturerDetail lecturerDetail = new LecturerDetail();
-            if(lecturerDetailInitial != null) {
+            if (lecturerDetailInitial != null) {
                 lecturerDetail = lecturerDetailInitial;
             }
 
-            if(isNewEntry) {
+            if (isNewEntry) {
                 lecturerDetail.setLecturerCode(StringGeneratorCode.randomAlphaNumeric(10));
             }
 
@@ -150,8 +161,8 @@ public class CreateLecturer extends JPanel {
             lecturerDetail.setEmail(email);
 
             User userLecturer = new User();
-            if(userInitial != null) {
-                userLecturer = userInitial;
+            if (userSelected != null) {
+                userLecturer = userSelected;
             }
 
             userLecturer.addLecturerDetail(lecturerDetail);
@@ -171,7 +182,31 @@ public class CreateLecturer extends JPanel {
 
             lecturerDetail.setUser(userLecturer);
 
-            userService.createUpdateLecturer(userLecturer);
+            User userCreatedUpdated = userService.createUpdateLecturer(userLecturer);
+
+            if (userCreatedUpdated != null) {
+
+                String messageDialog = "";
+                if (isNewEntry) {
+                    messageDialog = "New lecturer created!";
+                } else {
+                    messageDialog = "Lecturer updated!";
+                }
+
+                Object[] options = {"OK"};
+                int dialogResult = JOptionPane.showOptionDialog(null,
+                        messageDialog,"",
+                        JOptionPane.PLAIN_MESSAGE,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+
+                if (dialogResult == JOptionPane.YES_OPTION) {
+
+                    switchTheView();
+                }
+            }
 
         } else {
             errorMsgLbl.setText(errorMessage);
@@ -179,7 +214,7 @@ public class CreateLecturer extends JPanel {
     }
 
     private void maleRBItemStateChanged(ItemEvent e) {
-        if(e.getStateChange() == ItemEvent.SELECTED) {
+        if (e.getStateChange() == ItemEvent.SELECTED) {
             maleRBValue = true;
             femaleRBValue = false;
 
@@ -187,8 +222,23 @@ public class CreateLecturer extends JPanel {
         }
     }
 
+    private void switchTheView() {
+        if (userLogIn.getRole().getIdRole().equals(1L)) {
+
+            contentCPnl.add(new ViewLecturerList(contentCPnl, userLogIn), "viewLecturerList");
+            cardLayout.show(contentCPnl, "viewLecturerList");
+        } else if (userLogIn.getRole().getIdRole().equals(2L)) {
+
+            java.util.List<User> listStudents = userService.getAllStudent();
+            List<Course> listCourseByLecturer = courseService.getCourseByIdUser(userSelected.getIdUser());
+
+            contentCPnl.add(new AssociateCourseToStudent(contentCPnl, listStudents, listCourseByLecturer), "associateCourseToStudent");
+            cardLayout.show(contentCPnl, "associateCourseToStudent");
+        }
+    }
+
     private void femaleRBItemStateChanged(ItemEvent e) {
-        if(e.getStateChange() == ItemEvent.SELECTED) {
+        if (e.getStateChange() == ItemEvent.SELECTED) {
             femaleRBValue = true;
             maleRBValue = false;
 
@@ -196,9 +246,14 @@ public class CreateLecturer extends JPanel {
         }
     }
 
+    private void cancelBtnActionPerformed(ActionEvent e) {
+
+        switchTheView();
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Ardit Azo
+        // Generated using JFormDesigner Evaluation license - Lorem
         label1 = new JLabel();
         firstNameLbl = new JLabel();
         firstNameTF = new JTextField();
@@ -232,76 +287,81 @@ public class CreateLecturer extends JPanel {
 
         // JFormDesigner evaluation mark
         setBorder(new javax.swing.border.CompoundBorder(
-            new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                java.awt.Color.red), getBorder())); addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+                        "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+                        javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+                        java.awt.Color.red), getBorder()));
+        addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent e) {
+                if ("border".equals(e.getPropertyName())) throw new RuntimeException();
+            }
+        });
 
         setLayout(new GridBagLayout());
-        ((GridBagLayout)getLayout()).columnWidths = new int[] {121, 350, 0};
-        ((GridBagLayout)getLayout()).rowHeights = new int[] {35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 30, 0};
-        ((GridBagLayout)getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0E-4};
-        ((GridBagLayout)getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
+        ((GridBagLayout) getLayout()).columnWidths = new int[]{121, 350, 0};
+        ((GridBagLayout) getLayout()).rowHeights = new int[]{35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 30, 0};
+        ((GridBagLayout) getLayout()).columnWeights = new double[]{0.0, 0.0, 1.0E-4};
+        ((GridBagLayout) getLayout()).rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
 
         //---- label1 ----
         label1.setText("Create New Lecturer");
         label1.setFont(new Font("Tahoma", Font.PLAIN, 14));
         label1.setHorizontalTextPosition(SwingConstants.CENTER);
         add(label1, new GridBagConstraints(0, 0, 2, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.VERTICAL,
-            new Insets(0, 0, 5, 0), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.VERTICAL,
+                new Insets(0, 0, 5, 0), 0, 0));
 
         //---- firstNameLbl ----
         firstNameLbl.setText("* First name");
         firstNameLbl.setHorizontalTextPosition(SwingConstants.RIGHT);
         firstNameLbl.setHorizontalAlignment(SwingConstants.RIGHT);
         add(firstNameLbl, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 5), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 5), 0, 0));
         add(firstNameTF, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 0), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 0), 0, 0));
 
         //---- lastNameLbl ----
         lastNameLbl.setText("* Last name");
         lastNameLbl.setHorizontalTextPosition(SwingConstants.RIGHT);
         lastNameLbl.setHorizontalAlignment(SwingConstants.RIGHT);
         add(lastNameLbl, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 5), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 5), 0, 0));
         add(lastNameTF, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 0), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 0), 0, 0));
 
         //---- emailLbl ----
         emailLbl.setText("* Email");
         emailLbl.setHorizontalTextPosition(SwingConstants.RIGHT);
         emailLbl.setHorizontalAlignment(SwingConstants.RIGHT);
         add(emailLbl, new GridBagConstraints(0, 3, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 5), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 5), 0, 0));
         add(emailTF, new GridBagConstraints(1, 3, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 0), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 0), 0, 0));
 
         //---- passwordLbl ----
         passwordLbl.setText("* Password");
         passwordLbl.setHorizontalTextPosition(SwingConstants.RIGHT);
         passwordLbl.setHorizontalAlignment(SwingConstants.RIGHT);
         add(passwordLbl, new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 5), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 5), 0, 0));
         add(passwordTF, new GridBagConstraints(1, 4, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 0), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 0), 0, 0));
 
         //---- genderLbl ----
         genderLbl.setText("Gender");
         genderLbl.setHorizontalTextPosition(SwingConstants.RIGHT);
         genderLbl.setHorizontalAlignment(SwingConstants.RIGHT);
         add(genderLbl, new GridBagConstraints(0, 5, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 5), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 5), 0, 0));
 
         //======== panel1 ========
         {
@@ -318,98 +378,99 @@ public class CreateLecturer extends JPanel {
             panel1.add(femaleRB);
         }
         add(panel1, new GridBagConstraints(1, 5, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 0), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 0), 0, 0));
 
         //---- statusLbl ----
         statusLbl.setText("* Status");
         statusLbl.setHorizontalTextPosition(SwingConstants.RIGHT);
         statusLbl.setHorizontalAlignment(SwingConstants.RIGHT);
         add(statusLbl, new GridBagConstraints(0, 6, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 5), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 5), 0, 0));
         add(statusCB, new GridBagConstraints(1, 6, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 0), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 0), 0, 0));
 
         //---- dateBirthLbl ----
         dateBirthLbl.setText("Date of birth");
         dateBirthLbl.setHorizontalTextPosition(SwingConstants.RIGHT);
         dateBirthLbl.setHorizontalAlignment(SwingConstants.RIGHT);
         add(dateBirthLbl, new GridBagConstraints(0, 7, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 5), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 5), 0, 0));
 
         //---- dateBirthTF ----
         dateBirthTF.setToolTipText("format: dd/mm/yyyy");
         add(dateBirthTF, new GridBagConstraints(1, 7, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 0), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 0), 0, 0));
 
         //---- phoneNuberLbl ----
         phoneNuberLbl.setText("Phone number");
         phoneNuberLbl.setHorizontalTextPosition(SwingConstants.RIGHT);
         phoneNuberLbl.setHorizontalAlignment(SwingConstants.RIGHT);
         add(phoneNuberLbl, new GridBagConstraints(0, 8, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 5), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 5), 0, 0));
         add(phoneNumberTF, new GridBagConstraints(1, 8, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 0), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 0), 0, 0));
 
         //---- addressLbl ----
         addressLbl.setText("Address");
         addressLbl.setHorizontalTextPosition(SwingConstants.RIGHT);
         addressLbl.setHorizontalAlignment(SwingConstants.RIGHT);
         add(addressLbl, new GridBagConstraints(0, 9, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 5), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 5), 0, 0));
         add(addressTF, new GridBagConstraints(1, 9, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 0), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 0), 0, 0));
 
         //---- placeBirthLbl ----
         placeBirthLbl.setText("Place of birth");
         placeBirthLbl.setHorizontalTextPosition(SwingConstants.RIGHT);
         placeBirthLbl.setHorizontalAlignment(SwingConstants.RIGHT);
         add(placeBirthLbl, new GridBagConstraints(0, 10, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 5), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 5), 0, 0));
         add(placeBirthTF, new GridBagConstraints(1, 10, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 0), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 0), 0, 0));
 
         //---- errorMsgLbl ----
         errorMsgLbl.setForeground(Color.red);
         errorMsgLbl.setHorizontalTextPosition(SwingConstants.CENTER);
         add(errorMsgLbl, new GridBagConstraints(0, 11, 2, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 5, 0), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 0), 0, 0));
 
         //======== panel2 ========
         {
             panel2.setLayout(new GridBagLayout());
-            ((GridBagLayout)panel2.getLayout()).columnWidths = new int[] {0, 103, 63, 0};
-            ((GridBagLayout)panel2.getLayout()).rowHeights = new int[] {0, 0};
-            ((GridBagLayout)panel2.getLayout()).columnWeights = new double[] {0.0, 0.0, 0.0, 1.0E-4};
-            ((GridBagLayout)panel2.getLayout()).rowWeights = new double[] {1.0, 1.0E-4};
+            ((GridBagLayout) panel2.getLayout()).columnWidths = new int[]{0, 103, 63, 0};
+            ((GridBagLayout) panel2.getLayout()).rowHeights = new int[]{0, 0};
+            ((GridBagLayout) panel2.getLayout()).columnWeights = new double[]{0.0, 0.0, 0.0, 1.0E-4};
+            ((GridBagLayout) panel2.getLayout()).rowWeights = new double[]{1.0, 1.0E-4};
 
             //---- cancelBtn ----
             cancelBtn.setText("Cancel");
+            cancelBtn.addActionListener(e -> cancelBtnActionPerformed(e));
             panel2.add(cancelBtn, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0,
-                GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
-                new Insets(0, 0, 0, 0), 0, 0));
+                    GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
+                    new Insets(0, 0, 0, 0), 0, 0));
         }
         add(panel2, new GridBagConstraints(0, 12, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 0, 5), 0, 0));
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 0, 5), 0, 0));
 
         //---- saveBtn ----
         saveBtn.setText("Save");
         saveBtn.addActionListener(e -> createNewLecturerBtnActionPerformed(e));
         add(saveBtn, new GridBagConstraints(1, 12, 1, 1, 0.0, 0.0,
-            GridBagConstraints.WEST, GridBagConstraints.VERTICAL,
-            new Insets(0, 0, 0, 0), 0, 0));
+                GridBagConstraints.WEST, GridBagConstraints.VERTICAL,
+                new Insets(0, 0, 0, 0), 0, 0));
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
 
         // My components
@@ -418,7 +479,7 @@ public class CreateLecturer extends JPanel {
         javax.swing.border.TitledBorder titledBorder = (TitledBorder) compoundBorder.getOutsideBorder();
         titledBorder.setTitle("");
 
-        if(idLecturer != null) {
+        if (idLecturer != null) {
             label1.setText("Edit Lecturer");
         }
 
@@ -427,7 +488,7 @@ public class CreateLecturer extends JPanel {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Ardit Azo
+    // Generated using JFormDesigner Evaluation license - Lorem
     private JLabel label1;
     private JLabel firstNameLbl;
     private JTextField firstNameTF;
@@ -458,8 +519,11 @@ public class CreateLecturer extends JPanel {
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     //  My components
+    private CardLayout cardLayout;
+    private JPanel contentCPnl;
     Long idLecturer = null;
-    User userInitial = null;
+    User userSelected = null;
+    User userLogIn = null;
     LecturerDetail lecturerDetailInitial = null;
     Boolean isNewEntry = true;
     Boolean maleRBValue = false;

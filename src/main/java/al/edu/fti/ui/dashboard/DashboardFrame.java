@@ -46,35 +46,35 @@ public class DashboardFrame extends JFrame {
 
     private void createLecturerBtnActionPerformed(ActionEvent e) {
 
-        contentCPnl.add(new CreateLecturer(null), "createLecturer");
+        contentCPnl.add(new CreateLecturer(null, userLogIn, contentCPnl, cardLayout), "createLecturer");
         cardLayout.show(contentCPnl, "createLecturer");
     }
 
     private void createStudentBtnActionPerformed(ActionEvent e) {
 
-        contentCPnl.add(new CreateStudent(null), "createStudent");
+        contentCPnl.add(new CreateStudent(null, userLogIn, contentCPnl, cardLayout), "createStudent");
         cardLayout.show(contentCPnl, "createStudent");
     }
 
     private void lecturerListBtnActionPerformed(ActionEvent e) {
 
-        contentCPnl.add(new ViewLecturerList(contentCPnl), "viewLecturerList");
+        contentCPnl.add(new ViewLecturerList(contentCPnl, userLogIn), "viewLecturerList");
         cardLayout.show(contentCPnl, "viewLecturerList");
     }
 
     private void studentListBtnActionPerformed(ActionEvent e) {
 
-        contentCPnl.add(new ViewStudentList(contentCPnl), "viewStudentList");
+        contentCPnl.add(new ViewStudentList(contentCPnl, userLogIn), "viewStudentList");
         cardLayout.show(contentCPnl, "viewStudentList");
     }
 
     private void myProfileBtnActionPerformed(ActionEvent e) {
 
         if (userLogIn.getRole().getIdRole().equals(2L)) {
-            contentCPnl.add(new CreateLecturer(userLogIn.getIdUser()), "createLecturer");
+            contentCPnl.add(new CreateLecturer(userLogIn.getIdUser(), userLogIn, contentCPnl, cardLayout), "createLecturer");
             cardLayout.show(contentCPnl, "createLecturer");
         } else if (userLogIn.getRole().getIdRole().equals(3L)) {
-            contentCPnl.add(new CreateStudent(userLogIn.getIdUser()), "createStudent");
+            contentCPnl.add(new CreateStudent(userLogIn.getIdUser(), userLogIn, contentCPnl, cardLayout), "createStudent");
             cardLayout.show(contentCPnl, "createStudent");
         }
 
@@ -82,7 +82,7 @@ public class DashboardFrame extends JFrame {
 
     private void createCourseBtnActionPerformed(ActionEvent e) {
 
-        contentCPnl.add(new CreateCourse(contentCPnl, userLogIn), "createCourse");
+        contentCPnl.add(new CreateCourse(contentCPnl, cardLayout, userLogIn), "createCourse");
         cardLayout.show(contentCPnl, "createCourse");
     }
 
@@ -90,10 +90,23 @@ public class DashboardFrame extends JFrame {
 
         List<Course> listCourse = courseService.getCourseByIdUser(userLogIn.getIdUser());
         if (listCourse != null && listCourse.size() > 0) {
-            contentCPnl.add(new CreateExamQuestions(contentCPnl, listCourse), "createExamQuestions");
+            contentCPnl.add(new CreateExamQuestions(contentCPnl, cardLayout, listCourse, userLogIn), "createExamQuestions");
             cardLayout.show(contentCPnl, "createExamQuestions");
         } else {
 
+            Object[] options = {"OK"};
+            int input = JOptionPane.showOptionDialog(null,
+                    "Before creating the exam, you should have at least one course","",
+                    JOptionPane.PLAIN_MESSAGE,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[0]);
+
+            if(input == JOptionPane.OK_OPTION)
+            {
+                // do something
+            }
         }
     }
 
@@ -270,7 +283,7 @@ public class DashboardFrame extends JFrame {
 
             myExamsBtn.setVisible(false);
 
-            contentCPnl.add(new ViewLecturerList(contentCPnl), "viewLecturerList");
+            contentCPnl.add(new ViewLecturerList(contentCPnl, userLogIn), "viewLecturerList");
             cardLayout.show(contentCPnl, "viewLecturerList");
 
         } else if (userLogIn.getRole().getIdRole().equals(2L)) {

@@ -64,7 +64,24 @@ public class AssociateCourseToStudent extends JPanel {
 
         if (listAssociatedCourseStudent != null && listAssociatedCourseStudent.size() > 0) {
 
+
+
             courseService.createAssociationCourseStudent(listAssociatedCourseStudent);
+
+            Object[] options = {"OK"};
+            int input = JOptionPane.showOptionDialog(null,
+                    "The join between student and course is created!","",
+                    JOptionPane.PLAIN_MESSAGE,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[0]);
+
+            if(input == JOptionPane.OK_OPTION)
+            {
+                // do something
+            }
+
         }
     }
 

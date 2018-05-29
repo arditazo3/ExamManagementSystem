@@ -9,12 +9,14 @@ import al.edu.fti.entity.Course;
 import al.edu.fti.entity.User;
 import al.edu.fti.enums.StatusEnum;
 import al.edu.fti.service.ICourseService;
+import al.edu.fti.service.IUserService;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 /**
  * @author Ardit Azo
@@ -22,10 +24,16 @@ import java.awt.event.ActionEvent;
 public class CreateCourse extends JPanel {
 
     private ICourseService courseService = FtiApplication.courseService;
+    private IUserService userService = FtiApplication.userService;
 
-    public CreateCourse(JPanel contentCPnl, User user) {
-        initComponents();
+    public CreateCourse(JPanel contentCPnl, CardLayout cardLayout, User user) {
+
         this.user = user;
+        this.contentCPnl = contentCPnl;
+        this.cardLayout = cardLayout;
+
+        initComponents();
+
     }
 
 
@@ -70,16 +78,44 @@ public class CreateCourse extends JPanel {
             course.setGrade(grade);
             course.setUser(user);
 
-            courseService.createUpdateCourse(course);
+            Course courseCreateUpdated = courseService.createUpdateCourse(course);
+
+            if(courseCreateUpdated != null) {
+                Object[] options = {"OK"};
+                int input = JOptionPane.showOptionDialog(null,
+                        "New course is created!","",
+                        JOptionPane.PLAIN_MESSAGE,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+
+                if(input == JOptionPane.OK_OPTION) {
+                    java.util.List<User> listStudents = userService.getAllStudent();
+                    List<Course> listCourseByLecturer = courseService.getCourseByIdUser(user.getIdUser());
+
+                    contentCPnl.add(new AssociateCourseToStudent(contentCPnl, listStudents, listCourseByLecturer), "associateCourseToStudent");
+                    cardLayout.show(contentCPnl, "associateCourseToStudent");
+                }
+            }
 
         } else {
             errorMsgLbl.setText(errorMessage);
         }
     }
 
+    private void cancelBtnActionPerformed(ActionEvent e) {
+
+        java.util.List<User> listStudents = userService.getAllStudent();
+        List<Course> listCourseByLecturer = courseService.getCourseByIdUser(user.getIdUser());
+
+        contentCPnl.add(new AssociateCourseToStudent(contentCPnl, listStudents, listCourseByLecturer), "associateCourseToStudent");
+        cardLayout.show(contentCPnl, "associateCourseToStudent");
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Ardit Azo
+        // Generated using JFormDesigner Evaluation license - Lorem
         headerLbl = new JLabel();
         descrLbl = new JLabel();
         descrTF = new JTextField();
@@ -208,6 +244,7 @@ public class CreateCourse extends JPanel {
 
             //---- cancelBtn ----
             cancelBtn.setText("Cancel");
+            cancelBtn.addActionListener(e -> cancelBtnActionPerformed(e));
             panel2.add(cancelBtn, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
                 new Insets(0, 0, 0, 0), 0, 0));
@@ -235,7 +272,7 @@ public class CreateCourse extends JPanel {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Ardit Azo
+    // Generated using JFormDesigner Evaluation license - Lorem
     private JLabel headerLbl;
     private JLabel descrLbl;
     private JTextField descrTF;
@@ -257,6 +294,8 @@ public class CreateCourse extends JPanel {
 
     //  My components
     Long idCourse = null;
+    private CardLayout cardLayout;
+    private JPanel contentCPnl;
     Course courseInitial = null;
     User user = null;
 

@@ -82,21 +82,28 @@ public class StartExam extends JPanel {
 
         if (getAllComponents.length == examDetailResultList.size()) {
 
-            userInitial.setExamDetailResults(new HashSet<ExamDetailResult>(examDetailResultList));
+            int dialogResult = JOptionPane.showConfirmDialog (null, "Would you like to finish the exam?","",0);
+            if(dialogResult == JOptionPane.YES_OPTION){
 
-            Set<ExamDetailResult> examDetailResultSet = new HashSet<ExamDetailResult>();
-            for (ExamDetailResult examDetailResultToSave : examDetailResultList) {
-                examDetailResultSet.add(courseService.createUpdateExamDetailResult(examDetailResultToSave));
+                userInitial.setExamDetailResults(new HashSet<ExamDetailResult>(examDetailResultList));
+
+                Set<ExamDetailResult> examDetailResultSet = new HashSet<ExamDetailResult>();
+                for (ExamDetailResult examDetailResultToSave : examDetailResultList) {
+                    examDetailResultSet.add(courseService.createUpdateExamDetailResult(examDetailResultToSave));
+                }
+
+                // Exam Evaluation
+                ExamResult examResult = new ExamResult();
+                examResult.setUser(userInitial);
+                examInitial.setExamDetailResults(examDetailResultSet);
+                examResult.setExam(examInitial);
+                examResult.setExamEndDate(new Date());
+
+                courseService.startEvaluationExam(examResult);
+
+                contentCPnl.add(new ViewMyExams(contentCPnl, cardLayout, userInitial), "viewMyExams");
+                cardLayout.show(contentCPnl, "viewMyExams");
             }
-
-            // Exam Evaluation
-            ExamResult examResult = new ExamResult();
-            examResult.setUser(userInitial);
-            examInitial.setExamDetailResults(examDetailResultSet);
-            examResult.setExam(examInitial);
-            examResult.setExamEndDate(new Date());
-
-            courseService.startEvaluationExam(examResult);
 
         } else {
 

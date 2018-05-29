@@ -8,7 +8,9 @@ import al.edu.fti.FtiApplication;
 import al.edu.fti.entity.Course;
 import al.edu.fti.entity.Exam;
 import al.edu.fti.entity.ExamQuestion;
+import al.edu.fti.entity.User;
 import al.edu.fti.service.ICourseService;
+import al.edu.fti.service.IUserService;
 import al.edu.fti.utils.Concept;
 import al.edu.fti.utils.RenderComboBox;
 import org.jdesktop.swingx.VerticalLayout;
@@ -28,8 +30,13 @@ import java.util.List;
 public class CreateExamQuestions extends JPanel {
 
     private ICourseService courseService = FtiApplication.courseService;
+    private IUserService userService = FtiApplication.userService;
 
-    public CreateExamQuestions(JPanel contentCPnl, List<Course> listCourse) {
+    public CreateExamQuestions(JPanel contentCPnl, CardLayout cardLayout, List<Course> listCourse, User user) {
+
+        this.userInitial = user;
+        this.contentCPnl = contentCPnl;
+        this.cardLayout = cardLayout;
         this.listCourse = listCourse;
         initComponents();
     }
@@ -81,9 +88,11 @@ public class CreateExamQuestions extends JPanel {
         if(courseCB.getSelectedItem() == null || courseCB.getSelectedItem().equals("")) {
             saveAction = false;
         }
-        String examTtile = examTitleTF.getText().trim();
-        if(examTtile.equals("")) {
+        String examTitle = examTitleTF.getText().trim();
+        String msgErrorFields = "Please fill in the field: ";
+        if(examTitle.equals("")) {
             saveAction = false;
+            msgErrorFields += " Exam title";
         }
 
         if(saveAction) {
@@ -92,7 +101,7 @@ public class CreateExamQuestions extends JPanel {
             Long idCourse = Long.valueOf(conceptSelected.getValue());
 
             Exam newExam = new Exam();
-            newExam.setDescription(examTtile);
+            newExam.setDescription(examTitle);
             newExam.setCourse(courseService.getCourseById(idCourse));
 
             List<ExamQuestion> listExamQuestion = new ArrayList<ExamQuestion>();
@@ -142,14 +151,53 @@ public class CreateExamQuestions extends JPanel {
                 newExam.setExamQuestions(new HashSet<ExamQuestion>(listExamQuestion));
 
                 courseService.createUpdateExam(newExam);
+            } else {
+
+                Object[] options = {"OK"};
+                int input = JOptionPane.showOptionDialog(null,
+                        "Create at least one question","",
+                        JOptionPane.PLAIN_MESSAGE,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+
+                if(input == JOptionPane.OK_OPTION)
+                {
+                    // do something
+                }
+
+            }
+        } else {
+            Object[] options = {"OK"};
+            int input = JOptionPane.showOptionDialog(null,
+                    msgErrorFields,"",
+                    JOptionPane.PLAIN_MESSAGE,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[0]);
+
+            if(input == JOptionPane.OK_OPTION)
+            {
+                // do something
             }
         }
 
     }
 
+    private void cancelBtnActionPerformed(ActionEvent e) {
+
+        java.util.List<User> listStudents = userService.getAllStudent();
+        List<Course> listCourseByLecturer = courseService.getCourseByIdUser(userInitial.getIdUser());
+
+        contentCPnl.add(new AssociateCourseToStudent(contentCPnl, listStudents, listCourseByLecturer), "associateCourseToStudent");
+        cardLayout.show(contentCPnl, "associateCourseToStudent");
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Ardit Azo
+        // Generated using JFormDesigner Evaluation license - Lorem
         examQuestionPnl = new JPanel();
         panel2 = new JPanel();
         headerLbl = new JLabel();
@@ -166,7 +214,7 @@ public class CreateExamQuestions extends JPanel {
         trueRB = new JRadioButton();
         falseRB = new JRadioButton();
         panel3 = new JPanel();
-        button3 = new JButton();
+        cancelBtn = new JButton();
         saveExamBtn = new JButton();
 
         //======== this ========
@@ -285,9 +333,10 @@ public class CreateExamQuestions extends JPanel {
                 ((GridBagLayout)panel3.getLayout()).columnWeights = new double[] {0.0, 0.0, 1.0E-4};
                 ((GridBagLayout)panel3.getLayout()).rowWeights = new double[] {0.0, 0.0, 1.0E-4};
 
-                //---- button3 ----
-                button3.setText("Cancel");
-                panel3.add(button3, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
+                //---- cancelBtn ----
+                cancelBtn.setText("Cancel");
+                cancelBtn.addActionListener(e -> cancelBtnActionPerformed(e));
+                panel3.add(cancelBtn, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 0, 10), 0, 0));
 
@@ -327,7 +376,7 @@ public class CreateExamQuestions extends JPanel {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Ardit Azo
+    // Generated using JFormDesigner Evaluation license - Lorem
     private JPanel examQuestionPnl;
     private JPanel panel2;
     private JLabel headerLbl;
@@ -344,11 +393,14 @@ public class CreateExamQuestions extends JPanel {
     private JRadioButton trueRB;
     private JRadioButton falseRB;
     private JPanel panel3;
-    private JButton button3;
+    private JButton cancelBtn;
     private JButton saveExamBtn;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     //  My components
+    private CardLayout cardLayout;
+    private JPanel contentCPnl;
+    private User userInitial;
     JFrame jFrameAfterCreation;
     List<Course> listCourse = new ArrayList<>();
 }

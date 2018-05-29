@@ -5,12 +5,16 @@
 package al.edu.fti.ui.dashboard.adminPanels;
 
 import al.edu.fti.FtiApplication;
+import al.edu.fti.entity.Course;
 import al.edu.fti.entity.Role;
 import al.edu.fti.entity.StudentDetail;
 import al.edu.fti.entity.User;
 import al.edu.fti.enums.StatusEnum;
+import al.edu.fti.service.ICourseService;
 import al.edu.fti.service.IRoleService;
 import al.edu.fti.service.IUserService;
+import al.edu.fti.ui.dashboard.lecturerPanels.AssociateCourseToStudent;
+import al.edu.fti.ui.dashboard.studentPanels.ViewMyExams;
 import al.edu.fti.utils.StringGeneratorCode;
 import org.jdesktop.swingx.HorizontalLayout;
 
@@ -24,6 +28,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Ardit Azo
@@ -32,9 +37,14 @@ public class CreateStudent extends JPanel {
 
     private IRoleService roleService = FtiApplication.roleService;
     private IUserService userService = FtiApplication.userService;
+    private ICourseService courseService = FtiApplication.courseService;
 
-    public CreateStudent(Long idStudent) {
+    public CreateStudent(Long idStudent, User userLogIn, JPanel contentCPnl, CardLayout cardLayout) {
+
         this.idStudent = idStudent;
+        this.userLogIn = userLogIn;
+        this.contentCPnl = contentCPnl;
+        this.cardLayout = cardLayout;
 
         initComponents();
 
@@ -42,7 +52,7 @@ public class CreateStudent extends JPanel {
             User user = userService.getUserById(idStudent);
             if(user != null) {
                 isNewEntry = false;
-                this.userInitial = user;
+                this.studentSelected = user;
                 fillAllFields(user);
             }
         }
@@ -175,8 +185,8 @@ public class CreateStudent extends JPanel {
             studentDetail.setMotherName(motherName);
 
             User userStudent = new User();
-            if(userInitial != null) {
-                userStudent = userInitial;
+            if(studentSelected != null) {
+                userStudent = studentSelected;
             }
 
             userStudent.addStudentDetail(studentDetail);
@@ -199,7 +209,34 @@ public class CreateStudent extends JPanel {
 
             studentDetail.setUser(userStudent);
 
-            userService.createUpdateStudent(userStudent);
+            User userCreatedUpdated = userService.createUpdateStudent(userStudent);
+
+            if (userCreatedUpdated != null) {
+
+                String messageDialog = "";
+                if (isNewEntry) {
+                    messageDialog = "New student created!";
+                } else {
+                    messageDialog = "Student updated!";
+                }
+
+                Object[] options = {"OK"};
+                int dialogResult = JOptionPane.showOptionDialog(null,
+                        messageDialog,"",
+                        JOptionPane.PLAIN_MESSAGE,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+
+                if (dialogResult == JOptionPane.YES_OPTION) {
+
+                    if (userLogIn.getRole().getIdRole().equals(1L)) {
+                        contentCPnl.add(new ViewStudentList(contentCPnl, userLogIn), "viewStudentList");
+                        cardLayout.show(contentCPnl, "viewStudentList");
+                    }
+                }
+            }
 
         } else {
             errorMsgLbl.setText(errorMessage);
@@ -207,9 +244,25 @@ public class CreateStudent extends JPanel {
 
     }
 
+    private void cancelBtnActionPerformed(ActionEvent e) {
+
+
+        if (userLogIn.getRole().getIdRole().equals(1L)) {
+
+            contentCPnl.add(new ViewStudentList(contentCPnl, userLogIn), "viewStudentList");
+            cardLayout.show(contentCPnl, "viewStudentList");
+        } else if (userLogIn.getRole().getIdRole().equals(3L)) {
+
+            contentCPnl.add(new ViewMyExams(contentCPnl, cardLayout, studentSelected), "viewMyExams");
+            cardLayout.show(contentCPnl, "viewMyExams");
+        }
+
+
+    }
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Ardit Azo
+        // Generated using JFormDesigner Evaluation license - Lorem
         headerLbl = new JLabel();
         firstNameLbl = new JLabel();
         firstNameTF = new JTextField();
@@ -429,6 +482,7 @@ public class CreateStudent extends JPanel {
 
             //---- cancelBtn ----
             cancelBtn.setText("Cancel");
+            cancelBtn.addActionListener(e -> cancelBtnActionPerformed(e));
             panel2.add(cancelBtn, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
                 new Insets(0, 0, 0, 0), 0, 0));
@@ -459,7 +513,7 @@ public class CreateStudent extends JPanel {
         statusCB.addItem(StatusEnum.DISABLED.toString());
     }
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Ardit Azo
+    // Generated using JFormDesigner Evaluation license - Lorem
     private JLabel headerLbl;
     private JLabel firstNameLbl;
     private JTextField firstNameTF;
@@ -494,8 +548,11 @@ public class CreateStudent extends JPanel {
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
     //  My components
+    private CardLayout cardLayout;
+    private JPanel contentCPnl;
     Long idStudent = null;
-    User userInitial = null;
+    User studentSelected = null;
+    User userLogIn = null;
     StudentDetail studentDetailInitial = null;
     Boolean isNewEntry = true;
     Boolean maleRBValue = false;
