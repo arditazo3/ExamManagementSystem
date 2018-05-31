@@ -96,6 +96,8 @@ public class AssociateCourseToStudent extends JPanel {
 
             List<Integer> studentSelectedByCourse = courseService.getListIdStudentByIdCourse(Long.valueOf(idCourseSelected));
 
+            int[] indexArray = new int[studentSelectedByCourse.size() * studentJList.getModel().getSize()];
+            int indexLoop = 0;
             for (Integer idStudentSelected : studentSelectedByCourse) {
                 for (int i = 0; i < studentJList.getModel().getSize(); i++) {
 
@@ -104,10 +106,14 @@ public class AssociateCourseToStudent extends JPanel {
                     String idStudentToSelect = studentItemString.split("-")[0].trim();
 
                     if (Long.valueOf(idStudentSelected).equals(Long.valueOf(idStudentToSelect))) {
-                        studentJList.setSelectedIndex(i);
+                    	indexArray[indexLoop] = i;
+                    	indexLoop++;
                     }
                 }
             }
+            
+            studentJList.setSelectedIndices(indexArray);
+            
         } else if(!e.getValueIsAdjusting() && source.getSelectedValuesList().size() > 1) {
             for (int i = 0; i < studentJList.getModel().getSize(); i++) {
                 studentJList.clearSelection();

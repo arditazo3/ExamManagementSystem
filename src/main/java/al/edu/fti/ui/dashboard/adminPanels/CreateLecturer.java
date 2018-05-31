@@ -28,6 +28,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Ardit Azo
@@ -85,8 +86,9 @@ public class CreateLecturer extends JPanel {
         }
 
         LecturerDetail lecturerDetail = null;
-        if (user.getLecturerDetails() != null && user.getLecturerDetails().size() > 0) {
-            for (LecturerDetail lecturerDetail1Set : user.getLecturerDetails()) {
+        Set<LecturerDetail> listLecturerDetails = user.getLecturerDetails();
+        if (listLecturerDetails != null && listLecturerDetails.size() > 0) {
+            for (LecturerDetail lecturerDetail1Set : listLecturerDetails) {
                 lecturerDetail = lecturerDetail1Set;
                 this.lecturerDetailInitial = lecturerDetail;
                 break;

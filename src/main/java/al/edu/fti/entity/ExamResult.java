@@ -18,11 +18,11 @@ public class ExamResult {
     @Temporal(TemporalType.TIMESTAMP)
     private Date examEndDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "student_id")
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "exam_id")
     private Exam exam;
 

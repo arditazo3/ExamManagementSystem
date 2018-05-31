@@ -7,3 +7,5 @@ insert into course_student(course_id, student_id) VALUES (7, 23);
 
 select * from exam; 
 
+select * from course_student;
+

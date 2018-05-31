@@ -40,7 +40,7 @@ public class Course {
     @OneToMany(mappedBy="course", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Exam> exams;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "course_student",
             joinColumns = { @JoinColumn(name = "course_id") },

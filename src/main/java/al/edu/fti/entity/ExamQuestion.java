@@ -26,11 +26,11 @@ public class ExamQuestion {
     @Column(name = "visibility")
     private Boolean visibility;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn (name = "exam_id")
     private Exam exam;
 
-    @OneToMany(mappedBy = "examQuestion", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "examQuestion", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<ExamDetailResult> examDetailResults;
 
     public ExamQuestion() {

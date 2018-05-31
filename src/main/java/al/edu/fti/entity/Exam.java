@@ -15,7 +15,7 @@ public class Exam {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "course_id")
     private Course course;
 
@@ -23,10 +23,10 @@ public class Exam {
     @OrderColumn(name = "order_item")
     private Set<ExamQuestion> examQuestions = new HashSet<ExamQuestion>();
 
-    @OneToMany(mappedBy="exam", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="exam", fetch = FetchType.LAZY)
     private Set<ExamDetailResult> examDetailResults = new HashSet<ExamDetailResult>();
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<ExamResult> examResults = new HashSet<ExamResult>();
 
     public Long getIdExam() {
