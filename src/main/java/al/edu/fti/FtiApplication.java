@@ -17,14 +17,7 @@ public class FtiApplication {
 	public static IUserService userService;
 	public static IRoleService roleService;
 	public static ICourseService courseService;
-
-	@Autowired
-	public void setServices(IUserService userService, IRoleService roleService, ICourseService courseService) {
-		FtiApplication.userService = userService;
-		FtiApplication.roleService = roleService;
-		FtiApplication.courseService = courseService;
-	}
-
+	
 	public static void main(String[] args) {
 
 		ConfigurableApplicationContext context = new SpringApplicationBuilder(FtiApplication.class).headless(false).run(args);
@@ -35,5 +28,13 @@ public class FtiApplication {
 		loginForm.setVisible(true);
 		loginForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		loginForm.setResizable(false);
+	}
+	
+
+	@Autowired
+	public void setServices(IUserService userService, IRoleService roleService, ICourseService courseService) {
+		FtiApplication.userService = userService;
+		FtiApplication.roleService = roleService;
+		FtiApplication.courseService = courseService;
 	}
 }
