@@ -150,7 +150,27 @@ public class CreateExamQuestions extends JPanel {
 
                 newExam.setExamQuestions(new HashSet<ExamQuestion>(listExamQuestion));
 
-                courseService.createUpdateExam(newExam);
+                Exam examUpdate = courseService.createUpdateExam(newExam);
+                
+                Object[] options = {"OK"};
+                int input = JOptionPane.showOptionDialog(null,
+                        "Exam created succesfully!","",
+                        JOptionPane.PLAIN_MESSAGE,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]);
+
+                if(input == JOptionPane.OK_OPTION)
+                {
+                	
+                  java.util.List<User> listStudents = userService.getAllStudent();
+                  List<Course> listCourseByLecturer = courseService.getCourseByIdUser(userInitial.getIdUser());
+
+                  contentCPnl.add(new AssociateCourseToStudent(contentCPnl, listStudents, listCourseByLecturer), "associateCourseToStudent");
+                  cardLayout.show(contentCPnl, "associateCourseToStudent");
+                }
+                
             } else {
 
                 Object[] options = {"OK"};
@@ -162,9 +182,8 @@ public class CreateExamQuestions extends JPanel {
                         options,
                         options[0]);
 
-                if(input == JOptionPane.OK_OPTION)
-                {
-                    // do something
+                if(input == JOptionPane.OK_OPTION) {
+
                 }
 
             }

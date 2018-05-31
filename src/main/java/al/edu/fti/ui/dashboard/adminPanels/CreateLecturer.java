@@ -177,6 +177,7 @@ public class CreateLecturer extends JPanel {
             userLecturer.setPhoneNumber(phoneNumber);
             userLecturer.setDateUpdate(new Date());
             userLecturer.setDateCreation(new Date());
+            userLecturer.setDateBirthday(dateBirth);
             Role lecturerRole = roleService.getRoleById(2L);
             userLecturer.setRole(lecturerRole);
 

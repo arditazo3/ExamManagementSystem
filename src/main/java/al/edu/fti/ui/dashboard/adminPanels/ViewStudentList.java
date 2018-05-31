@@ -16,6 +16,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -126,9 +128,21 @@ public class ViewStudentList extends JPanel {
             studentTbl.getModel().setValueAt(row.getLastName(), i, 2);
             studentTbl.getModel().setValueAt(row.getEmail(), i, 3);
             studentTbl.getModel().setValueAt(row.getGender(), i, 4);
-            studentTbl.getModel().setValueAt("GABIM", i, 5);
+            if(row.getDateBirthday() != null) {
+            	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String dateBirthString = dateFormat.format(row.getDateBirthday());
+                studentTbl.getModel().setValueAt(dateBirthString, i, 5);
+            } else {
+            	studentTbl.getModel().setValueAt("", i, 5);
+            }
             studentTbl.getModel().setValueAt(row.getPhoneNumber(), i, 6);
-            studentTbl.getModel().setValueAt("GABIM", i, 7);
+            if(row.getDateBirthday() != null) {
+            	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String dateBirthString = dateFormat.format(row.getDateBirthday());
+                studentTbl.getModel().setValueAt(dateBirthString, i, 7);
+            } else {
+            	studentTbl.getModel().setValueAt("", i, 7);
+            }
         }
 
         studentTbl.getSelectionModel().addListSelectionListener(new ListSelectionListener(){

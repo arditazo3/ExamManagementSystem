@@ -5,3 +5,5 @@ insert into user(username, first_name, last_name, email, password, last_login_da
 
 insert into course_student(course_id, student_id) VALUES (7, 23);
 
+select * from exam;
+
