@@ -5,6 +5,7 @@ import al.edu.fti.service.IRoleService;
 import al.edu.fti.service.IUserService;
 import al.edu.fti.ui.login_form.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -19,9 +20,15 @@ public class FtiApplication {
 	public static ICourseService courseService;
 
 	@Autowired
-	public void setServices(IUserService userService, IRoleService roleService, ICourseService courseService) {
+	public static void setUserService(IUserService userService) {
 		FtiApplication.userService = userService;
+	}
+
+	public static void setRoleService(IRoleService roleService) {
 		FtiApplication.roleService = roleService;
+	}
+
+	public static void setCourseService(ICourseService courseService) {
 		FtiApplication.courseService = courseService;
 	}
 
