@@ -15,5 +15,5 @@ public interface IUserDAO {
     List<User> getAllLecturer();
     List<User> getAllStudent();
     void update(User user);
-    void setEntityManager(EntityManager entityManager);
+    void setEntityManager(EntityManager entityManager); 
 }
