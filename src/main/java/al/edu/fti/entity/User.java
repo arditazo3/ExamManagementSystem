@@ -1,8 +1,14 @@
 package al.edu.fti.entity;
 
+import al.edu.fti.FtiApplication;
 import al.edu.fti.enums.StatusEnum;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -314,6 +320,4 @@ public class User {
             return false;
         return coursesRelatedToStudent != null ? coursesRelatedToStudent.equals(user.coursesRelatedToStudent) : user.coursesRelatedToStudent == null;
     }
-
-
 }

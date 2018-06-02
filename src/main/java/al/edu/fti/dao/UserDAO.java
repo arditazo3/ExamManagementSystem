@@ -4,18 +4,21 @@ import al.edu.fti.entity.User;
 import al.edu.fti.enums.StatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
+import javax.persistence.PersistenceContextType;
+
 import java.util.List;
 
 @Transactional
 @Repository
 public class UserDAO implements IUserDAO {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+	@PersistenceContext
+    public EntityManager entityManager;
 
     private IRoleDAO roleDAO;
 
@@ -95,4 +98,10 @@ public class UserDAO implements IUserDAO {
 
         entityManager.merge(user);
     }
+
+    @Override
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+
 }

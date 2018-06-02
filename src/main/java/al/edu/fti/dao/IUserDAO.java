@@ -4,6 +4,8 @@ import al.edu.fti.entity.User;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 public interface IUserDAO {
     
     User getUser(String username, String password);
@@ -13,4 +15,5 @@ public interface IUserDAO {
     List<User> getAllLecturer();
     List<User> getAllStudent();
     void update(User user);
+    void setEntityManager(EntityManager entityManager);
 }

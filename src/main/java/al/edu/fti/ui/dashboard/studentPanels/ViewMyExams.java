@@ -121,10 +121,6 @@ public class ViewMyExams extends JPanel {
 
         List<Course> listMyCourse = new ArrayList<Course>(userInitial.getCoursesRelatedToStudent());
 
-        if (listMyCourse == null) {
-            listMyCourse = new ArrayList<>();
-        }
-
         Object[][] tableData = new Object[listMyCourse.size()][4];
 
         for (int i = 0; i < listMyCourse.size(); i++) {
