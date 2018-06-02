@@ -4,8 +4,6 @@ import al.edu.fti.entity.User;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 public interface IUserService {
 
     User getUser(String username, String password);
@@ -15,5 +13,4 @@ public interface IUserService {
     List<User> getAllLecturer();
     List<User> getAllStudent();
     void update(User user);
-    void setEntityManager(EntityManager entityManager);
 }

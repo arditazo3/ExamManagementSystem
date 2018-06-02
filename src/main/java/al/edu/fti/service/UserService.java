@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 @Service
 public class UserService implements IUserService {
 
@@ -58,10 +56,5 @@ public class UserService implements IUserService {
         userDAO.update(user);
     }
 
-	@Override
-	public void setEntityManager(EntityManager entityManager) {
-		 
-		userDAO.setEntityManager(entityManager);
-	}
 
 }
