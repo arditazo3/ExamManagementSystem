@@ -40,6 +40,7 @@ public class UserDAO implements IUserDAO {
                     .setParameter("status", StatusEnum.ACTIVE)
                     .getSingleResult();
         } catch (Exception e) {
+        	e.printStackTrace();
             return null;
         }
     }
