@@ -111,7 +111,7 @@ public class LoginForm extends JFrame {
                     new Insets(0, 0, 5, 5), 0, 0));
 
                 //---- usernameTF ----
-                usernameTF.setText("aa.aa");
+                usernameTF.setText("admin");
                 contentPanel.add(usernameTF, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 5, 0), 0, 0));
