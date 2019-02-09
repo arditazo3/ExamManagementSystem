@@ -25,7 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * @author Ardit Azo
+ * @author FTI
  */
 public class CreateExamQuestions extends JPanel {
 

@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
 import java.util.Date;
 
 /**
- * @author Ardit Azo
+ * @author FTI
  */
 @Component
 public class LoginForm extends JFrame {

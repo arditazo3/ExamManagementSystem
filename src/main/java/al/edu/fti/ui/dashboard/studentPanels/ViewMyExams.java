@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Ardit Azo
+ * @author FTI
  */
 public class ViewMyExams extends JPanel {
 

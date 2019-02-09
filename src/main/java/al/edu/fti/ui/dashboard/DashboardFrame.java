@@ -29,7 +29,7 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 /**
- * @author Ardit Azo
+ * @author FTI
  */
 public class DashboardFrame extends JFrame {
 
@@ -142,7 +142,7 @@ public class DashboardFrame extends JFrame {
         cardLayout = new CardLayout();
 
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Ardit Azo
+        // Generated using JFormDesigner Evaluation license - FTI
         userInfoPnl = new JPanel();
         userInfoLbl = new JLabel();
         logOutBtn = new JButton();
@@ -323,7 +323,7 @@ public class DashboardFrame extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Ardit Azo
+    // Generated using JFormDesigner Evaluation license - FTI
     private JPanel userInfoPnl;
     private JLabel userInfoLbl;
     private JButton logOutBtn;

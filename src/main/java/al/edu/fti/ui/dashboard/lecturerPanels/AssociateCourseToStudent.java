@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Ardit Azo
+ * @author FTI
  */
 public class AssociateCourseToStudent extends JPanel {
 
@@ -123,7 +123,7 @@ public class AssociateCourseToStudent extends JPanel {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Ardit Azo
+        // Generated using JFormDesigner Evaluation license - FTI
         headerLbl = new JLabel();
         courseHeaderLbl = new JLabel();
         studentHeaderLbl = new JLabel();
@@ -221,7 +221,7 @@ public class AssociateCourseToStudent extends JPanel {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Ardit Azo
+    // Generated using JFormDesigner Evaluation license - FTI
     private JLabel headerLbl;
     private JLabel courseHeaderLbl;
     private JLabel studentHeaderLbl;

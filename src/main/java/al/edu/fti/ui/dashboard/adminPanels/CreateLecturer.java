@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @author Ardit Azo
+ * @author FTI
  */
 public class CreateLecturer extends JPanel {
 

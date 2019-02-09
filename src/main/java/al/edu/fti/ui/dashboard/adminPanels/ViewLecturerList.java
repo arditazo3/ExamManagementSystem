@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
- * @author Ardit Azo
+ * @author FTI
  */
 public class ViewLecturerList extends JPanel {
 
@@ -42,7 +42,7 @@ public class ViewLecturerList extends JPanel {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Ardit Azo
+        // Generated using JFormDesigner Evaluation license - FTI
         scrollPane1 = new JScrollPane();
         lecturerTbl = new JTable();
 
@@ -171,7 +171,7 @@ public class ViewLecturerList extends JPanel {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Ardit Azo
+    // Generated using JFormDesigner Evaluation license - FTI
     private JScrollPane scrollPane1;
     private JTable lecturerTbl;
     // JFormDesigner - End of variables declaration  //GEN-END:variables

@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author Ardit Azo
+ * @author FTI
  */
 public class CreateStudent extends JPanel {
 

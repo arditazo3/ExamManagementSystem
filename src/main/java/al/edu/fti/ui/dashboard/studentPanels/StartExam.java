@@ -18,7 +18,7 @@ import java.util.*;
 import java.util.List;
 
 /**
- * @author Ardit Azo
+ * @author FTI
  */
 public class StartExam extends JPanel {
 
@@ -133,7 +133,7 @@ public class StartExam extends JPanel {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Ardit Azo
+        // Generated using JFormDesigner Evaluation license - FTI
         panel2 = new JPanel();
         courseLb = new JLabel();
         examTitleLbl = new JLabel();
@@ -301,7 +301,7 @@ public class StartExam extends JPanel {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Ardit Azo
+    // Generated using JFormDesigner Evaluation license - FTI
     private JPanel panel2;
     private JLabel courseLb;
     private JLabel examTitleLbl;

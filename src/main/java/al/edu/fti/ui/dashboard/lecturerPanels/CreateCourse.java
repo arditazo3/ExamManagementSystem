@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 /**
- * @author Ardit Azo
+ * @author FTI
  */
 public class CreateCourse extends JPanel {
 
